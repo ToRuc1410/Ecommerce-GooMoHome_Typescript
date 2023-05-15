@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import PopHover from '../PopHover'
 import { useMutation } from '@tanstack/react-query'
-import { logout } from 'src/apis/auth.api'
+import authApi from 'src/apis/auth.api'
 import { useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import path from 'src/constants/path'
@@ -9,7 +9,7 @@ import path from 'src/constants/path'
 export default function Header() {
   const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
   const logoutMutation = useMutation({
-    mutationFn: () => logout(),
+    mutationFn: () => authApi.logout(),
     onSuccess: () => {
       setIsAuthenticated(false)
       setProfile(null)
@@ -20,7 +20,7 @@ export default function Header() {
     logoutMutation.mutate()
   }
   return (
-    <div className='bg-[linear-gradient(-180deg,#f53d2d,#f63);] pb-5 pt-2 text-white'>
+    <div className='bg-orange pb-5 pt-2 text-white'>
       <div className='container'>
         <div className='flex justify-end'>
           <PopHover
@@ -111,10 +111,10 @@ export default function Header() {
         </div>
       </div>
       <div className='container'>
-        <div className='mt-1 grid grid-cols-12 items-end gap-4'>
-          <Link to={path.home} className='col-span-2 p-1'>
+        <div className='grid grid-cols-12 items-end gap-5'>
+          <Link to={path.home} className='col-span-2 '>
             <img
-              className='h-12 rounded-sm bg-white shadow-lg'
+              className='h-full w-full rounded-md bg-white object-cover py-4 shadow-lg lg:py-0'
               src='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=819.000032544136,fit=crop/YbNbPPqn2EfwxjP7/chat-hon-to-cu-1-png-m7V2704oB7HDV1b2.png'
               alt='Goomo Home logo'
               data-v-fb585256
@@ -122,21 +122,21 @@ export default function Header() {
             />
           </Link>
           <form className='col-span-8 shadow-lg'>
-            <div className='flex rounded-sm bg-white p-1'>
+            <div className='relative flex rounded-sm bg-white p-1'>
               <input
                 type='text'
                 name='search'
                 placeholder='Free Ship nội thành phố Hồ Chí Minh'
-                className='flex-grow border-none bg-transparent px-3 py-2 text-gray-600 outline-none'
+                className=' flex-grow border-none bg-transparent px-3 py-2 text-gray-600 outline-none'
               />
-              <button className='flex-shrink-0 rounded-sm bg-orange px-6 py-2 hover:opacity-90'>
+              <button className='absolute right-0 top-0 rounded-sm bg-gray-300 px-7 py-2 text-orange hover:opacity-90'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='h-6 w-6'
+                  className='h-7 w-6'
                 >
                   <path
                     strokeLinecap='round'

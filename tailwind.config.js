@@ -12,7 +12,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        orange: '#ee4d2d'
+        orange: '#F4976C'
       }
     },
     container: {
@@ -37,6 +37,7 @@ export default {
           paddingRight: theme('spacing.4')
         }
       })
-    })
+    }),
+    require('@tailwindcss/line-clamp')
   ]
 }

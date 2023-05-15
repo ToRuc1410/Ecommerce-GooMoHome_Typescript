@@ -56,6 +56,16 @@ export const getRules = (getValues?: UseFormGetValues<any>) => ({
   }
 })
 
+//=============================================================================
+function testPriceMinMax(this: yup.TestContext<yup.AnyObject>) {
+  const { price_min, price_max } = this.parent as { price_min: string; price_max: string }
+  // true khi price min và price max != rỗng và max >= min
+  if (price_min !== '' && price_max !== '') {
+    return Number(price_max) >= Number(price_min)
+  }
+  return price_min !== '' || price_max !== '' // false khi cả 2 rỗng
+}
+
 //step2: validation form by Yup
 export const schema = yup.object({
   email: yup
@@ -75,6 +85,18 @@ export const schema = yup.object({
     .min(6, 'Độ dài từ 6-160 kí tự')
     .max(160, 'Độ dài từ 6-160 kí tự')
     // kiểm tra tham chiếu với trường password
-    .oneOf([yup.ref('password')], 'Nhập lại password không khớp')
+    .oneOf([yup.ref('password')], 'Nhập lại password không khớp'),
+  price_min: yup.string().test({
+    // this naming rule
+    name: 'price-not-allowed',
+    message: 'Giá Không Phù Hợp',
+    test: testPriceMinMax
+  }),
+  price_max: yup.string().test({
+    // this naming rule
+    name: 'price-not-allowed',
+    message: 'Giá Không Phù Hợp',
+    test: testPriceMinMax
+  })
 })
 export type Schema = yup.InferType<typeof schema>
