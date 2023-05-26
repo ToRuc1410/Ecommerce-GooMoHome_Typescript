@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { AuthResponse } from 'src/types/auth.type'
 import { clearLS, getAccessTokenFromLS, setAccessTokenToLS, setProfileUserFromLS } from './auth'
 import path from 'src/constants/path'
+import config from 'src/constants/config'
 
 class Http {
   instance: AxiosInstance
@@ -12,7 +13,7 @@ class Http {
   constructor() {
     this.accessToken = getAccessTokenFromLS()
     this.instance = axios.create({
-      baseURL: 'https://api-ecom.duthanhduoc.com',
+      baseURL: config.baseURL,
       timeout: 10000,
       headers: {
         'Content-Type0': 'application/json'
@@ -57,8 +58,11 @@ class Http {
         // Làm gì đó với lỗi response
         if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
           const data: any | undefined = error.response?.data
-          const message = data.message || 'Máy chủ đang quá tải vui lòng thử lại sau'
+          const message = data?.message || 'Máy chủ đang quá tải vui lòng thử lại sau'
           toast.error(message)
+        }
+        if (error.response?.status === HttpStatusCode.Unauthorized) {
+          clearLS()
         }
         return Promise.reject(error)
       }

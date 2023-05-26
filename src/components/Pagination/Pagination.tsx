@@ -60,7 +60,7 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
               }).toString()
             }}
             key={index}
-            className={classNames('mx-2 cursor-pointer rounded border bg-white px-3 py-2 shadow-sm', {
+            className={classNames('mx-1 cursor-pointer rounded border bg-white px-3 py-2 shadow-sm', {
               'border-cyan-500 text-cyan-500': pageNumber === page,
               'border-transparent': pageNumber !== page
             })}

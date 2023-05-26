@@ -1,7 +1,6 @@
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import Button from 'src/components/Button'
 import path from 'src/constants/path'
-import { QueryConfig } from '../ProductList'
 import { Category } from 'src/types/category.type'
 import classNames from 'classnames'
 import InputNumber from 'src/components/InputNumber'
@@ -10,6 +9,8 @@ import { schema } from 'src/utils/ruleValidateForm'
 import { yupResolver } from '@hookform/resolvers/yup'
 import RatingStarts from 'src/components/RatingStarts'
 import { omit } from 'lodash'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
+import InputV2 from 'src/components/InputV2(New)'
 
 interface Props {
   queryConfig: QueryConfig
@@ -142,7 +143,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
         <div className='capitalize'>Khoảng giá</div>
         <form className='mt-2' onSubmit={onSubmit}>
           <div className='flex justify-start'>
-            <Controller
+            {/* <Controller
               control={control}
               name='price_min'
               render={({ field }) => {
@@ -161,6 +162,19 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                     }}
                   />
                 )
+              }}
+            /> */}
+            <InputV2
+              control={control}
+              name='price_min'
+              type='number'
+              className='grow'
+              placeholder='₫ TỪ'
+              autoComplete='off'
+              classNameError='hidden'
+              classNameInput='w-full rounded-sm p-1 outline-none focus:border-gray-400 focus:shadow-md shadow-sm text-sm'
+              onChange={() => {
+                trigger('price_max')
               }}
             />
             <div className='mx-3 mt-3 h-[2px] w-3 shrink-0 bg-gray-400'></div>

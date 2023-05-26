@@ -11,7 +11,9 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       // tắt truy vấn sẽ tự động cập nhật data
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
+      // load lại trang 3 lần khi lỗi
+      retry: 0
     }
   }
 })

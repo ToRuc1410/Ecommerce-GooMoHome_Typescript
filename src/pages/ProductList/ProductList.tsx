@@ -1,49 +1,27 @@
-import useQueryParams from 'src/hooks/useQueryParams'
-import AsideFilter from './AsideFilter'
-import ProductItems from './ProductItems'
-import SortProductList from './SortProductList'
+import AsideFilter from './components/AsideFilter'
+import ProductItems from './components/ProductItems'
+import SortProductList from './components/SortProductList'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import Pagination from 'src/components/Pagination'
-import { omitBy, isUndefined } from 'lodash'
 import { ProductConfig } from 'src/types/product.type'
 import categoryApi from 'src/apis/category.api'
-
-export type QueryConfig = {
-  // format all key = string bởi vì url chỉ nhận string
-  [key in keyof ProductConfig]: string
-}
+import useQueryConfig from 'src/hooks/useQueryConfig'
 
 export default function ProductList() {
   // ====================== gửi data lên api
-  // queryKey nhận vào tham số thứ 2 là: queryParams
-  //nếu có sự thay đổi thì nó sẽ re-render hàm useQuery và cho lại data mới
-  const queryParams: QueryConfig = useQueryParams()
   // loại bỏ những thuộc tính khi chạy cho ra undefined
-  const queryConfig: QueryConfig = omitBy(
-    {
-      page: queryParams.page || '1',
-      limit: queryParams.limit,
-      name: queryParams.name,
-      exclude: queryParams.exclude,
-      order: queryParams.order,
-      rating_filter: queryParams.rating_filter,
-      price_max: queryParams.price_max,
-      price_min: queryParams.price_min,
-      sort_by: queryParams.sort_by,
-      category: queryParams.category
-    },
-    isUndefined
-  )
+  const queryConfig = useQueryConfig()
   // get All Products
   const { data: ProductsData } = useQuery({
-    queryKey: ['products', queryParams],
+    queryKey: ['products', queryConfig],
     queryFn: () => {
       return productApi.getProducts(queryConfig as ProductConfig)
     },
     // thuộc tính này giúp cho việc thay đổi chuyển trang k bị cập nhật lại rồi set lại data
     // mà nó sẽ giữ gtri cũ và cập nhật mới => tránh re-render
-    keepPreviousData: true
+    keepPreviousData: true,
+    staleTime: 3 * 60 * 1000
   })
 
   // Get All Categories
@@ -64,7 +42,7 @@ export default function ProductList() {
             </div>
             <div className='col-span-9'>
               <SortProductList queryConfig={queryConfig} pageSize={ProductsData.data.data.pagination.page_size} />
-              <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
+              <div className='mt-6 grid grid-cols-2 gap-1 md:grid-cols-3 lg:grid-cols-4 lg:gap-3 xl:grid-cols-5'>
                 {ProductsData.data.data.products.map((items) => (
                   <div className='col-span-1' key={items._id}>
                     <ProductItems product={items} />
