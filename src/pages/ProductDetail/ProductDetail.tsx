@@ -206,23 +206,23 @@ export default function ProductDetail() {
                     />
                   </span>
                 </div>
-                <div className=' mx-2 h-4 w-[1px] bg-gray-400' />
+                <div className=' mx-2 h-4 w-[1px] bg-gray-400 lg:mx-4' />
                 <div>
                   <p className=' text-gray-500'>{formatNumberToSocialStyle(product.sold)} Đã bán</p>
                 </div>
               </div>
               {/* Giá */}
-              <div className='mt-3 flex-shrink-0 flex-col items-center bg-gray-100 px-1 py-2'>
-                <div className='mb-1 w-6 rounded-sm bg-orange p-1 text-[4px] text-white/80 md:w-8 md:text-[6px] lg:w-10 lg:text-xs'>
+              <div className='mt-3 flex-shrink-0 flex-col items-center bg-gray-100 px-1 py-2 lg:pl-3'>
+                <div className='mb-1 w-6 rounded-sm bg-orange p-1 text-[4px] text-white/80 md:w-8 md:text-[6px] lg:w-16 lg:text-xs'>
                   {rateSale(product.price_before_discount, product.price)}
                   <span> giảm</span>
                 </div>
                 <div className='flex'>
-                  <div className='text-[8px] text-gray-500 line-through md:text-sm lg:text-lg'>
+                  <div className='text-[8px] text-gray-500 line-through md:text-sm lg:pt-2 lg:text-lg'>
                     <span>₫</span>
                     <span>{formatCurrency(product.price_before_discount)}</span>
                   </div>
-                  <div className='mx-1 text-[10px] font-bold text-orange md:mx-2 md:text-[18px] lg:text-lg'>
+                  <div className='mx-1 font-sans text-[10px] text-orange md:mx-2 md:text-[18px] lg:ml-4 lg:pb-2 lg:text-3xl'>
                     <span>₫</span>
                     <span>{formatCurrency(product.price)}</span>
                   </div>

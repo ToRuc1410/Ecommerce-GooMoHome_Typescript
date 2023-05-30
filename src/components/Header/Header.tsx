@@ -71,7 +71,7 @@ export default function Header() {
           <div className='cols-span-1 justify-self-center'>
             <PopHover
               renderPopHover={
-                <div className='relative max-w-[400px] rounded-md border border-gray-200 bg-white text-[8px] capitalize shadow-lg md:text-sm lg:text-lg'>
+                <div className='relative max-w-[400px] rounded-md border border-gray-200 bg-white text-[8px] capitalize shadow-lg md:text-sm lg:text-sm'>
                   {purchasesInCart && purchasesInCart.length > 0 ? (
                     <div className='p-2'>
                       <div className='capitalize text-gray-400'>sản phẩm mới thêm</div>

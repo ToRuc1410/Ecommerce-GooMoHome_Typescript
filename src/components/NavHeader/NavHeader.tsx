@@ -36,11 +36,11 @@ export default function NavHeader() {
     i18n.changeLanguage(lng)
   }
   return (
-    <div className='flex flex-wrap justify-end text-[10px] capitalize md:text-sm lg:text-lg'>
+    <div className='flex flex-wrap justify-end text-[10px] capitalize md:text-sm lg:text-[18px]'>
       <PopHover
         className='ml-6 flex cursor-pointer items-center hover:text-white/70'
         renderPopHover={
-          <div className='relative rounded-md border border-gray-200 bg-white text-[8px] capitalize shadow-lg md:text-sm lg:text-lg'>
+          <div className='relative rounded-md border border-gray-200 bg-white text-[8px] capitalize shadow-lg md:text-sm lg:text-sm'>
             <div className='flex flex-col py-1 pl-2 pr-28'>
               <button className='px-4 py-2 hover:text-orange' onClick={changeLanguages('vi')}>
                 Tiếng Việt
@@ -58,7 +58,7 @@ export default function NavHeader() {
           viewBox='0 0 24 24'
           strokeWidth={1.5}
           stroke='currentColor'
-          className='h-4 w-4'
+          className='h-5 w-5'
         >
           <path
             strokeLinecap='round'
@@ -66,7 +66,7 @@ export default function NavHeader() {
             d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
           />
         </svg>
-        <span className='mx-1 text-sm'>{currentLanguage}</span>
+        <span className='mx-1 text-sm lg:text-[18px]'>{currentLanguage}</span>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
@@ -83,7 +83,7 @@ export default function NavHeader() {
         <PopHover
           className='mx-3 ml-6 flex cursor-pointer items-center py-3 hover:text-white/70 '
           renderPopHover={
-            <div className='relative rounded-md border border-gray-200 bg-white text-[8px]  capitalize  shadow-lg md:text-sm lg:text-lg'>
+            <div className='relative rounded-md border border-gray-200 bg-white text-[8px]  capitalize  shadow-lg md:text-sm lg:text-sm'>
               <Link
                 to={path.profile}
                 className='block w-full bg-white px-4 py-3 text-left hover:bg-slate-100 hover:text-cyan-500 '
