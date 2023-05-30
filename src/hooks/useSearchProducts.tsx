@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { Schema, schema } from 'src/utils/ruleValidateForm'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import path from 'src/constants/path'
 
 type FormSearch = Pick<Schema, 'searchProduct'>

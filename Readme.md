@@ -56,3 +56,8 @@ C:\xampp\htdocs\images
     token gây ra lỗi...
     hướng xử lý đó là tại hàm useQuery ở header để gọi purchase chúng ta kiểm tra xem người dùng đã đăng nhập hay logout
     nếu login hay register rồi thì mới cho enable cái api purchase lên
+15. Lazyload component với react lazy và react router(chương 23 - bài 223)
+
+16. Rollup Plugin Visualizer dùng để phân tích các fiel,folders,... chiểm tỉ lệ trong project
+
+17. lưu ý bài học chương 24: SEO cho dev

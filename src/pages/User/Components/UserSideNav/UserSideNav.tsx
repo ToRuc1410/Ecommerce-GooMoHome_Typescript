@@ -1,20 +1,21 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import path from 'src/constants/path'
 
 import { useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import { getAvatarUrl } from 'src/utils/FuncFormat'
+import classNames from 'classnames'
 
 export default function UserSideNav() {
   const { profile } = useContext(AppContext)
   return (
-    <div className='mx-2 text-[8px] md:text-xs lg:text-sm'>
+    <div className='mx-2 text-[7px] md:text-xs lg:text-sm'>
       <div className='flex flex-wrap items-center justify-center py-2'>
         <Link to={path.profile} className='h-6 w-6 flex-shrink-0 border-collapse overflow-hidden rounded-full  '>
           <img src={getAvatarUrl(profile?.avatar)} alt='avatar' className='h-full w-full object-cover' />
         </Link>
         <div className='flex-grow pl-2'>
-          <div className='truncate font-bold text-gray-500'>{profile?.name || profile?.email}</div>
+          <div className='ml-2 mt-2 truncate font-bold text-gray-500'>{profile?.name || profile?.email}</div>
           <Link to={path.profile} className='mt-1 flex items-center capitalize'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -34,8 +35,16 @@ export default function UserSideNav() {
           </Link>
         </div>
       </div>
-      <div className='mt-3 text-[8px] md:mt-6 md:text-sm lg:mt-7 lg:text-sm'>
-        <Link to={path.profile} className='flex items-start capitalize transition-colors'>
+      <div className='mt-3 text-[7px] md:mt-6 md:text-sm lg:mt-7 lg:text-sm'>
+        <NavLink
+          to={path.profile}
+          className={({ isActive }) =>
+            classNames('flex items-start capitalize transition-colors hover:text-orange', {
+              'text-orange': isActive,
+              'text-gray-700': !isActive
+            })
+          }
+        >
           <div className='h-[22px] w-[22px] '>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -53,8 +62,16 @@ export default function UserSideNav() {
             </svg>
           </div>
           <div className=''>Tài khoảng của tôi</div>
-        </Link>
-        <Link to={path.historyPurchase} className='my-3 flex items-center capitalize transition-colors lg:my-6'>
+        </NavLink>
+        <NavLink
+          to={path.historyPurchase}
+          className={({ isActive }) =>
+            classNames('my-3 flex items-center capitalize transition-colors hover:text-orange lg:my-6', {
+              'text-orange': isActive,
+              'text-gray-700': !isActive
+            })
+          }
+        >
           <div className=' h-[22px] w-[22px] '>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -72,8 +89,16 @@ export default function UserSideNav() {
             </svg>
           </div>
           <div className=''>Đơn mua</div>
-        </Link>
-        <Link to={path.changePassword} className='flex items-center capitalize transition-colors'>
+        </NavLink>
+        <NavLink
+          to={path.changePassword}
+          className={({ isActive }) =>
+            classNames('flex items-center capitalize transition-colors hover:text-orange', {
+              'text-orange': isActive,
+              'text-gray-700': !isActive
+            })
+          }
+        >
           <div className=' h-[22px] w-[22px] '>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -91,7 +116,7 @@ export default function UserSideNav() {
             </svg>
           </div>
           <div className=''>Đổi mật Khẩu</div>
-        </Link>
+        </NavLink>
       </div>
     </div>
   )

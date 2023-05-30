@@ -1,6 +1,6 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { QueryConfig } from 'src/pages/ProductList/ProductList'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 
 interface Props {
   queryConfig: QueryConfig
@@ -19,13 +19,13 @@ export default function RatingStarts({ queryConfig }: Props) {
   }
   return (
     <>
-      <ul className='my-3'>
+      <ul className='my-1 md:my-2 lg:my-3'>
         {Array(5)
           .fill(0)
           .map((_, index) => (
-            <li className='py-1 pl-2' key={index}>
+            <li className='md:py-1 lg:py-2' key={index}>
               <div
-                className='flex cursor-pointer items-center text-sm'
+                className='flex cursor-pointer items-center text-[8px] md:text-sm lg:text-lg'
                 tabIndex={0}
                 role='button'
                 aria-hidden='true'
@@ -38,7 +38,7 @@ export default function RatingStarts({ queryConfig }: Props) {
                   .map((_, indexStart) => {
                     if (indexStart < 5 - index) {
                       return (
-                        <svg viewBox='0 0 9.5 8' className='mr-1 h-4 w-4' key={indexStart}>
+                        <svg viewBox='0 0 9.5 8' className='mr-1 h-4 w-4 ' key={indexStart}>
                           <defs>
                             <linearGradient id='ratingStarGradient' x1='50%' x2='50%' y1='0%' y2='100%'>
                               <stop offset={0} stopColor='#ffca11' />
@@ -83,7 +83,9 @@ export default function RatingStarts({ queryConfig }: Props) {
                       </svg>
                     )
                   })}
-                {index !== 0 && <span className='ml-2'> Trở lên </span>}
+                {index !== 0 && (
+                  <span className='flex-shrink-0 text-[5px] capitalize md:text-sm lg:text-lg'> Trở lên </span>
+                )}
               </div>
             </li>
           ))}

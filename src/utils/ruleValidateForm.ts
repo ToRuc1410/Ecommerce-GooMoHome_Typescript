@@ -66,6 +66,17 @@ function testPriceMinMax(this: yup.TestContext<yup.AnyObject>) {
   return price_min !== '' || price_max !== '' // false khi cả 2 rỗng
 }
 
+const handleConfimPassYup = (refString: string) => {
+  return (
+    yup
+      .string()
+      .required('Nhập lại password là bắt buộc')
+      .min(6, 'Độ dài từ 6-160 kí tự')
+      .max(160, 'Độ dài từ 6-160 kí tự')
+      // kiểm tra tham chiếu với trường password
+      .oneOf([yup.ref(refString)], 'Nhập lại password không khớp')
+  )
+}
 //step2: validation form by Yup
 export const schema = yup.object({
   email: yup
@@ -79,13 +90,8 @@ export const schema = yup.object({
     .required('Password là bắt buộc')
     .min(6, 'Độ dài từ 6-160 kí tự')
     .max(160, 'Độ dài từ 6-160 kí tự'),
-  confirm_password: yup
-    .string()
-    .required('Nhập lại password là bắt buộc')
-    .min(6, 'Độ dài từ 6-160 kí tự')
-    .max(160, 'Độ dài từ 6-160 kí tự')
-    // kiểm tra tham chiếu với trường password
-    .oneOf([yup.ref('password')], 'Nhập lại password không khớp'),
+  //confirm_password kiểm tra tham chiếu với trường password
+  confirm_password: handleConfimPassYup('password'),
   price_min: yup.string().test({
     // this naming rule
     name: 'price-not-allowed',
@@ -107,9 +113,15 @@ export const userSchema = yup.object({
   address: yup.string().max(160, 'Độ dài tối đa là 160 kí tự'),
   avatar: yup.string().max(1000, 'Độ dài tối đa là 1000 kí tự'),
   date_of_birth: yup.date().max(new Date(), 'Ngày sinh không hợp lệ'),
-  password: schema.fields['password'],
-  new_password: schema.fields['password'],
-  confirm_password: schema.fields['confirm_password']
+  password: schema.fields['password'] as yup.StringSchema<string | undefined, yup.AnyObject, undefined, ''>,
+  new_password: schema.fields['password'] as yup.StringSchema<string | undefined, yup.AnyObject, undefined, ''>,
+  //confirm_password kiểm tra tham chiếu với trường new_password
+  confirm_password: handleConfimPassYup('new_password') as yup.StringSchema<
+    string | undefined,
+    yup.AnyObject,
+    undefined,
+    ''
+  >
 })
 
 export type UserSchema = yup.InferType<typeof userSchema>

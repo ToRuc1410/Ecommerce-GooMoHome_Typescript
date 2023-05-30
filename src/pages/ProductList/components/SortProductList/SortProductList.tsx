@@ -3,7 +3,7 @@ import { ProductConfig } from 'src/types/product.type'
 import classNames from 'classnames'
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 
 interface Props {
@@ -50,11 +50,11 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
 
   return (
     <div className='rounded-md bg-gray-300 p-3'>
-      <div className='flex flex-wrap items-center justify-around gap-2'>
-        <div className='flex flex-wrap items-center gap-2'>
-          <div className='text-sm text-gray-500'>Sắp xếp theo</div>
+      <div className='flex flex-shrink-0 flex-wrap items-center justify-end gap-2 text-[8px] capitalize md:text-sm lg:justify-around lg:text-sm'>
+        <div className='flex flex-wrap items-center gap-2 md:gap-4 lg:gap-5'>
+          <div className=' text-gray-500'>Sắp xếp theo</div>
           <button
-            className={classNames('h-8 rounded-sm  px-4 text-center text-sm capitalize', {
+            className={classNames('h-8 rounded-sm  px-4 text-center  capitalize', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.view),
               'bg-white text-black hover:bg-slate-200': !isActiveSortBy(sortBy.view)
             })}
@@ -63,7 +63,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             Phổ biến
           </button>
           <button
-            className={classNames('h-8 rounded-sm  px-4 text-center text-sm capitalize', {
+            className={classNames('h-8 rounded-sm  px-4 text-center  capitalize', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.createdAt),
               'bg-white text-black hover:bg-slate-200': !isActiveSortBy(sortBy.createdAt)
             })}
@@ -72,7 +72,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             mới nhất
           </button>
           <button
-            className={classNames('h-8 rounded-sm  px-4 text-center text-sm capitalize', {
+            className={classNames('h-8 rounded-sm  px-4 text-center  capitalize', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.sold),
               'bg-white text-black hover:bg-slate-200': !isActiveSortBy(sortBy.sold)
             })}
@@ -81,7 +81,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             bán chạy
           </button>
           <select
-            className={classNames('h-8 rounded-sm px-4 text-left text-sm capitalize outline-none ', {
+            className={classNames('h-8 rounded-sm px-4 text-center  capitalize outline-none', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.price),
               'bg-white text-black hover:bg-slate-100': !isActiveSortBy(sortBy.price)
             })}
@@ -89,7 +89,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             onChange={(event) => handlePrice(event.target.value as Exclude<ProductConfig['order'], undefined>)}
           >
             <option className='bg-white text-black' value='' disabled>
-              Giá
+              Lọc theo Giá
             </option>
             <option className='bg-white text-black' value={orderContant.asc}>
               Giá: Thấp đến cao
@@ -100,7 +100,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           </select>
         </div>
         <div className='flex items-center'>
-          <div className='text-sm'>
+          <div className=''>
             <span className='text-orange'>{page}</span>
             <span>/{pageSize}</span>
           </div>

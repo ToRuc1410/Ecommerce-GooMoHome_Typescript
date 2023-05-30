@@ -8,10 +8,10 @@ import { useForm, Controller } from 'react-hook-form'
 import { schema } from 'src/utils/ruleValidateForm'
 import { yupResolver } from '@hookform/resolvers/yup'
 import RatingStarts from 'src/components/RatingStarts'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
-import InputV2 from 'src/components/InputV2(New)'
-
+// import InputV2 from 'src/components/InputV2(New)'
+import { useTranslation } from 'react-i18next'
 interface Props {
   queryConfig: QueryConfig
   categories: Category[]
@@ -26,6 +26,7 @@ const priceSchema = schema.pick(['price_min', 'price_max'])
 
 export default function AsideFilter({ queryConfig, categories }: Props) {
   const { category } = queryConfig
+  const { t } = useTranslation()
 
   const {
     control,
@@ -73,9 +74,12 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
     })
   }
   return (
-    <div className='m-3 py-4'>
-      <Link to={path.home} className='flex items-start font-bold capitalize'>
-        <svg viewBox='0 0 12 10' className='mr-3 h-4 w-3 fill-current'>
+    <div className='py-4'>
+      <Link to={path.home} className='flex items-start justify-start'>
+        <svg
+          viewBox='0 0 12 10'
+          className='mr-1 h-3 w-3 flex-shrink-0 fill-current md:mr-2 md:h-5 md:w-5 lg:mr-2 lg:h-7 lg:w-7'
+        >
           <g fillRule='evenodd' stroke='none' strokeWidth={1}>
             <g transform='translate(-373 -208)'>
               <g transform='translate(155 191)'>
@@ -88,14 +92,16 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
             </g>
           </g>
         </svg>
-        Tất cả danh mục
+        <span className='mt-1 flex-shrink-0 text-[8px] font-bold capitalize md:text-sm lg:text-lg'>
+          {t('all categories')}
+        </span>
       </Link>
-      <div className='my-4 h-[1px] bg-gray-300' />
+      <div className='my-2 h-[1px] bg-gray-300' />
       <ul>
         {categories.map((categoryItem) => {
           const isActive = category === categoryItem._id
           return (
-            <li className='py-2 pl-2' key={categoryItem._id}>
+            <li className='md:py-2 lg:py-4' key={categoryItem._id}>
               <Link
                 to={{
                   pathname: path.home,
@@ -109,23 +115,26 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                 })}
               >
                 {isActive && (
-                  <svg viewBox='0 0 4 7' className='absolute left-[-10px] top-1 h-2 w-2 fill-orange'>
+                  <svg
+                    viewBox='0 0 4 7'
+                    className='absolute left-[0px] top-2 h-1 w-1 fill-orange md:left-[-4px] md:top-1 md:h-3 md:w-3 lg:left-[-8px] lg:top-0 lg:h-3 lg:w-3'
+                  >
                     <polygon points='4 3.5 0 0 0 7' />
                   </svg>
                 )}
-                <span className='text-sm'> {categoryItem.name}</span>
+                <span className='text-[8px] md:text-sm lg:text-lg '> {categoryItem.name}</span>
               </Link>
             </li>
           )
         })}
       </ul>
-      <div className='mt-4 flex items-start font-bold uppercase '>
+      <div className='mt-4 flex items-start justify-start '>
         <svg
           enableBackground='new 0 0 15 15'
           viewBox='0 0 15 15'
           x={0}
           y={0}
-          className='mr-3 h-5 w-3 fill-current stroke-current'
+          className='mr-1 h-3 w-3 flex-shrink-0 fill-current stroke-current md:mr-2 md:h-5 md:w-5 lg:mr-2 lg:h-7 lg:w-7'
         >
           <g>
             <polyline
@@ -137,24 +146,26 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
             />
           </g>
         </svg>
-        bộ lọc tìm kiếm
+        <span className='flex-shrink-0 text-[8px] font-bold capitalize md:text-sm lg:text-lg'>bộ lọc tìm kiếm</span>
       </div>
       <div className='my-5'>
-        <div className='capitalize'>Khoảng giá</div>
+        <div className='flex-shrink-0 text-[8px] font-bold capitalize md:my-2 md:text-sm lg:my-4 lg:text-lg'>
+          Khoảng giá
+        </div>
         <form className='mt-2' onSubmit={onSubmit}>
-          <div className='flex justify-start'>
-            {/* <Controller
+          <div className='flex flex-col items-center justify-center md:flex md:flex-row lg:flex lg:flex-row '>
+            <Controller
               control={control}
               name='price_min'
               render={({ field }) => {
                 return (
                   <InputNumber
                     type='text'
-                    className='grow'
-                    placeholder='₫ TỪ'
+                    className=''
+                    placeholder='₫ Từ'
                     autoComplete='off'
                     classNameError='hidden'
-                    classNameInput='w-full rounded-sm p-1 outline-none focus:border-gray-400 focus:shadow-md shadow-sm text-sm'
+                    classNameInput='w-full rounded-sm p-1 outline-none focus:border-gray-400 focus:shadow-md shadow-sm text-[8px] md:text-sm lg:text-lg'
                     {...field}
                     onChange={(event) => {
                       field.onChange(event)
@@ -163,12 +174,12 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                   />
                 )
               }}
-            /> */}
-            <InputV2
+            />
+            {/* <InputV2
               control={control}
               name='price_min'
               type='number'
-              className='grow'
+              className='md:grow lg:grow'
               placeholder='₫ TỪ'
               autoComplete='off'
               classNameError='hidden'
@@ -176,8 +187,8 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
               onChange={() => {
                 trigger('price_max')
               }}
-            />
-            <div className='mx-3 mt-3 h-[2px] w-3 shrink-0 bg-gray-400'></div>
+            /> */}
+            <div className='mx-3 my-1 h-[2px] w-6 shrink-0 bg-gray-400 md:w-1' />
             <Controller
               control={control}
               name='price_max'
@@ -185,11 +196,11 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                 return (
                   <InputNumber
                     type='text'
-                    className='grow'
+                    className=''
                     autoComplete='off'
-                    placeholder='₫ ĐẾN'
+                    placeholder='₫ Đến'
                     classNameError='hidden'
-                    classNameInput='w-full rounded-sm p-1 outline-none focus:border-gray-400 focus:shadow-md shadow-sm text-sm'
+                    classNameInput='w-full rounded-sm p-1 outline-none focus:border-gray-400 focus:shadow-md shadow-sm text-[8px] md:text-sm lg:text-lg'
                     {...field}
                     onChange={(event) => {
                       field.onChange(event)
@@ -200,22 +211,24 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
               }}
             />
           </div>
-          <div className='mt-1 min-h-[1rem] text-center text-sm text-red-600'>{errors.price_min?.message}</div>
+          <div className='mt-1 min-h-[1rem] text-center text-[8px] text-red-600 md:text-sm lg:text-lg'>
+            {errors.price_min?.message}
+          </div>
           <Button
-            className='flex w-full items-center justify-center rounded-sm bg-orange p-2 text-sm uppercase
-          text-white shadow-sm hover:bg-orange/80'
+            className='flex w-full items-center justify-center rounded-sm bg-orange px-1 py-2 text-[8px] capitalize text-white shadow-sm
+          hover:bg-orange/80 md:text-sm lg:text-lg'
           >
-            Áp Dụng
+            <span>Áp Dụng</span>
           </Button>
         </form>
       </div>
       <div className='my-4 h-[1px] bg-gray-300' />
-      <div className='text-sm'>Đánh Giá</div>
+      <span className='flex-shrink-0 text-[8px] font-bold capitalize md:text-sm lg:text-lg'>Áp Dụng</span>
       <RatingStarts queryConfig={queryConfig} />
       <div className='my-4 h-[1px] bg-gray-300' />
       <Button
-        className='flex w-full items-center justify-center rounded-sm bg-orange p-2 text-sm uppercase
-          text-white shadow-sm hover:bg-orange/80'
+        className='flex w-full items-center justify-center rounded-sm bg-orange px-1 py-2 text-[8px] capitalize text-white shadow-sm
+        hover:bg-orange/80 md:text-sm lg:text-lg'
         onClick={hanldeRemoveAll}
       >
         Xóa tất cả

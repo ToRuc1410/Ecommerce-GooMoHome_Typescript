@@ -79,6 +79,7 @@ export default function Login() {
                 register={register}
                 type='password'
                 autoComplete='on'
+                classNameEye='absolute h-5 w-5 top-[10px] right-[10%] cursor-pointer'
               />
               <div className='mt-2'>
                 <Button

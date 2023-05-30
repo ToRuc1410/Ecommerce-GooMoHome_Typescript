@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import { schema, Schema } from 'src/utils/ruleValidateForm'
 import { yupResolver } from '@hookform/resolvers/yup'
 import authApi from 'src/apis/auth.api'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import { isAxiosStatusCodeError } from 'src/utils/utilsErrForm'
 import { ErrorResponse } from 'src/types/utils.type'
 import { useContext } from 'react'
@@ -84,6 +84,7 @@ export default function Register() {
                 register={register}
                 type='password'
                 autoComplete='on'
+                classNameEye='absolute h-5 w-5 top-[10px] right-[10%] cursor-pointer'
               />
               <Input
                 className='mt-2'
@@ -93,6 +94,7 @@ export default function Register() {
                 register={register}
                 type='password'
                 autoComplete='on'
+                classNameEye='absolute h-5 w-5 top-[10px] right-[10%] cursor-pointer'
               />
               <div className='mt-2'>
                 <Button

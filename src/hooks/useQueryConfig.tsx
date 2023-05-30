@@ -1,5 +1,6 @@
 /// ====================== Custom Hooks =================
-import { omitBy, isUndefined } from 'lodash'
+import omitBy from 'lodash/omitBy'
+import isUndefined from 'lodash/isUndefined'
 import { ProductConfig } from 'src/types/product.type'
 import useQueryParams from './useQueryParams'
 

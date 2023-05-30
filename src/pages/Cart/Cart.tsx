@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { produce } from 'immer'
-import { keyBy } from 'lodash'
+import keyBy from 'lodash/keyBy'
 import { useContext, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import purchasesAPI from 'src/apis/purchase.api'
@@ -12,6 +12,7 @@ import { AppContext } from 'src/contexts/app.context'
 import { Purchase } from 'src/types/purchase.type'
 import { generateURLNameAndId, formatCurrency } from 'src/utils/FuncFormat'
 import noproduct from 'src/assets/img_cart/noCart.png'
+import { toast } from 'react-toastify'
 
 export default function Cart() {
   // Make 1 listPurchase quản lý bởi localAppContext khi ng dùng check items(products)
@@ -37,16 +38,16 @@ export default function Cart() {
     }
   })
 
-  // const buyProductsMutation = useMutation({
-  //   mutationFn: purchasesAPI.buyProducts,
-  //   onSuccess: (data) => {
-  //     refetch()
-  //     toast.success(data.data.message, {
-  //       position: 'top-center',
-  //       autoClose: 1000
-  //     })
-  //   }
-  // })
+  const buyProductsMutation = useMutation({
+    mutationFn: purchasesAPI.buyProducts,
+    onSuccess: (data) => {
+      refetch()
+      toast.success(data.data.message, {
+        position: 'top-center',
+        autoClose: 1000
+      })
+    }
+  })
 
   const deletePurchasesMutation = useMutation({
     mutationFn: purchasesAPI.deletePurchase,
@@ -140,15 +141,15 @@ export default function Cart() {
     )
   }
 
-  // const handleBuyPurchases = () => {
-  //   if (checkedPurchase.length > 0) {
-  //     const body = checkedPurchase.map((purchase) => ({
-  //       product_id: purchase.product._id,
-  //       buy_count: purchase.buy_count
-  //     }))
-  //     buyProductsMutation.mutate(body)
-  //   }
-  // }
+  const handleBuyPurchases = () => {
+    if (checkedPurchase.length > 0) {
+      const body = checkedPurchase.map((purchase) => ({
+        product_id: purchase.product._id,
+        buy_count: purchase.buy_count
+      }))
+      buyProductsMutation.mutate(body)
+    }
+  }
 
   return (
     <div className='bg-neutral-200'>
@@ -308,7 +309,7 @@ export default function Cart() {
                 </div>
                 <Button
                   className='w-50 ml-2 flex h-10 items-center justify-center bg-orange px-3 text-[7px] capitalize text-white hover:bg-orange/70 md:text-sm lg:mx-5 lg:px-5 lg:text-sm'
-                  // onClick={handleBuyPurchases}
+                  onClick={handleBuyPurchases}
                 >
                   Mua hàng
                 </Button>

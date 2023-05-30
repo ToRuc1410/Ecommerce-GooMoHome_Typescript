@@ -14,6 +14,7 @@ import UserLayout from './pages/User/layouts/UserLayout'
 import Profile from './pages/User/pages/Profile'
 import ChangePassword from './pages/User/pages/ChangePassword'
 import HistoryPurchase from './pages/User/pages/HistoryPurchase'
+import NotFound404 from './pages/NotFound404'
 
 // ----------------Check user đã login r thì k cho vào login,register nữa
 function ProtectedRouter() {
@@ -101,6 +102,10 @@ export default function useRouterElement() {
           ]
         }
       ]
+    },
+    {
+      path: '*',
+      element: <NotFound404 />
     }
   ])
   return routeElements

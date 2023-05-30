@@ -1,12 +1,12 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import userAPI from 'src/apis/user.api'
-import { useForm, Controller, useWatch } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import { UserSchema, userSchema } from 'src/utils/ruleValidateForm'
 import { yupResolver } from '@hookform/resolvers/yup'
 import InputNumber from 'src/components/InputNumber'
-import { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import DateSelect from '../../Components/DateSelect'
 import { toast } from 'react-toastify'
 import { AppContext } from 'src/contexts/app.context'
@@ -14,7 +14,7 @@ import { setProfileUserFromLS } from 'src/utils/auth'
 import { getAvatarUrl } from 'src/utils/FuncFormat'
 import { isAxiosStatusCodeError } from 'src/utils/utilsErrForm'
 import { ErrorResponse } from 'src/types/utils.type'
-import config from 'src/constants/config'
+import InputFile from 'src/components/InputFile'
 
 type FormData = Pick<UserSchema, 'name' | 'address' | 'phone' | 'avatar' | 'date_of_birth'>
 type FormDataError = Omit<FormData, 'date_of_birth'> & {
@@ -24,11 +24,10 @@ const profileSchema = userSchema.pick(['name', 'address', 'phone', 'avatar', 'da
 
 export default function Profile() {
   // gọi context update thông tin tổng của user
-  const { profile, setProfile } = useContext(AppContext)
+  const { setProfile } = useContext(AppContext)
 
   const [file, setFile] = useState<File>()
 
-  const fileInput = useRef<HTMLInputElement>(null)
   const uploadAvatarMutation = useMutation(userAPI.uploadAvatar)
   const previewImg = useMemo(() => {
     return file ? URL.createObjectURL(file) : ''
@@ -112,23 +111,9 @@ export default function Profile() {
       }
     }
   })
-
-  const handleUpload = () => {
-    // sử dụng cơ chế useref để dùng button choose hình ảnh từ input:file
-    fileInput?.current?.click()
-  }
-  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fileFromLocal = event.target.files?.[0]
-    console.log(fileFromLocal)
-    // validate file about size <= 1mb and type is 'image'
-    if (fileFromLocal && (fileFromLocal.size >= config.maxSizeUpload || fileFromLocal.type.includes('image'))) {
-      toast.warning('Dung lượng file tối đa là 1 MB và Định dạng:.JPEG, .PNG', {
-        position: 'top-center',
-        autoClose: 2000
-      })
-    } else {
-      setFile(fileFromLocal)
-    }
+  // handleChangeFile from InputFile
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
   }
 
   return (
@@ -218,22 +203,7 @@ export default function Profile() {
                 className='h-full w-full rounded-full border border-gray-300 object-cover'
               />
             </div>
-            <input
-              className='hidden'
-              type='file'
-              accept='.jpg,.jpeg,.png'
-              ref={fileInput}
-              onChange={onFileChange}
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              onClick={(event) => ((event.target as any).value = null)}
-            />
-            <button
-              className='my-1 flex border bg-white px-3 py-2  text-black shadow-sm '
-              type='button'
-              onClick={handleUpload}
-            >
-              Chọn Ảnh
-            </button>
+            <InputFile onChange={handleChangeFile} />
             <div className='mx-2 text-gray-500'> Dung lượng file tối đa 1 MB</div>
             <div className='mx-2 text-gray-500'>Định dạng:.JPEG, .PNG</div>
           </div>

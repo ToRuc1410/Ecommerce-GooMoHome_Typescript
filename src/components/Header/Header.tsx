@@ -32,32 +32,32 @@ export default function Header() {
         <NavHeader />
       </div>
       <div className='container'>
-        <div className='grid grid-cols-12 items-end gap-5'>
-          <Link to={path.home} className='col-span-2 '>
+        <div className='grid grid-cols-12 items-end gap-3 lg:gap-5'>
+          <Link to={path.home} className='col-span-3 lg:col-span-2'>
             <img
-              className='h-full w-full rounded-md bg-white object-cover py-4 shadow-lg lg:py-0'
+              className='mb-2 h-full w-full rounded-md bg-white object-cover py-2 shadow-lg lg:py-0'
               src='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=819.000032544136,fit=crop/YbNbPPqn2EfwxjP7/chat-hon-to-cu-1-png-m7V2704oB7HDV1b2.png'
               alt='Goomo Home logo'
               data-v-fb585256
               data-qa='builder-siteheader-img-logo'
             />
           </Link>
-          <form className='col-span-8 shadow-lg' onSubmit={onSubmitSearch}>
-            <div className='relative flex rounded-sm bg-white p-1'>
+          <form className='col-span-7 mb-2 shadow-lg md:col-span-8 md:mb-2 lg:col-span-8' onSubmit={onSubmitSearch}>
+            <div className='relative flex rounded-sm bg-white text-[10px] capitalize  md:text-xs lg:text-sm'>
               <input
                 type='text'
                 placeholder='Free Ship nội thành phố Hồ Chí Minh'
-                className=' flex-grow border-none bg-transparent px-3 py-2 text-gray-600 outline-none'
+                className=' flex-grow border-none bg-transparent px-3 py-2 text-gray-600 outline-none md:py-3'
                 {...register('searchProduct')}
               />
-              <button className='absolute right-0 top-0 rounded-sm bg-gray-300 px-7 py-2 text-orange hover:opacity-90'>
+              <button className='absolute right-0 top-0 rounded-sm bg-gray-300 px-3 py-2 text-orange hover:opacity-90 md:px-7 md:py-3 lg:px-10 lg:py-3'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='h-7 w-6'
+                  className='h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5'
                 >
                   <path
                     strokeLinecap='round'
@@ -71,7 +71,7 @@ export default function Header() {
           <div className='cols-span-1 justify-self-center'>
             <PopHover
               renderPopHover={
-                <div className='relative max-w-[400px] rounded-md border border-gray-200 bg-white text-sm shadow-lg'>
+                <div className='relative max-w-[400px] rounded-md border border-gray-200 bg-white text-[8px] capitalize shadow-lg md:text-sm lg:text-lg'>
                   {purchasesInCart && purchasesInCart.length > 0 ? (
                     <div className='p-2'>
                       <div className='capitalize text-gray-400'>sản phẩm mới thêm</div>
@@ -126,14 +126,14 @@ export default function Header() {
                 </div>
               }
             >
-              <Link to={path.home} className='relative'>
+              <Link to={path.cart} className='relative'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='h-12 w-12 p-1'
+                  className='m-1 h-8 w-8 p-1 md:h-10 md:w-10 lg:h-12 lg:w-12'
                 >
                   <path
                     strokeLinecap='round'
