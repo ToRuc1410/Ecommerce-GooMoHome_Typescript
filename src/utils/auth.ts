@@ -22,6 +22,13 @@ export const getProfileUserFromLS = () => {
 export const setProfileUserFromLS = (profile: User) => {
   localStorage.setItem('profile', JSON.stringify(profile))
 }
+// export const getDataPurchasesFromLS = () => {
+//   const result = localStorage.getItem('dataPurchases')
+//   return result ? JSON.parse(result) : null
+// }
+// export const setDataPurchasesFromLS = (dataPurchase: checkedPurchases) => {
+//   localStorage.setItem('dataPurchases', JSON.stringify(dataPurchase))
+// }
 //======================== Clear tất cả trong localStorage
 export const clearLS = () => {
   localStorage.removeItem('access_token')

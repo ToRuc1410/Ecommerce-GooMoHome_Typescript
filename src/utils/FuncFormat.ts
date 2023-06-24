@@ -1,8 +1,13 @@
 /// sử dụng thư viện sẵn có của javascript là new Intl.NumberFormat
 
-import config from 'src/constants/config'
+// import config from 'src/constants/config'
 import user from 'src/assets/img_user/default_user.png'
+import { Product } from 'src/types/product.type'
 
+interface RenderCheckOut {
+  buy_count: number
+  product: Product
+}
 // format giá tiền
 export function formatCurrency(currency: number) {
   return new Intl.NumberFormat('de-DE').format(currency)
@@ -33,4 +38,67 @@ export const getIdFromURLNameAndId = (nameId: string) => {
   return arr[arr.length - 1]
 }
 
-export const getAvatarUrl = (avatarName?: string) => (avatarName ? `${config.baseURL}images/${avatarName}` : user)
+export const getAvatarUrl = (avatarName?: string) => (avatarName ? `${avatarName}` : user)
+
+// tính trung bình cân nặng dựa trên kích thước và số lượng
+export const calculateTotalWeight = (products: RenderCheckOut[]) => {
+  let totalWeight = 0
+
+  products.forEach((product) => {
+    totalWeight += (product.product.height * product.product.length * product.product.width * product.buy_count) / 5000
+  })
+
+  return totalWeight
+}
+
+// làm tròn kg->gram
+export const convertKgToGram = (kg: number) => {
+  const gramValue = Math.round(kg * 1000) // 1 kg = 1000 gram
+  return gramValue
+}
+
+//
+// Tính tổng kích thước của các sản phẩm
+export const calculateTotalDimensions = (products: RenderCheckOut[]) => {
+  // Mảng lưu trữ các category khác nhau
+  // Tính tổng chiều dài và chiều rộng của các sản phẩm có category khác nhau
+  let maxLength = 0
+  let maxWidth = 0
+  let totalHeight = 0
+
+  products.forEach((product) => {
+    if (product.product.length > maxLength || product.product.width > maxWidth) {
+      maxLength = product.product.length
+      maxWidth = product.product.width
+    }
+
+    totalHeight += product.product.height * product.buy_count
+  })
+  return {
+    maxLength,
+    maxWidth,
+    totalHeight
+  }
+}
+//   return {
+//     totalHeight,
+//     totalLength,
+//     maxWidth
+//   }
+// }
+
+// Tính tổng kích thước của các sản phẩm
+// export const calculateTotalDimensions = (products: RenderCheckOut[]) => {
+//   const categories = [...new Set(products.map((product) => product.product.category._id))]
+
+//   const resultData = categories.map((category) => {
+
+//     const filteredProducts = products.filter((product) => product.product.category._id !== category)
+
+//     const totalWidth = filteredProducts.reduce((accumulator, product) => accumulator + product.product.width, 0)
+//     const totalLength = filteredProducts.reduce((accumulator, product) => accumulator + product.product.length, 0)
+
+//     return { category, totalWidth, totalLength }
+//   })
+//   return resultData
+// }

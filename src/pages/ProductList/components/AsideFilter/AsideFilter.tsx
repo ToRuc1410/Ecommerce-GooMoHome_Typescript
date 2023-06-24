@@ -7,7 +7,6 @@ import InputNumber from 'src/components/InputNumber'
 import { useForm, Controller } from 'react-hook-form'
 import { schema } from 'src/utils/ruleValidateForm'
 import { yupResolver } from '@hookform/resolvers/yup'
-import RatingStarts from 'src/components/RatingStarts'
 import omit from 'lodash/omit'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 // import InputV2 from 'src/components/InputV2(New)'
@@ -70,7 +69,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
   const hanldeRemoveAll = () => {
     navigate({
       pathname: path.home,
-      search: createSearchParams(omit(queryConfig, ['rating_filter', 'price_min', 'price_max', 'category'])).toString()
+      search: createSearchParams(omit(queryConfig, ['price_min', 'price_max', 'category'])).toString()
     })
   }
   return (
@@ -223,8 +222,8 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
         </form>
       </div>
       <div className='my-4 h-[1px] bg-gray-300' />
-      <span className='flex-shrink-0 text-[8px] font-bold capitalize md:text-sm lg:text-lg'>Áp Dụng</span>
-      <RatingStarts queryConfig={queryConfig} />
+      {/* <span className='flex-shrink-0 text-[8px] font-bold capitalize md:text-sm lg:text-lg'>Áp Dụng</span> */}
+      {/* <RatingStarts queryConfig={queryConfig} /> */}
       <div className='my-4 h-[1px] bg-gray-300' />
       <Button
         className='flex w-full items-center justify-center rounded-sm bg-orange px-1 py-2 text-[8px] capitalize text-white shadow-sm

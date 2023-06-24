@@ -48,7 +48,7 @@ export default function PopHover({ children, renderPopHover, className, placemen
             >
               <span
                 ref={arrowRef}
-                className='absolute z-10 -translate-y-full border-[11px] border-x-transparent border-b-white border-t-transparent'
+                className='absolute z-20 -translate-y-full border-[11px] border-x-transparent border-b-white border-t-transparent'
                 style={{
                   left: middlewareData.arrow?.x,
                   top: middlewareData.arrow?.y

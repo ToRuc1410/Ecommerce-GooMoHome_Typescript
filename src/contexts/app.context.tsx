@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react'
-import { extendedPurchases } from 'src/types/purchase.type'
+import { checkedPurchases, extendedPurchases } from 'src/types/purchase.type'
 import { User } from 'src/types/user.type'
 import { getAccessTokenFromLS, getProfileUserFromLS } from 'src/utils/auth'
 
@@ -11,6 +11,8 @@ interface AppContextType {
   extendedPurchases: extendedPurchases[]
   setExtendedPurchases: React.Dispatch<React.SetStateAction<extendedPurchases[]>>
   reset: () => void
+  dataPurchase: checkedPurchases[]
+  setDataPurchase: React.Dispatch<React.SetStateAction<checkedPurchases[]>>
 }
 //=======================Context là nơi truyền props xuống những components con cháu cho nó bọc component<App>================
 // init giá tri mặc định
@@ -21,7 +23,9 @@ const initialAppContext: AppContextType = {
   setProfile: () => null,
   extendedPurchases: [],
   setExtendedPurchases: () => null,
-  reset: () => null
+  reset: () => null,
+  dataPurchase: [],
+  setDataPurchase: () => null
 }
 
 //Nếu sử dụng hàm thì nó sẽ có giá tri mặc định ở trên
@@ -31,9 +35,10 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(initialAppContext.isAuthenticated)
   const [profile, setProfile] = useState<User | null>(initialAppContext.profile)
   const [extendedPurchases, setExtendedPurchases] = useState<extendedPurchases[]>(initialAppContext.extendedPurchases)
+  const [dataPurchase, setDataPurchase] = useState<checkedPurchases[]>(initialAppContext.dataPurchase)
 
   const reset = () => {
-    setIsAuthenticated(false), setProfile(null), setExtendedPurchases([])
+    setIsAuthenticated(false), setProfile(null), setExtendedPurchases([]), setDataPurchase([])
   }
 
   return (
@@ -45,6 +50,8 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         setProfile,
         extendedPurchases,
         setExtendedPurchases,
+        dataPurchase,
+        setDataPurchase,
         reset
       }}
     >

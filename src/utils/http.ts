@@ -13,7 +13,7 @@ import {
 } from './auth'
 import config from 'src/constants/config'
 import { URL_LOGIN, URL_LOGOUT, URL_REFRESH_TOKEN, URL_REGISTER } from 'src/apis/auth.api'
-import { isAxiosExpiredTokenError, isAxiosUnauthorizedError } from './utilsErrForm'
+import { isAxiosUnauthorizedError } from './utilsErrForm'
 import { ErrorResponse } from 'src/types/utils.type'
 
 class Http {
@@ -27,11 +27,13 @@ class Http {
     this.refreshTokenRequest = null
     this.instance = axios.create({
       baseURL: config.baseURL,
-      timeout: 10000,
+      // timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
-        'expire-access-token': 60 * 60 * 24, // 1 ngày
-        'expire-refresh-token': 60 * 60 * 24 * 30 // 30 ngày
+        token: '2ec40450-0f6b-11ee-a967-deea53ba3605',
+        shop_id: '4263310'
+        // 'expire-access-token': 60 * 60 * 24, // 1 ngày
+        // 'expire-refresh-token': 60 * 60 * 24 * 30 // 30 ngày
       }
     })
 
@@ -77,7 +79,9 @@ class Http {
         // Và chỉ toast những lỗi không phải 422 và 401
 
         if (
-          ![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized].includes(error.response?.status as number)
+          ![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized, HttpStatusCode.BadRequest].includes(
+            error.response?.status as number
+          )
         ) {
           const data: any | undefined = error.response?.data
           const message = data?.message || 'Máy chủ đang quá tải vui lòng thử lại sau'
@@ -92,7 +96,7 @@ class Http {
           const { url } = config
           //Trường hợp: - lỗi do Token hết hạn và request đó k phải là request refesh token
           // thì ta mới tiên hành gọi refesh token
-          if (isAxiosExpiredTokenError(error) && url !== URL_REFRESH_TOKEN) {
+          if (url !== URL_REFRESH_TOKEN) {
             // thì chúng ta sẽ tiến hành gọi lại refesh token
             // Hạn chế gọi 2 lần handleRefreshToken
             this.refreshTokenRequest = this.refreshTokenRequest
@@ -128,6 +132,7 @@ class Http {
         })
         // refresh_token thành công
         .then((res) => {
+          console.log(res)
           const { access_token } = res.data.data
           setAccessTokenToLS(access_token)
           this.accessToken = access_token
@@ -135,6 +140,7 @@ class Http {
         })
         // refresh_token thất bại thì cho nó logout và ném lỗi ra
         .catch((error) => {
+          console.log(error)
           clearLS()
           this.accessToken = ''
           this.refreshToken = ''

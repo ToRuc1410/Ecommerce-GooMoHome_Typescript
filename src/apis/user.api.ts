@@ -15,7 +15,8 @@ const userAPI = {
     return http.put<SuccessResponse<User>>('user', body)
   },
   uploadAvatar(body: FormData) {
-    return http.post<SuccessResponse<string>>('user/upload-avatar', body, {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return http.post<SuccessResponse<any>>('user/upload-avatar', body, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

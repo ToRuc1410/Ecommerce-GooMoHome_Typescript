@@ -104,7 +104,18 @@ export const schema = yup.object({
     message: 'Giá Không Phù Hợp',
     test: testPriceMinMax
   }),
-  searchProduct: yup.string().trim().required()
+  searchProduct: yup.string().trim().required(),
+  name: yup.string().required('Tên là bắt buộc'),
+  phone: yup
+    .string()
+    .required('Nhập Số Điện Thoại')
+    .matches(/^[0-9]{10}$/, 'Số điện thoại không hợp lệ'),
+  address: yup.string().required('Nhập địa chỉ cụ thể'),
+  optionAddress1: yup.string().required('Vui lòng chọn một giá trị.'),
+  optionAddress2: yup.string().required('Vui lòng chọn một giá trị.'),
+  optionAddress3: yup.string().required('Vui lòng chọn một giá trị.'),
+  shippingOption: yup.string().required('Vui lòng chọn một giá trị.'),
+  message: yup.string().optional()
 })
 
 export const userSchema = yup.object({

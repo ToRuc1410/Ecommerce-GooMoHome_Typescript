@@ -1,5 +1,5 @@
 // Method: GET Query Params: status: Trạng thái đơn hàng
-
+import { detailPurchase } from './detailPurchase.type'
 import { Product } from './product.type'
 
 // Thông tin status:
@@ -11,11 +11,15 @@ import { Product } from './product.type'
 // 3: Sản phẩm đang vận chuyển
 // 4: San phẩm đã được giao
 // 5: Sản phẩm đã bị hủy
-export type PurchaseStatus = -1 | 1 | 2 | 3 | 4 | 5
+export type PurchaseStatus = -1 | 1
 
-export type PurchaseListStatus = PurchaseStatus | 0
+export type PurchaseListStatus = PurchaseStatus
+
+export type OrderDetailListStatus = 0 | 1 | 2 | 3 | 4 | 5
 
 export interface Purchase {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  detailPurchase: detailPurchase[]
   _id: string
   buy_count: number
   price: number
@@ -26,7 +30,10 @@ export interface Purchase {
   createdAt: string
   updatedAt: string
 }
-
+export type checkedPurchases = {
+  product: Product
+  buy_count: number
+}
 export interface extendedPurchases extends Purchase {
   disabled: boolean
   checked: boolean

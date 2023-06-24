@@ -12,6 +12,7 @@ import { useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import Button from 'src/components/Button'
 import path from 'src/constants/path'
+import { toast } from 'react-toastify'
 
 type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>
 const registerSchema = schema.pick(['email', 'password', 'confirm_password'])
@@ -22,7 +23,6 @@ export default function Register() {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors }
   } = useForm<FormData>({
     resolver: yupResolver(registerSchema)
@@ -31,41 +31,52 @@ export default function Register() {
   const registerAccountMutation = useMutation({
     mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.registerAccount(body)
   })
-  const handleOnSubmit = handleSubmit((data) => {
+  const handleOnSubmit = handleSubmit(async (data) => {
     // loại bỏ trường confirm_password
+    console.log(data)
     const body = omit(data, ['confirm_password'])
-    registerAccountMutation.mutate(body, {
-      // nếu thành công thì:
-      onSuccess: (data) => {
-        // nếu thành công thì set nó thành setIsAuthenticated=true và vào mainlayout
+
+    try {
+      const res = await registerAccountMutation.mutateAsync(body)
+      if (res) {
+        console.log(res)
         setIsAuthenticated(true)
         // và setProfile data User vào localStorage
-        setProfile(data.data.data.user)
+        setProfile(res.data.data.user)
         navigate(path.home)
-      },
-      onError: (error) => {
-        if (isAxiosStatusCodeError<ErrorResponse<Omit<FormData, 'confirm_password'>>>(error)) {
-          const formError = error.response?.data.data
-          // nếu là 1 FormDataError thì nên dùng forEach để set cho từng keyError
-          if (formError) {
-            Object.keys(formError).forEach((key) => {
-              // convert from Object formError to key
-              setError(key as keyof Omit<FormData, 'confirm_password'>, {
-                message: formError[key as keyof Omit<FormData, 'confirm_password'>],
-                type: 'Server'
-              })
-            })
-          }
-        }
+        toast.success(res.data.message, {
+          position: 'top-center',
+          autoClose: 1000
+        })
       }
-    })
+    } catch (error) {
+      console.log(error)
+      if (isAxiosStatusCodeError<ErrorResponse<FormData>>(error)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const formError: any = error.response?.data?.data
+        toast.error(formError?.message)
+        // nếu là 1 FormDataError thì nên dùng forEach để set cho từng keyError
+      }
+    }
   })
 
   return (
     <div className='bg-orange'>
       <div className='container'>
-        <div className='grid grid-cols-1 py-5 lg:grid-cols-5 lg:py-32 lg:pr-10'>
-          <div className='lg:col-span-2 lg:col-start-4'>
+        <div className='grid grid-cols-1 py-5 lg:grid-cols-12 lg:py-32 '>
+          <div className='lg:col-span-7'>
+            <div className='rounded-sm lg:flex lg:flex-col'>
+              <img
+                src='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=819.000032544136,fit=crop/YbNbPPqn2EfwxjP7/chat-hon-to-cu-1-png-m7V2704oB7HDV1b2.png'
+                alt=''
+                className='ml-28 h-32 w-32 rounded-full bg-white object-contain lg:ml-52 lg:mt-5 lg:h-80 lg:w-80 lg:p-10'
+              />
+              <h2 className='ml-20 mr-24 mt-3 flex-shrink-0 border-b-2 border-t-2 border-gray-200 px-10 py-4 pt-4 text-[8px] text-gray-100 lg:ml-36 lg:text-lg'>
+                THIẾT KẾ NỘI THẤT DECOR TRANG TRÍ NHÀ CỬA
+              </h2>
+            </div>
+          </div>
+          <div className='lg:col-span-5 '>
             <form className='m-4 rounded bg-white p-10 shadow-lg' onSubmit={handleOnSubmit} noValidate>
               <div className='text-2xl'>Đăng ký</div>
               <Input

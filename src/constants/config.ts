@@ -1,5 +1,5 @@
 const config = {
-  baseURL: 'https://api-ecom.duthanhduoc.com/',
+  baseURL: 'http://localhost:4000/',
   maxSizeUpload: 1048576
 }
 export default config

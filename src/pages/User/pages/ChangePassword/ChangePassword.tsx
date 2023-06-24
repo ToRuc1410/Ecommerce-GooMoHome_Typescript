@@ -17,7 +17,6 @@ export default function ChangePassword() {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
     reset
   } = useForm<FormData>({
@@ -33,25 +32,27 @@ export default function ChangePassword() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const res = await updateMutation.mutateAsync(omit(data, ['confirm_password']))
-
-      toast.success(res.data.message, {
-        position: 'top-center',
-        autoClose: 1000
-      })
-      reset()
+      if (res) {
+        toast.success(res.data.message, {
+          position: 'top-center',
+          autoClose: 1000
+        })
+        reset()
+      }
     } catch (error) {
       if (isAxiosStatusCodeError<ErrorResponse<FormData>>(error)) {
-        const formError = error.response?.data.data
+        const formError = error.response?.data.message
+        toast.error(formError)
         // nếu là 1 FormDataError thì nên dùng forEach để set cho từng keyError
-        if (formError) {
-          Object.keys(formError).forEach((key) => {
-            // convert from Object formError to key
-            setError(key as keyof FormData, {
-              message: formError[key as keyof FormData],
-              type: 'Server'
-            })
-          })
-        }
+        // if (formError) {
+        //   Object.keys(formError).forEach((key) => {
+        //     // convert from Object formError to key
+        //     setError(key as keyof FormData, {
+        //       message: formError[key as keyof FormData],
+        //       type: 'Server'
+        //     })
+        //   })
+        // }
       }
     }
   })

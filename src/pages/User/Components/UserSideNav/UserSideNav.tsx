@@ -64,7 +64,7 @@ export default function UserSideNav() {
           <div className=''>Tài khoảng của tôi</div>
         </NavLink>
         <NavLink
-          to={path.historyPurchase}
+          to={path.orderDetail}
           className={({ isActive }) =>
             classNames('my-3 flex items-center capitalize transition-colors hover:text-orange lg:my-6', {
               'text-orange': isActive,

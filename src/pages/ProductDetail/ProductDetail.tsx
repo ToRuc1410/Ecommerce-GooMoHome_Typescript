@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import DOMPurify from 'dompurify'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import { toast } from 'react-toastify'
@@ -13,8 +13,10 @@ import QuantityProduct from 'src/components/QuantityProduct'
 import purchasesAPI from 'src/apis/purchase.api'
 import { purchasesStatus } from 'src/constants/purchaseStatus'
 import path from 'src/constants/path'
+import { AppContext } from 'src/contexts/app.context'
 
 export default function ProductDetail() {
+  const { isAuthenticated } = useContext(AppContext)
   const [buyCount, setBuyCount] = useState(1)
   const { nameId } = useParams()
   const id = getIdFromURLNameAndId(nameId as string)
@@ -34,8 +36,10 @@ export default function ProductDetail() {
   )
 
   // get All Products
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const category = product?.category as any
   const queryConfig: ProductConfig = {
-    category: product?.category._id
+    category: category
   }
   const { data: ProductsData } = useQuery({
     queryKey: ['products', queryConfig],
@@ -46,6 +50,25 @@ export default function ProductDetail() {
     enabled: Boolean(product),
     staleTime: 3 * 60 * 1000
   })
+
+  const postProductViewMutations = useMutation(productApi.postProductView)
+  useEffect(() => {
+    // Gửi yêu cầu tăng số lượt xem khi component được tạo
+
+    try {
+      postProductViewMutations.mutate(
+        { id: id },
+        {
+          onSuccess: (data) => {
+            console.log(data)
+          }
+        }
+      )
+    } catch (error) {
+      console.error('Lỗi khi tăng số lượt xem:', error)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id])
 
   // post Api Product_id and buy_count
   const addToCartMutations = useMutation(purchasesAPI.addToCart)
@@ -93,26 +116,44 @@ export default function ProductDetail() {
   }
 
   const addToCart = () => {
-    addToCartMutations.mutate(
-      { buy_count: buyCount, product_id: product?._id as string },
-      {
-        onSuccess: (data) => {
-          toast.success(data.data.message, { autoClose: 1000 })
-          //queryClient.invalidateQueries được sử dụng để làm mới lại (invalidate) các truy vấn đã được lưu trữ trong queryClient.
-          queryClient.invalidateQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
+    if (isAuthenticated) {
+      addToCartMutations.mutate(
+        { buy_count: buyCount, product_id: product?._id as string },
+        {
+          onSuccess: (data) => {
+            toast.success(data.data.message, { position: 'top-center', autoClose: 2000 })
+            //queryClient.invalidateQueries được sử dụng để làm mới lại (invalidate) các truy vấn đã được lưu trữ trong queryClient.
+            queryClient.invalidateQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
+          }
         }
-      }
-    )
+      )
+    } else {
+      toast.error('Bạn vui lòng đăng nhập trước khi mua hàng', {
+        position: 'top-center',
+        autoClose: 3000
+      })
+      navigate(path.login)
+      // setDataPurchasesFromLS({ buy_count: buyCount, product: product as Product })
+      // console.log(getDataPurchasesFromLS())
+    }
   }
 
   const buyNow = async () => {
-    const res = await addToCartMutations.mutateAsync({ buy_count: buyCount, product_id: product?._id as string })
-    const purchase = res.data.data
-    navigate(path.cart, {
-      state: {
-        purchaseId: purchase._id
-      }
-    })
+    if (isAuthenticated) {
+      const res = await addToCartMutations.mutateAsync({ buy_count: buyCount, product_id: product?._id as string })
+      const purchase = res.data.data
+      navigate(path.cart, {
+        state: {
+          purchaseId: purchase._id
+        }
+      })
+    } else {
+      toast.error('Bạn vui lòng đăng nhập trước khi mua hàng', {
+        position: 'top-center',
+        autoClose: 3000
+      })
+      navigate(path.login)
+    }
   }
   if (!product) return null
   return (
@@ -130,7 +171,7 @@ export default function ProductDetail() {
                   onMouseLeave={hanldeRemoveStyleImg}
                 >
                   <img
-                    src={activeImg}
+                    src={activeImg || product.image}
                     alt={product.name}
                     className='pointer-events-none absolute left-0 top-0 h-full w-full rounded-sm bg-white object-cover outline-none'
                     ref={imgRef}
@@ -200,7 +241,7 @@ export default function ProductDetail() {
                   <span className='mr-1 border-b border-gray-500'>{product.rating}</span>
                   <span>
                     <ProductRating
-                      rating={product.rating}
+                      rating={product.rating || 0}
                       activeClassName='fill-orange text-orange h-2 w-2 lg:h-5 md:h-3 lg:w-5 md:w-3'
                       noneActiveClassName='fill-gray-300 text-gray-300 h-2 w-2 lg:h-5 md:h-3 lg:w-5 md:w-3'
                     />
@@ -208,23 +249,29 @@ export default function ProductDetail() {
                 </div>
                 <div className=' mx-2 h-4 w-[1px] bg-gray-400 lg:mx-4' />
                 <div>
-                  <p className=' text-gray-500'>{formatNumberToSocialStyle(product.sold)} Đã bán</p>
+                  <p className=' text-gray-500'>{formatNumberToSocialStyle(product.sold || 0)} Đã bán</p>
                 </div>
               </div>
               {/* Giá */}
               <div className='mt-3 flex-shrink-0 flex-col items-center bg-gray-100 px-1 py-2 lg:pl-3'>
-                <div className='mb-1 w-6 rounded-sm bg-orange p-1 text-[4px] text-white/80 md:w-8 md:text-[6px] lg:w-16 lg:text-xs'>
-                  {rateSale(product.price_before_discount, product.price)}
-                  <span> giảm</span>
-                </div>
-                <div className='flex'>
-                  <div className='text-[8px] text-gray-500 line-through md:text-sm lg:pt-2 lg:text-lg'>
-                    <span>₫</span>
-                    <span>{formatCurrency(product.price_before_discount)}</span>
+                {product.price !== 0 && (
+                  <div className='mb-1 w-6 rounded-sm bg-orange p-1 text-[4px] text-white/80 md:w-8 md:text-[6px] lg:w-16 lg:text-xs'>
+                    {rateSale(product.price_before_discount, product.price)}
+                    <span> giảm</span>
                   </div>
+                )}
+                <div className='flex'>
+                  {product.price === 0 ? (
+                    <></>
+                  ) : (
+                    <div className='text-[8px] text-gray-500 line-through md:text-sm lg:pt-2 lg:text-lg'>
+                      <span>₫</span>
+                      <span>{formatCurrency(product.price_before_discount)}</span>
+                    </div>
+                  )}
                   <div className='mx-1 font-sans text-[10px] text-orange md:mx-2 md:text-[18px] lg:ml-4 lg:pb-2 lg:text-3xl'>
                     <span>₫</span>
-                    <span>{formatCurrency(product.price)}</span>
+                    <span>{formatCurrency(product.price !== 0 ? product.price : product.price_before_discount)}</span>
                   </div>
                 </div>
               </div>
@@ -268,18 +315,31 @@ export default function ProductDetail() {
                   Mua ngay
                 </button>
               </div>
+
+              <div className='py-2 text-[10px] md:text-sm lg:text-sm'>
+                <span className='font-bold uppercase lg:ml-12'>Chi Tiết Đơn Hàng</span>
+                <div className='py-2'>
+                  <div className='py-1'>Dài x Rộng: {`${product.length}cm x ${product.width}cm `}</div>
+                  <div className='py-1'>Cao: {product.height}cm</div>
+                  <div className='py-1'>Nặng: {product.weight}gram</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <div className='mt-8 bg-white p-4 shadow'>
         <div className='container'>
           <div className='rounded bg-gray-100 p-4 text-[10px] capitalize text-slate-700 md:text-sm lg:text-lg'>
             Mô tả sản phẩm
           </div>
-          <div className='mx-4 mb-4 mt-4 text-[10px] leading-tight md:mt-6 md:text-sm lg:mt-8 lg:text-sm'>
+          <div className='mx-4 mb-4 mt-4 text-[10px] md:mt-6 md:text-sm lg:mt-8 lg:text-sm'>
             {/* truyển description dạng html sang văn bản */}
-            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product.description) }} />
+            <div
+              className='leading-loose'
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product.descriptionHTML) }}
+            />
           </div>
         </div>
       </div>

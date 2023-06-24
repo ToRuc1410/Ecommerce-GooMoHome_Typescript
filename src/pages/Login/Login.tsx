@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import authApi from 'src/apis/auth.api'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
@@ -18,7 +19,6 @@ export default function Login() {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
   const {
-    setError,
     register,
     handleSubmit,
     formState: { errors }
@@ -41,26 +41,30 @@ export default function Login() {
       },
       onError: (error) => {
         if (isAxiosStatusCodeError<ErrorResponse<FormData>>(error)) {
-          const formError = error.response?.data.data
-          // nếu là 1 FormDataError thì nên dùng forEach để set cho từng keyError
-          if (formError) {
-            Object.keys(formError).forEach((key) => {
-              // convert from Object formError to key
-              setError(key as keyof FormData, {
-                message: formError[key as keyof FormData],
-                type: 'Server'
-              })
-            })
-          }
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const formError: any = error.response?.data.message
+          toast.error(formError.message)
         }
       }
     })
   })
   return (
-    <div className='bg-orange'>
+    <div className='bg-orange '>
       <div className='container'>
-        <div className='grid grid-cols-1 py-5 lg:grid-cols-5 lg:py-32 lg:pr-10'>
-          <div className='lg:col-span-2 lg:col-start-4'>
+        <div className='grid grid-cols-1 py-5 lg:grid-cols-12 lg:py-32 '>
+          <div className='lg:col-span-7'>
+            <div className='lg:flex lg:flex-col'>
+              <img
+                src='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=819.000032544136,fit=crop/YbNbPPqn2EfwxjP7/chat-hon-to-cu-1-png-m7V2704oB7HDV1b2.png'
+                alt=''
+                className='ml-28 h-32 w-32 rounded-full bg-white object-contain lg:ml-52 lg:mt-5 lg:h-80 lg:w-80 lg:p-10'
+              />
+              <h2 className='ml-20 mr-24 mt-3 flex-shrink-0 border-b-2 border-t-2 border-gray-200 px-10 py-4 pt-4 text-[8px] text-gray-100 lg:ml-36 lg:text-lg'>
+                THIẾT KẾ NỘI THẤT DECOR TRANG TRÍ NHÀ CỬA
+              </h2>
+            </div>
+          </div>
+          <div className='lg:col-span-5 '>
             <form className='m-4 rounded bg-white p-10 shadow-lg' onSubmit={handleOnSubmit} noValidate>
               <div className='text-2xl'>Đăng nhập</div>
               <Input

@@ -9,6 +9,9 @@ const productApi = {
   },
   getProductDetail(id: string) {
     return http.get<SuccessResponse<Product>>(`${path.products}/${id}`)
+  },
+  postProductView(body: { id: string }) {
+    return http.put<SuccessResponse<string>>(`${path.products}`, body)
   }
 }
 export default productApi

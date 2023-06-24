@@ -2,9 +2,8 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { produce } from 'immer'
 import keyBy from 'lodash/keyBy'
 import { useContext, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import purchasesAPI from 'src/apis/purchase.api'
-import Button from 'src/components/Button'
 import QuantityProduct from 'src/components/QuantityProduct'
 import path from 'src/constants/path'
 import { purchasesStatus } from 'src/constants/purchaseStatus'
@@ -13,13 +12,14 @@ import { Purchase } from 'src/types/purchase.type'
 import { generateURLNameAndId, formatCurrency } from 'src/utils/FuncFormat'
 import noproduct from 'src/assets/img_cart/noCart.png'
 import { toast } from 'react-toastify'
+import Button from 'src/components/Button'
 
 export default function Cart() {
   // Make 1 listPurchase quản lý bởi localAppContext khi ng dùng check items(products)
-  const { extendedPurchases, setExtendedPurchases } = useContext(AppContext)
+  const { extendedPurchases, setExtendedPurchases, setDataPurchase } = useContext(AppContext)
   const checkedPurchase = extendedPurchases.filter((purchase) => purchase.checked)
   const checkedPurchaseCount = checkedPurchase.length
-
+  const navigate = useNavigate()
   const location = useLocation()
   const getPurchaseIdFromCart = (location.state as { purchaseId: string } | null)?.purchaseId
 
@@ -38,17 +38,6 @@ export default function Cart() {
     }
   })
 
-  const buyProductsMutation = useMutation({
-    mutationFn: purchasesAPI.buyProducts,
-    onSuccess: (data) => {
-      refetch()
-      toast.success(data.data.message, {
-        position: 'top-center',
-        autoClose: 1000
-      })
-    }
-  })
-
   const deletePurchasesMutation = useMutation({
     mutationFn: purchasesAPI.deletePurchase,
     onSuccess: () => {
@@ -58,12 +47,20 @@ export default function Cart() {
 
   // lấy tất cả giá của sp dc checked
   const totalPriceOnChecked = checkedPurchase.reduce((result, current) => {
-    return result + current.product.price * current.buy_count
+    return (
+      result +
+      (current.product.price !== 0 ? current.product.price : current.product.price_before_discount) * current.buy_count
+    )
   }, 0)
 
   // lấy tất cả giá tiết kiệm
   const totalPriceSavingChecked = checkedPurchase.reduce((result, current) => {
-    return result + (current.product.price_before_discount - current.product.price) * current.buy_count
+    return (
+      result +
+      (current.product.price_before_discount -
+        (current.product.price !== 0 ? current.product.price : current.product.price_before_discount)) *
+        current.buy_count
+    )
   }, 0)
 
   // CheckedAll này khi người dùng chọn từng product cho đến khi hết sản phẩm trong Cart thì mới = true
@@ -113,12 +110,30 @@ export default function Cart() {
   // delete 1 purchase
   const handleDelete = (purchaseIndex: number) => () => {
     const purchase = extendedPurchases[purchaseIndex]._id
-    deletePurchasesMutation.mutate([purchase])
+    console.log(purchase)
+    deletePurchasesMutation.mutate([purchase], {
+      // nếu thành công thì:
+      onSuccess: (data) => {
+        toast.success(data.data.message, {
+          position: 'top-center',
+          autoClose: 2000
+        })
+      }
+    })
   }
+
   // delete nhiều purchases
   const handleDeleteManyPurchases = () => {
     const purchaseIds = checkedPurchase.map((purchase) => purchase._id)
-    deletePurchasesMutation.mutate(purchaseIds)
+    deletePurchasesMutation.mutate(purchaseIds, {
+      // nếu thành công thì:
+      onSuccess: (data) => {
+        toast.success(data.data.message, {
+          position: 'top-center',
+          autoClose: 2000
+        })
+      }
+    })
   }
 
   const handleQuantity = (purchaseIndex: number, value: number, enable: boolean) => {
@@ -142,13 +157,20 @@ export default function Cart() {
   }
 
   const handleBuyPurchases = () => {
-    if (checkedPurchase.length > 0) {
-      const body = checkedPurchase.map((purchase) => ({
-        product_id: purchase.product._id,
-        buy_count: purchase.buy_count
-      }))
-      buyProductsMutation.mutate(body)
+    if (checkedPurchase.length === 0) {
+      toast.error('Bạn vui lòng chọn sản phẩm để mua.', {
+        position: 'top-center',
+        autoClose: 2000
+      })
     }
+    const body = checkedPurchase.map((purchase) => ({
+      product: purchase.product,
+      buy_count: purchase.buy_count
+    }))
+    setDataPurchase(body)
+    navigate(path.checkout)
+    // console.log(body)
+    // buyProductsMutation.mutate(body)
   }
 
   return (
@@ -206,9 +228,13 @@ export default function Cart() {
                                   name: purchase.product.name,
                                   id: purchase.product._id
                                 })}`}
-                                className='w-25 h-25 md:h-40 md:w-40 lg:h-40 lg:w-40'
+                                className='h-14 w-14 md:h-40 md:w-40 lg:h-40 lg:w-40'
                               >
-                                <img src={purchase.product.image} alt={purchase.product.name} />
+                                <img
+                                  className='h-14 w-14 object-cover md:h-40 md:w-40 lg:h-40 lg:w-40'
+                                  src={purchase.product.image}
+                                  alt={purchase.product.name}
+                                />
                               </Link>
                               <div className='px-2 pb-2 pt-1'>
                                 <Link
@@ -230,10 +256,21 @@ export default function Cart() {
                       <div className='grid grid-cols-4 items-center lg:grid-cols-5'>
                         <div className='col-span-1 md:col-span-1 lg:col-span-2'>
                           <div className='flex flex-wrap items-center justify-center  lg:items-start lg:justify-center'>
-                            <div className='text-gray-400 line-through'>
-                              ₫{formatCurrency(purchase.product.price_before_discount)}
+                            {purchase.product.price === 0 ? (
+                              <></>
+                            ) : (
+                              <div className='text-gray-400 line-through'>
+                                ₫{formatCurrency(purchase.product.price_before_discount)}
+                              </div>
+                            )}
+                            <div className='ml-1 text-gray-700 lg:ml-3 '>
+                              ₫
+                              {formatCurrency(
+                                purchase.product.price === 0
+                                  ? purchase.product.price_before_discount
+                                  : purchase.product.price
+                              )}
                             </div>
-                            <div className='ml-1 text-gray-700 lg:ml-3 '>₫{formatCurrency(purchase.product.price)}</div>
                           </div>
                         </div>
                         <div className='col-span-1'>
@@ -258,7 +295,12 @@ export default function Cart() {
                         </div>
                         <div className='col-span-1'>
                           <div className='ml-1 flex items-start justify-start text-orange'>
-                            ₫{formatCurrency(purchase.product.price * purchase.buy_count)}
+                            ₫
+                            {formatCurrency(
+                              (purchase.product.price !== 0
+                                ? purchase.product.price
+                                : purchase.product.price_before_discount) * purchase.buy_count
+                            )}
                           </div>
                         </div>
                         <div className='col-span-1'>
@@ -307,12 +349,18 @@ export default function Cart() {
                     </div>
                   </div>
                 </div>
-                <Button
-                  className='w-50 ml-2 flex h-10 items-center justify-center bg-orange px-3 text-[7px] capitalize text-white hover:bg-orange/70 md:text-sm lg:mx-5 lg:px-5 lg:text-sm'
-                  onClick={handleBuyPurchases}
-                >
-                  Mua hàng
-                </Button>
+                {checkedPurchaseCount === 0 ? (
+                  <Button className='w-50 ml-2 flex h-10 cursor-not-allowed  items-center justify-center bg-orange px-3 text-[7px] capitalize text-white hover:bg-orange/70 md:text-sm lg:mx-5 lg:px-5 lg:text-sm'>
+                    Mua hàng
+                  </Button>
+                ) : (
+                  <Button
+                    className='w-50 ml-2 flex h-10  items-center justify-center bg-orange px-3 text-[7px] capitalize text-white hover:bg-orange/70 md:text-sm lg:mx-5 lg:px-5 lg:text-sm'
+                    onClick={handleBuyPurchases}
+                  >
+                    Mua hàng
+                  </Button>
+                )}
               </div>
             </div>
           </>
