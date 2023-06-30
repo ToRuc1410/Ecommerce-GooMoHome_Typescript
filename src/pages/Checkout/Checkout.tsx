@@ -306,17 +306,6 @@ export default function Checkout() {
     }
   }, [totalPrice, selectedDistrict, selectedWard, calculateWeight, resultData, selectedService, data])
   const afterTotalPrice = data + totalPrice
-
-  // const hanldleGetService = (e: any) => setSelectedService(e.target.id)
-  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // const handleChooseDistrict = (e: any) => {
-  //   setResDistrict(e)
-  // }
-  // console.log(resultData)
-  // console.log('calculateWeight', calculateWeight)
-  // console.log(data)
-  // console.log(selectedService)
-
   return (
     <div className='border-b-4 border-b-orange bg-gray-100'>
       <div className='container'>

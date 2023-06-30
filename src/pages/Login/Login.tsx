@@ -53,7 +53,7 @@ export default function Login() {
       <div className='container'>
         <div className='grid grid-cols-1 py-5 lg:grid-cols-12 lg:py-32 '>
           <div className='lg:col-span-7'>
-            <div className='lg:flex lg:flex-col'>
+            <div className=' lg:flex lg:flex-col'>
               <img
                 src='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=819.000032544136,fit=crop/YbNbPPqn2EfwxjP7/chat-hon-to-cu-1-png-m7V2704oB7HDV1b2.png'
                 alt=''
@@ -95,11 +95,18 @@ export default function Login() {
                   Đăng nhập
                 </Button>
               </div>
-              <div className='mt-5 flex items-center justify-center'>
-                <span className='text-gray-400'>Bạn mới biết GooHome?</span>
-                <Link className='px-1 text-red-600' to={path.register}>
-                  Đăng ký
-                </Link>
+              <div className='mt-5 flex justify-between py-2'>
+                <div className='text-xs md:text-sm lg:text-sm'>
+                  <span className='text-gray-400'>Bạn mới biết GooHome?</span>
+                  <Link className='px-5 text-red-600 md:px-1 lg:px-1' to={path.register}>
+                    Đăng ký
+                  </Link>
+                </div>
+                <div className='text-xs md:text-sm lg:text-sm'>
+                  <Link className='text-blue-500' to={path.forgotPassWord}>
+                    Quên Mật Khẩu
+                  </Link>
+                </div>
               </div>
             </form>
           </div>

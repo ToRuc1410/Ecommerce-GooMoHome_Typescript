@@ -8,9 +8,14 @@ const path = {
   register: '/register',
   logout: '/logout',
   products: '/products',
+  cs1: '/chinh-sach-bao-hanh',
+  cs2: '/chinh-sach-bao-mat-thong-tin',
+  cs3: '/chinh-sach-doi-tra-hoan-tien',
   productDetail: ':nameId',
   cart: '/cart',
   checkout: '/checkout',
-  orderDetail: '/user/order-detail'
+  orderDetail: '/user/order-detail',
+  forgotPassWord: '/forgot-password',
+  resetPassword: '/reset-password/:tokenPassword'
 } as const
 export default path

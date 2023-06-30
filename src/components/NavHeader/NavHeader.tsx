@@ -7,14 +7,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import authApi from 'src/apis/auth.api'
 import { purchasesStatus } from 'src/constants/purchaseStatus'
 import { getAvatarUrl } from 'src/utils/FuncFormat'
-import { useTranslation } from 'react-i18next'
-import { locales } from 'src/i18n/i18n'
 
 export default function NavHeader() {
-  const { i18n } = useTranslation()
-  // ép kiểu as keyof typeof locales
-  const currentLanguage = locales[i18n.language as keyof typeof locales]
-
   const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
   const queryClient = useQueryClient()
   // gọi API Logout và xóa đi giỏ hàng trong Cart
@@ -32,22 +26,22 @@ export default function NavHeader() {
     logoutMutation.mutate()
   }
 
-  const changeLanguages = (lng: 'vi' | 'en') => () => {
-    i18n.changeLanguage(lng)
-  }
   return (
-    <div className='flex flex-wrap justify-end text-[10px] capitalize md:text-sm lg:text-[18px]'>
+    <div className='flex flex-wrap justify-end text-[10px] capitalize md:text-sm lg:text-sm'>
       <PopHover
         className='ml-6 flex cursor-pointer items-center hover:text-white/70'
         renderPopHover={
           <div className='relative rounded-md border border-gray-200 bg-white text-[8px] capitalize shadow-lg md:text-sm lg:text-sm'>
-            <div className='flex flex-col py-1 pl-2 pr-28'>
-              <button className='px-4 py-2 hover:text-orange' onClick={changeLanguages('vi')}>
-                Tiếng Việt
-              </button>
-              <button className='mt-2 px-4 py-2 hover:text-orange' onClick={changeLanguages('en')}>
-                EngLish
-              </button>
+            <div className=' flex flex-col py-1 pl-2 pr-6'>
+              <Link to={path.cs1} className=' py-2 hover:text-orange'>
+                Chính sách bảo hành
+              </Link>
+              <Link to={path.cs2} className='mt-2  py-2 hover:text-orange'>
+                Chính sách bảo mật thông tin
+              </Link>
+              <Link to={path.cs3} className='mt-2  py-2 hover:text-orange'>
+                Chính sách đổi trả hoàn tiền
+              </Link>
             </div>
           </div>
         }
@@ -66,7 +60,7 @@ export default function NavHeader() {
             d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
           />
         </svg>
-        <span className='mx-1 text-sm lg:text-[18px]'>{currentLanguage}</span>
+        <span className='mx-1 text-sm lg:text-sm'>Chính Sách</span>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
@@ -81,7 +75,7 @@ export default function NavHeader() {
       {/* nếu đăng nhập hay đăng kí thành công mới cho hiện tài khoảng  */}
       {isAuthenticated && (
         <PopHover
-          className='mx-3 ml-6 flex cursor-pointer items-center py-3 hover:text-white/70 '
+          className='mx-3 ml-6 flex cursor-pointer items-center hover:text-white/70 '
           renderPopHover={
             <div className='relative rounded-md border border-gray-200 bg-white text-[8px]  capitalize  shadow-lg md:text-sm lg:text-sm'>
               <Link
@@ -117,7 +111,7 @@ export default function NavHeader() {
         </PopHover>
       )}
       {!isAuthenticated && (
-        <div className='flex items-center text-[8px]  capitalize md:text-sm lg:text-lg'>
+        <div className='flex items-center text-[8px]  capitalize md:text-sm lg:text-sm'>
           <Link to={path.register} className='mx-3 capitalize hover:text-white/70'>
             Đăng kí
           </Link>

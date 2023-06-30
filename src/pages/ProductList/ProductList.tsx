@@ -7,6 +7,7 @@ import Pagination from 'src/components/Pagination'
 import { ProductConfig } from 'src/types/product.type'
 import categoryApi from 'src/apis/category.api'
 import useQueryConfig from 'src/hooks/useQueryConfig'
+import SlideShow from 'src/components/SlideShow/SlideShow'
 
 export default function ProductList() {
   // ====================== gửi data lên api
@@ -31,9 +32,13 @@ export default function ProductList() {
       return categoryApi.getCategories()
     }
   })
+
   return (
-    <div className='bg-gray-200 py-6'>
-      <div className='container'>
+    <div className='bg-gray-200 pb-5'>
+      <div className='h-52 py-2 md:h-64 lg:h-[500px]'>
+        <SlideShow autoplayDelay={2500} />
+      </div>
+      <div className='container pt-2'>
         {ProductsData && Categories && (
           <div className='grid grid-cols-12 gap-6'>
             <div className='col-span-3'>

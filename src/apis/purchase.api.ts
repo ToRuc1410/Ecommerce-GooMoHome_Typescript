@@ -7,6 +7,9 @@ const AddProduct = 'add-to-cart'
 const UpdatePurchase = 'update-purchase'
 const Buy_Products = 'buy-products'
 const Order_Detail = 'order-detail'
+const DeliveredOrder = 'delivered-order'
+const deleteOrder = 'delete-order'
+const orderReview = 'order-review'
 const purchasesAPI = {
   addToCart: (body: { product_id: string; buy_count: number }) => {
     return http.post<SuccessResponse<Purchase>>(`${URL}/${AddProduct}`, body)
@@ -28,6 +31,21 @@ const purchasesAPI = {
     return http.get<SuccessResponse<Purchase[]>>(`${Order_Detail}`, {
       params
     })
+  },
+  deliveredOrderPurchase: (body: { orderDetail_id: string }) => {
+    return http.put<SuccessResponse<string>>(`${DeliveredOrder}`, body)
+  },
+  deleteOrderPurchase: (body: { orderDetail_id: string; message: string }) => {
+    return http.put<SuccessResponse<string>>(`${deleteOrder}`, body)
+  },
+  orderReview: (body: {
+    orderDetail_id: string
+    material: string
+    description: string
+    message: string
+    rating: number
+  }) => {
+    return http.put<SuccessResponse<string>>(`${orderReview}`, body)
   },
   // buyProducts: (body: { product_id: string; buy_count: number }[]) => {
   //   return http.post<SuccessResponse<Purchase[]>>(`${URL}/${Buy_Products}`, body)

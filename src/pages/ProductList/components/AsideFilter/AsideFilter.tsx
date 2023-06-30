@@ -10,7 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import omit from 'lodash/omit'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 // import InputV2 from 'src/components/InputV2(New)'
-import { useTranslation } from 'react-i18next'
+import RatingStarts from 'src/components/RatingStarts'
 interface Props {
   queryConfig: QueryConfig
   categories: Category[]
@@ -25,7 +25,6 @@ const priceSchema = schema.pick(['price_min', 'price_max'])
 
 export default function AsideFilter({ queryConfig, categories }: Props) {
   const { category } = queryConfig
-  const { t } = useTranslation()
 
   const {
     control,
@@ -52,20 +51,6 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
       }).toString()
     })
   })
-  // exclude?: string | undefined;
-  // name?: string | undefined;
-
-  // sort
-  // page?: string | undefined;
-  // limit?: string | undefined;
-  // sort_by?: string | undefined;
-  // order?: string | undefined;
-
-  // filter
-  // rating_filter?: string | undefined;
-  // price_min?: string | undefined;
-  // price_max?: string | undefined;
-  // category?: string | undefined;
   const hanldeRemoveAll = () => {
     navigate({
       pathname: path.home,
@@ -77,7 +62,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
       <Link to={path.home} className='flex items-start justify-start'>
         <svg
           viewBox='0 0 12 10'
-          className='mr-1 h-3 w-3 flex-shrink-0 fill-current md:mr-2 md:h-5 md:w-5 lg:mr-2 lg:h-7 lg:w-7'
+          className='mr-1 h-3 w-3 flex-shrink-0 fill-current md:mr-2 md:h-5 md:w-5 lg:mr-2 lg:h-5 lg:w-5'
         >
           <g fillRule='evenodd' stroke='none' strokeWidth={1}>
             <g transform='translate(-373 -208)'>
@@ -91,8 +76,8 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
             </g>
           </g>
         </svg>
-        <span className='mt-1 flex-shrink-0 text-[8px] font-bold capitalize md:text-sm lg:text-lg'>
-          {t('all categories')}
+        <span className='mt-1 flex-shrink-0 text-[8px] font-bold  capitalize md:text-sm lg:text-[16px]'>
+          Tất Cả Danh Mục
         </span>
       </Link>
       <div className='my-2 h-[1px] bg-gray-300' />
@@ -100,7 +85,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
         {categories.map((categoryItem) => {
           const isActive = category === categoryItem._id
           return (
-            <li className='md:py-2 lg:py-4' key={categoryItem._id}>
+            <li className='md:py-2 lg:py-4 ' key={categoryItem._id}>
               <Link
                 to={{
                   pathname: path.home,
@@ -109,7 +94,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                     category: categoryItem._id
                   }).toString()
                 }}
-                className={classNames('relative px-2 ', {
+                className={classNames('relative px-2', {
                   'font-semibold text-orange': isActive
                 })}
               >
@@ -121,7 +106,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                     <polygon points='4 3.5 0 0 0 7' />
                   </svg>
                 )}
-                <span className='text-[8px] md:text-sm lg:text-lg '> {categoryItem.name}</span>
+                <span className=' text-[8px] capitalize md:text-sm lg:text-[16px] '>{categoryItem.name}</span>
               </Link>
             </li>
           )
@@ -133,7 +118,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
           viewBox='0 0 15 15'
           x={0}
           y={0}
-          className='mr-1 h-3 w-3 flex-shrink-0 fill-current stroke-current md:mr-2 md:h-5 md:w-5 lg:mr-2 lg:h-7 lg:w-7'
+          className='mr-1 h-3 w-3 flex-shrink-0 fill-current stroke-current md:mr-2 md:h-5 md:w-5 lg:mr-2 lg:h-5 lg:w-5'
         >
           <g>
             <polyline
@@ -145,10 +130,10 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
             />
           </g>
         </svg>
-        <span className='flex-shrink-0 text-[8px] font-bold capitalize md:text-sm lg:text-lg'>bộ lọc tìm kiếm</span>
+        <span className='flex-shrink-0 text-[8px] font-bold capitalize md:text-sm lg:text-[16px]'>bộ lọc tìm kiếm</span>
       </div>
       <div className='my-5'>
-        <div className='flex-shrink-0 text-[8px] font-bold capitalize md:my-2 md:text-sm lg:my-4 lg:text-lg'>
+        <div className='flex-shrink-0 text-[8px] font-bold capitalize md:my-2 md:text-sm lg:my-4 lg:text-[16px]'>
           Khoảng giá
         </div>
         <form className='mt-2' onSubmit={onSubmit}>
@@ -174,19 +159,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                 )
               }}
             />
-            {/* <InputV2
-              control={control}
-              name='price_min'
-              type='number'
-              className='md:grow lg:grow'
-              placeholder='₫ TỪ'
-              autoComplete='off'
-              classNameError='hidden'
-              classNameInput='w-full rounded-sm p-1 outline-none focus:border-gray-400 focus:shadow-md shadow-sm text-sm'
-              onChange={() => {
-                trigger('price_max')
-              }}
-            /> */}
+
             <div className='mx-3 my-1 h-[2px] w-6 shrink-0 bg-gray-400 md:w-1' />
             <Controller
               control={control}
@@ -222,8 +195,8 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
         </form>
       </div>
       <div className='my-4 h-[1px] bg-gray-300' />
-      {/* <span className='flex-shrink-0 text-[8px] font-bold capitalize md:text-sm lg:text-lg'>Áp Dụng</span> */}
-      {/* <RatingStarts queryConfig={queryConfig} /> */}
+      <span className='flex-shrink-0 text-[8px] font-bold capitalize md:text-sm lg:text-lg'>Áp Dụng</span>
+      <RatingStarts queryConfig={queryConfig} />
       <div className='my-4 h-[1px] bg-gray-300' />
       <Button
         className='flex w-full items-center justify-center rounded-sm bg-orange px-1 py-2 text-[8px] capitalize text-white shadow-sm

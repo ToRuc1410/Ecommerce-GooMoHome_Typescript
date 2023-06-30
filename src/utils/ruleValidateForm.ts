@@ -115,7 +115,11 @@ export const schema = yup.object({
   optionAddress2: yup.string().required('Vui lòng chọn một giá trị.'),
   optionAddress3: yup.string().required('Vui lòng chọn một giá trị.'),
   shippingOption: yup.string().required('Vui lòng chọn một giá trị.'),
-  message: yup.string().optional()
+  message: yup.string().optional(),
+  message1: yup.string().optional(),
+  message2: yup.string().optional(),
+  message3: yup.string().optional(),
+  option: yup.string().required('Vui lòng chọn một tùy chọn.')
 })
 
 export const userSchema = yup.object({

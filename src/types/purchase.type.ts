@@ -24,11 +24,17 @@ export interface Purchase {
   buy_count: number
   price: number
   price_before_discount: number
-  status: PurchaseStatus
+  status: OrderDetailListStatus
   user: string
   product: Product
   createdAt: string
   updatedAt: string
+  total_price: number
+  priceDelivery: number
+  delivered_at: string
+  paiAt: string
+  WhoCanceled: string
+  reasonForMessage: string
 }
 export type checkedPurchases = {
   product: Product

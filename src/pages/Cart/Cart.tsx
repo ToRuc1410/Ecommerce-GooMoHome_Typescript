@@ -158,7 +158,7 @@ export default function Cart() {
 
   const handleBuyPurchases = () => {
     if (checkedPurchase.length === 0) {
-      toast.error('Bạn vui lòng chọn sản phẩm để mua.', {
+      toast.error('Bạn vui lòng chọn sản phẩm.', {
         position: 'top-center',
         autoClose: 2000
       })

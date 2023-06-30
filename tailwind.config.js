@@ -12,7 +12,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        orange: '#F4976C'
+        orange: '#16d9d9'
       }
     },
     container: {

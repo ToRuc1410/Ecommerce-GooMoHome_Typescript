@@ -39,6 +39,7 @@ export default function PopHover({ children, renderPopHover, className, placemen
                 left: x ?? 0,
                 top: y ?? 0,
                 width: 'max-content',
+                zIndex: 50,
                 transformOrigin: `${middlewareData.arrow?.x}px top`
               }}
               initial={{ opacity: 0, transform: 'scale(0)' }}

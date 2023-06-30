@@ -17,6 +17,11 @@ import HistoryPurchase from './pages/User/pages/HistoryPurchase'
 import NotFound404 from './pages/NotFound404'
 import CheckoutLayout from './layouts/CheckoutLayout'
 import Checkout from './pages/Checkout'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassWord from './pages/ResetPassWord'
+import BaoHanh from './components/BaoHanh'
+import BaoMat from './components/BaoMat'
+import DoiTra from './components/DoiTra'
 
 // ----------------Check user đã login r thì k cho vào login,register nữa
 function ProtectedRouter() {
@@ -48,6 +53,30 @@ export default function useRouterElement() {
       )
     },
     {
+      path: path.cs1,
+      element: (
+        <MainLayout>
+          <BaoHanh />
+        </MainLayout>
+      )
+    },
+    {
+      path: path.cs2,
+      element: (
+        <MainLayout>
+          <BaoMat />
+        </MainLayout>
+      )
+    },
+    {
+      path: path.cs3,
+      element: (
+        <MainLayout>
+          <DoiTra />
+        </MainLayout>
+      )
+    },
+    {
       path: '',
       element: <RejectRouter />,
       children: [
@@ -64,6 +93,22 @@ export default function useRouterElement() {
           element: (
             <RegisterLayout>
               <Register />
+            </RegisterLayout>
+          )
+        },
+        {
+          path: path.forgotPassWord,
+          element: (
+            <RegisterLayout>
+              <ForgotPassword />
+            </RegisterLayout>
+          )
+        },
+        {
+          path: path.resetPassword,
+          element: (
+            <RegisterLayout>
+              <ResetPassWord />
             </RegisterLayout>
           )
         }

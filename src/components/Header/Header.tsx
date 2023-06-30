@@ -26,7 +26,7 @@ export default function Header() {
   const purchasesInCart = purchasesInCartData?.data.data
 
   return (
-    <div className='bg-orange pb-5 pt-2 text-white'>
+    <div className='bg-orange text-white'>
       <div className='container'>
         <NavHeader />
       </div>
@@ -34,7 +34,7 @@ export default function Header() {
         <div className='grid grid-cols-12 items-end gap-3 lg:gap-5'>
           <Link to={path.home} className='col-span-3 lg:col-span-2'>
             <img
-              className='mb-2 h-full w-full rounded-md bg-white object-cover py-2 shadow-lg lg:py-0'
+              className='mb-2 h-full w-full rounded-md bg-white object-cover py-2 shadow-lg lg:px-4 lg:py-0'
               src='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=819.000032544136,fit=crop/YbNbPPqn2EfwxjP7/chat-hon-to-cu-1-png-m7V2704oB7HDV1b2.png'
               alt='Goomo Home logo'
               data-v-fb585256
@@ -45,7 +45,7 @@ export default function Header() {
             <div className='relative flex rounded-sm bg-white text-[10px] capitalize  md:text-xs lg:text-sm'>
               <input
                 type='text'
-                placeholder='Free Ship nội thành phố Hồ Chí Minh'
+                placeholder='Tìm sản phẩm'
                 className=' flex-grow border-none bg-transparent px-3 py-2 text-gray-600 outline-none md:py-3'
                 {...register('searchProduct')}
               />

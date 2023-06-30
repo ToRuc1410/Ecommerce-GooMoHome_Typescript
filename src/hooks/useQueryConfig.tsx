@@ -22,7 +22,7 @@ export default function useQueryConfig() {
       name: queryParams.name,
       exclude: queryParams.exclude,
       order: queryParams.order,
-      // rating_filter: queryParams.rating_filter,
+      rating_filter: queryParams.rating_filter,
       price_max: queryParams.price_max,
       price_min: queryParams.price_min,
       sort_by: queryParams.sort_by,
