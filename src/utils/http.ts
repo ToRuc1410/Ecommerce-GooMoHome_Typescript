@@ -105,13 +105,20 @@ class Http {
                   // Giữ refreshTokenRequest trong 10s cho những request tiếp theo nếu có 401 thì dùng
                   setTimeout(() => {
                     this.refreshTokenRequest = null
-                  }, 5000)
+                  }, 10000)
                 })
             return this.refreshTokenRequest.then((accessToken) => {
+              if (accessToken === undefined) {
+                clearLS()
+                this.accessToken = ''
+                this.refreshToken = ''
+                return
+              }
               // chỗ này nghĩa là chúng ta gọi lại request cũ vừa bị lỗi
               return this.instance({ ...config, headers: { ...config.headers, Authorization: accessToken } })
             })
           }
+
           // - lỗi do Token không đúng
           // - lỗi do không truyền Token,
           // - lỗi truyền Token nhưng bị failer

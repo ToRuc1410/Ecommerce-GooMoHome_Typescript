@@ -276,48 +276,60 @@ export default function ProductDetail() {
                 </div>
               </div>
               <div className='mt-2 flex items-center justify-start text-[8px] capitalize md:text-sm lg:text-lg'>
-                <div className='capitalize text-gray-500 '>Số lượng</div>
-                <QuantityProduct
-                  onIncrease={handleBuyCount}
-                  onDecrease={handleBuyCount}
-                  onType={handleBuyCount}
-                  value={buyCount}
-                  max={product.quantity}
-                  classWrapper='px-1 py-2'
-                />
-                <div className='text-gray-600'>{product.quantity} Số lượng có sẵn</div>
-              </div>
-              <div className='mt-2 flex items-center py-2 text-[7px] md:text-sm lg:text-lg'>
-                <button
-                  className='flex h-5 items-center justify-center rounded-sm  bg-slate-200 p-2 capitalize text-orange hover:bg-slate-300 hover:shadow-lg md:p-5 lg:p-7'
-                  onClick={addToCart}
-                >
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    strokeWidth={1.5}
-                    stroke='currentColor'
-                    className='h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z'
+                {product.quantity !== 0 ? (
+                  <>
+                    <div className='capitalize text-gray-500 '>Số lượng</div>
+                    <QuantityProduct
+                      onIncrease={handleBuyCount}
+                      onDecrease={handleBuyCount}
+                      onType={handleBuyCount}
+                      value={buyCount}
+                      max={product.quantity}
+                      classWrapper='px-1 py-2'
                     />
-                  </svg>
-                  thêm vào giỏ hàng
-                </button>
-                <button
-                  onClick={buyNow}
-                  className='ml-2 flex h-5 items-center justify-center rounded-sm bg-orange px-3 capitalize text-white outline-none hover:bg-orange/80 hover:shadow-lg md:p-5 lg:p-7'
-                >
-                  Mua ngay
-                </button>
+                    <div className='text-gray-600'>{product.quantity} Số lượng có sẵn</div>
+                  </>
+                ) : (
+                  <div className='capitalize text-red-500/80 '>
+                    Mặt hàng này hiện đã hết, bạn vui lòng chọn sản phẩm khác
+                  </div>
+                )}
               </div>
+              {product.quantity !== 0 ? (
+                <div className='mt-2 flex items-center py-2 text-[7px] md:text-sm lg:text-lg'>
+                  <button
+                    className='flex h-5 items-center justify-center rounded-sm  bg-slate-200 p-2 capitalize text-orange hover:bg-slate-300 hover:shadow-lg md:p-5 lg:p-7'
+                    onClick={addToCart}
+                  >
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth={1.5}
+                      stroke='currentColor'
+                      className='h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z'
+                      />
+                    </svg>
+                    thêm vào giỏ hàng
+                  </button>
+                  <button
+                    onClick={buyNow}
+                    className='ml-2 flex h-5 items-center justify-center rounded-sm bg-orange px-3 capitalize text-white outline-none hover:bg-orange/80 hover:shadow-lg md:p-5 lg:p-7'
+                  >
+                    Mua ngay
+                  </button>
+                </div>
+              ) : (
+                <></>
+              )}
 
               <div className='py-2 text-[10px] md:text-sm lg:text-sm'>
-                <span className='font-bold uppercase lg:ml-12'>Chi Tiết Đơn Hàng</span>
+                <span className='font-bold uppercase lg:ml-12'>Chi Tiết Sản Phẩm</span>
                 <div className='py-2'>
                   <div className='py-1'>Dài x Rộng: {`${product.length}cm x ${product.width}cm `}</div>
                   <div className='py-1'>Cao: {product.height}cm</div>

@@ -32,7 +32,6 @@ export default function ResetPassWord() {
     try {
       const res = await resetPasswordMutation.mutateAsync({ token: tokenPassword as string, password: data.password })
       if (res) {
-        console.log(res)
         // setIsAuthenticated(true)
         // // và setProfile data User vào localStorage
         // setProfile(res.data.data.user)

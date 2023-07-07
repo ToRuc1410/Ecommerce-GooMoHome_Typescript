@@ -28,19 +28,99 @@ export default function NavHeader() {
 
   return (
     <div className='flex flex-wrap justify-end text-[10px] capitalize md:text-sm lg:text-sm'>
+      <Link to='#' className='flex px-4 py-1'>
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          strokeWidth={1.5}
+          stroke='currentColor'
+          className='h-5 w-5'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z'
+          />
+        </svg>
+
+        <span className='mx-1 text-sm lg:text-sm'>Giới Thiệu</span>
+      </Link>
+      <Link to='#' className='flex py-1'>
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          strokeWidth={1.5}
+          stroke='currentColor'
+          className='h-5 w-5'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9'
+          />
+        </svg>
+
+        <span className='mx-1 text-sm lg:text-sm'>Tin Tức</span>
+      </Link>
       <PopHover
         className='ml-6 flex cursor-pointer items-center hover:text-white/70'
         renderPopHover={
           <div className='relative rounded-md border border-gray-200 bg-white text-[8px] capitalize shadow-lg md:text-sm lg:text-sm'>
             <div className=' flex flex-col py-1 pl-2 pr-6'>
-              <Link to={path.cs1} className=' py-2 hover:text-orange'>
-                Chính sách bảo hành
+              <Link to={path.cs1} className='flex items-center py-1 hover:text-orange'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='mr-2 h-3 w-3'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5'
+                  />
+                </svg>
+                <span>Chính sách bảo hành</span>
               </Link>
-              <Link to={path.cs2} className='mt-2  py-2 hover:text-orange'>
-                Chính sách bảo mật thông tin
+              <Link to={path.cs2} className='mt-2 flex items-center py-1 hover:text-orange'>
+                {' '}
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='mr-2 h-3 w-3'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5'
+                  />
+                </svg>
+                <span>Chính sách bảo mật thông tin</span>
               </Link>
-              <Link to={path.cs3} className='mt-2  py-2 hover:text-orange'>
-                Chính sách đổi trả hoàn tiền
+              <Link to={path.cs3} className='mt-2 flex items-center py-1 hover:text-orange'>
+                {' '}
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='mr-2 h-3 w-3'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5'
+                  />
+                </svg>
+                <span>Chính sách đổi trả hoàn tiền</span>
               </Link>
             </div>
           </div>

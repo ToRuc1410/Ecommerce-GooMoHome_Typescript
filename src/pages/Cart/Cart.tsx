@@ -28,8 +28,8 @@ export default function Cart() {
     queryKey: ['purchases', { status: purchasesStatus.inCart }],
     queryFn: () => purchasesAPI.getPurchase({ status: purchasesStatus.inCart })
   })
-
-  const purchasesInCart = purchasesInCartData?.data.data
+  const respurchasesInCart = purchasesInCartData && purchasesInCartData?.data.data
+  const purchasesInCart = respurchasesInCart && respurchasesInCart.filter((item) => item.product !== null)
 
   const updatePurchaseMutation = useMutation({
     mutationFn: purchasesAPI.updatePurchase,
@@ -204,115 +204,119 @@ export default function Cart() {
                   </div>
                 </div>
               </div>
-              <div className='my-3 rounded-sm shadow-md'>
+              <div className='relative my-3 rounded-sm shadow-md'>
                 {extendedPurchases?.map((purchase, index) => (
                   <div
                     className='my-2 grid grid-cols-12 items-center justify-center border border-gray-200 bg-white py-2 text-[7px] text-gray-500 md:text-xs lg:text-sm'
                     key={purchase._id}
                   >
-                    <div className='col-span-5'>
-                      <div className='flex'>
-                        <div className=' ml-2 flex items-start justify-start'>
-                          <div className=' pr-2'>
-                            <input
-                              type='checkbox'
-                              className='h-3 w-3 accent-orange md:h-4 md:w-4 lg:h-5 lg:w-5'
-                              checked={purchase.checked}
-                              onChange={handleCheck(index)}
-                            />
-                          </div>
-                          <div className='flex-grow '>
-                            <div className='flex'>
-                              <Link
-                                to={`${path.home}${generateURLNameAndId({
-                                  name: purchase.product.name,
-                                  id: purchase.product._id
-                                })}`}
-                                className='h-14 w-14 md:h-40 md:w-40 lg:h-40 lg:w-40'
-                              >
-                                <img
-                                  className='h-14 w-14 object-cover md:h-40 md:w-40 lg:h-40 lg:w-40'
-                                  src={purchase.product.image}
-                                  alt={purchase.product.name}
+                    {purchase.product !== null && purchase.product.quantity > 0 && (
+                      <>
+                        <div className='col-span-5'>
+                          <div className='flex'>
+                            <div className=' ml-2 flex items-start justify-start'>
+                              <div className=' pr-2'>
+                                <input
+                                  type='checkbox'
+                                  className='h-3 w-3 accent-orange md:h-4 md:w-4 lg:h-5 lg:w-5'
+                                  checked={purchase.checked}
+                                  onChange={handleCheck(index)}
                                 />
-                              </Link>
-                              <div className='px-2 pb-2 pt-1'>
-                                <Link
-                                  to={`${path.home}${generateURLNameAndId({
-                                    name: purchase.product.name,
-                                    id: purchase.product._id
-                                  })}`}
-                                  className='line-clamp-4'
-                                >
-                                  {purchase.product.name}
-                                </Link>
+                              </div>
+                              <div className='flex-grow '>
+                                <div className='flex'>
+                                  <Link
+                                    to={`${path.home}${generateURLNameAndId({
+                                      name: purchase.product.name,
+                                      id: purchase.product._id
+                                    })}`}
+                                    className='h-14 w-14 md:h-40 md:w-40 lg:h-40 lg:w-40'
+                                  >
+                                    <img
+                                      className='h-14 w-14 object-cover md:h-40 md:w-40 lg:h-40 lg:w-40'
+                                      src={purchase.product.image}
+                                      alt={purchase.product.name}
+                                    />
+                                  </Link>
+                                  <div className='px-2 pb-2 pt-1'>
+                                    <Link
+                                      to={`${path.home}${generateURLNameAndId({
+                                        name: purchase.product.name,
+                                        id: purchase.product._id
+                                      })}`}
+                                      className='line-clamp-4'
+                                    >
+                                      {purchase.product.name}
+                                    </Link>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div className='col-span-7'>
-                      <div className='grid grid-cols-4 items-center lg:grid-cols-5'>
-                        <div className='col-span-1 md:col-span-1 lg:col-span-2'>
-                          <div className='flex flex-wrap items-center justify-center  lg:items-start lg:justify-center'>
-                            {purchase.product.price === 0 ? (
-                              <></>
-                            ) : (
-                              <div className='text-gray-400 line-through'>
-                                ₫{formatCurrency(purchase.product.price_before_discount)}
+                        <div className='col-span-7'>
+                          <div className='grid grid-cols-4 items-center lg:grid-cols-5'>
+                            <div className='col-span-1 md:col-span-1 lg:col-span-2'>
+                              <div className='flex flex-wrap items-center justify-center  lg:items-start lg:justify-center'>
+                                {purchase.product.price === 0 ? (
+                                  <></>
+                                ) : (
+                                  <div className='text-gray-400 line-through'>
+                                    ₫{formatCurrency(purchase.product.price_before_discount)}
+                                  </div>
+                                )}
+                                <div className='ml-1 text-gray-700 lg:ml-3 '>
+                                  ₫
+                                  {formatCurrency(
+                                    purchase.product.price === 0
+                                      ? purchase.product.price_before_discount
+                                      : purchase.product.price
+                                  )}
+                                </div>
                               </div>
-                            )}
-                            <div className='ml-1 text-gray-700 lg:ml-3 '>
-                              ₫
-                              {formatCurrency(
-                                purchase.product.price === 0
-                                  ? purchase.product.price_before_discount
-                                  : purchase.product.price
-                              )}
+                            </div>
+                            <div className='col-span-1'>
+                              <QuantityProduct
+                                max={purchase.product.quantity}
+                                value={purchase.buy_count}
+                                classWrapper='flex justify-start items-start'
+                                onIncrease={(value) => handleQuantity(index, value, value <= purchase.product.quantity)}
+                                onDecrease={(value) => handleQuantity(index, value, value >= 1)}
+                                onFocusOut={(value) =>
+                                  handleQuantity(
+                                    index,
+                                    value,
+                                    value >= 1 &&
+                                      value <= purchase.product.quantity &&
+                                      value !== (purchasesInCart as Purchase[])[index].buy_count
+                                  )
+                                }
+                                onType={handleTypeQuantity(index)}
+                                disabled={purchase.disabled}
+                              />
+                            </div>
+                            <div className='col-span-1'>
+                              <div className='ml-1 flex items-start justify-start text-orange'>
+                                ₫
+                                {formatCurrency(
+                                  (purchase.product.price !== 0
+                                    ? purchase.product.price
+                                    : purchase.product.price_before_discount) * purchase.buy_count
+                                )}
+                              </div>
+                            </div>
+                            <div className='col-span-1'>
+                              <button
+                                className='ml-5 bg-none transition-colors hover:text-orange'
+                                onClick={handleDelete(index)}
+                              >
+                                Xóa
+                              </button>
                             </div>
                           </div>
                         </div>
-                        <div className='col-span-1'>
-                          <QuantityProduct
-                            max={purchase.product.quantity}
-                            value={purchase.buy_count}
-                            classWrapper='flex justify-start items-start'
-                            onIncrease={(value) => handleQuantity(index, value, value <= purchase.product.quantity)}
-                            onDecrease={(value) => handleQuantity(index, value, value >= 1)}
-                            onFocusOut={(value) =>
-                              handleQuantity(
-                                index,
-                                value,
-                                value >= 1 &&
-                                  value <= purchase.product.quantity &&
-                                  value !== (purchasesInCart as Purchase[])[index].buy_count
-                              )
-                            }
-                            onType={handleTypeQuantity(index)}
-                            disabled={purchase.disabled}
-                          />
-                        </div>
-                        <div className='col-span-1'>
-                          <div className='ml-1 flex items-start justify-start text-orange'>
-                            ₫
-                            {formatCurrency(
-                              (purchase.product.price !== 0
-                                ? purchase.product.price
-                                : purchase.product.price_before_discount) * purchase.buy_count
-                            )}
-                          </div>
-                        </div>
-                        <div className='col-span-1'>
-                          <button
-                            className='ml-5 bg-none transition-colors hover:text-orange'
-                            onClick={handleDelete(index)}
-                          >
-                            Xóa
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+                      </>
+                    )}
                   </div>
                 ))}
               </div>

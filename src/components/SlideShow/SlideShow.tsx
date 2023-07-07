@@ -1,7 +1,6 @@
-import React from 'react'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react'
-
+import YouTube, { YouTubeProps } from 'react-youtube'
 // Import Swiper styles
 // eslint-disable-next-line import/no-unresolved
 import 'swiper/css'
@@ -12,15 +11,57 @@ import 'swiper/css/navigation'
 import './styles.css'
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper'
+import { useEffect, useState } from 'react'
 
 interface Props {
   autoplayDelay?: number
 }
-
+interface WindowSize {
+  width: number
+  height: number
+}
 export default function SlideShow({ autoplayDelay = 2500 }: Props) {
-  // const onAutoplayTimeLeft = (s: any, time: number, progress: number) => {
+  const [windowSize, setWindowSize] = useState<WindowSize>({
+    width: window.innerWidth,
+    height: window.innerHeight
+  })
 
-  // }
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      })
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  const getVideoWidth = (): string => {
+    return windowSize.width < 540 ? '200' : '540'
+  }
+
+  const getVideoHeight = (): string => {
+    return windowSize.width < 540 ? '100' : '290'
+  }
+
+  const onPlayerReady: YouTubeProps['onReady'] = (event) => {
+    // access to player in all event handlers via event.target
+    event.target.pauseVideo()
+  }
+
+  const opts: YouTubeProps['opts'] = {
+    height: getVideoHeight(),
+    width: getVideoWidth(),
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1
+    }
+  }
   return (
     <>
       <Swiper
@@ -79,9 +120,7 @@ export default function SlideShow({ autoplayDelay = 2500 }: Props) {
         </SwiperSlide>
 
         <div className='autoplay-progress' slot='container-end'>
-          {/* <svg viewBox='0 0 48 48' ref={progressCircle}>
-            <circle cx='24' cy='24' r='20'></circle>
-          </svg> */}
+          <YouTube videoId='kfu8h1VFQKs' opts={opts} onReady={onPlayerReady} />
         </div>
       </Swiper>
     </>

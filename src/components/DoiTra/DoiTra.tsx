@@ -23,7 +23,7 @@ export default function DoiTra() {
 
             <li>– 1. Khách hàng liên hệ trực tiếp với Shop GOOMO</li>
             <li>
-              – 2. Quy trình xử lý thủ tục đổi/trả hàng được thực hành trong vòng 07(bảy) ngày tính từ ngày SANTOT nhận
+              – 2. Quy trình xử lý thủ tục đổi/trả hàng được thực hành trong vòng 07(bảy) ngày tính từ ngày GOOMO nhận
               đủ thông tin và các giấy tờ theo quy định từ phía khách hàng.
             </li>
             <li>–3. Quý khách vui lòng liên hệ Bộ phận Chăm sóc Khách hàng để được hướng dẫn thủ tục đổi trả hàng.</li>

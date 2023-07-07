@@ -35,6 +35,8 @@ export interface Purchase {
   paiAt: string
   WhoCanceled: string
   reasonForMessage: string
+  orderCode: string
+  orderDate: string
 }
 export type checkedPurchases = {
   product: Product

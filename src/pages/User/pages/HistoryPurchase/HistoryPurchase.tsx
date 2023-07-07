@@ -106,9 +106,17 @@ export default function HistoryPurchase() {
                         className='h-8 w-8 border border-gray-200 object-cover md:h-14 md:w-14 lg:h-24 lg:w-24'
                       />
                     </div>
-                    <div className='ml-3 flex-grow overflow-hidden'>
-                      <div className='line-clamp-4'>{item.product.name}</div>
-                      <div className='mt-2'>Số lượng: {item.buy_count}</div>
+                    <div className='ml-3 flex flex-grow justify-between overflow-hidden'>
+                      <div className=''>
+                        <div className='line-clamp-4'>{item.product.name}</div>
+                        <div className='mt-2'>Số lượng: {item.buy_count}</div>
+                        <div className='mt-2'>
+                          Đã đặt: <span className='font-semibold'>{renderDate(purchase?.orderDate)}</span>
+                        </div>
+                      </div>
+                      <div className='font-serif'>
+                        Mã đơn: <span className='font-semibold'>{purchase?.orderCode}</span>
+                      </div>
                     </div>
                   </div>
                   <div className='mb-2 flex justify-end'>

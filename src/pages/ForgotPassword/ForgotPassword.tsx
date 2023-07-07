@@ -55,7 +55,7 @@ export default function ForgotPassword() {
           </div>
           <div className='lg:col-span-5 '>
             <form className='m-4 rounded bg-white p-10 shadow-lg' onSubmit={handleOnSubmit} noValidate>
-              <div className='text-2xl'>Nhập Email: </div>
+              <div className='text-2xl'>Quên Mật Khẩu </div>
               <Input
                 className='mt-8'
                 errors={errors.email?.message}
