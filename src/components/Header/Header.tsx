@@ -76,9 +76,9 @@ export default function Header() {
                       <div className='capitalize text-gray-400'>sản phẩm mới thêm</div>
                       <div className='mt-5'>
                         {purchasesInCart.slice(0, MAX_PURCHASES).map((purchase) => (
-                          <>
+                          <div key={purchase._id}>
                             {purchase.product !== null && (
-                              <div className='mt-2 flex py-2 hover:bg-slate-200' key={purchase._id}>
+                              <div className='mt-2 flex py-2 hover:bg-slate-200'>
                                 <div className='flex-shrink-0'>
                                   <img
                                     src={purchase.product.image}
@@ -99,7 +99,7 @@ export default function Header() {
                                 </div>
                               </div>
                             )}
-                          </>
+                          </div>
                         ))}
                       </div>
                       <div className='mt-6 flex items-center justify-between'>

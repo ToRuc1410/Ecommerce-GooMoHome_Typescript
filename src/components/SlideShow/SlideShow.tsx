@@ -119,9 +119,9 @@ export default function SlideShow({ autoplayDelay = 2500 }: Props) {
           />
         </SwiperSlide>
 
-        <div className='autoplay-progress' slot='container-end'>
+        {/* <div className='autoplay-progress' slot='container-end'>
           <YouTube videoId='kfu8h1VFQKs' opts={opts} onReady={onPlayerReady} />
-        </div>
+        </div> */}
       </Swiper>
     </>
   )
