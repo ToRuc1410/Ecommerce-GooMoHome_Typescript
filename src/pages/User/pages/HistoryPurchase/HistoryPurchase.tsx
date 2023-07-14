@@ -114,9 +114,6 @@ export default function HistoryPurchase() {
                           Đã đặt: <span className='font-semibold'>{renderDate(purchase?.orderDate)}</span>
                         </div>
                       </div>
-                      <div className='font-serif'>
-                        Mã đơn: <span className='font-semibold'>{purchase?.orderCode}</span>
-                      </div>
                     </div>
                   </div>
                   <div className='mb-2 flex justify-end'>
@@ -176,7 +173,7 @@ export default function HistoryPurchase() {
                   {purchase?.status === detailStatus.waitForConfirmation && (
                     <>
                       <button
-                        className='ml-5 rounded-sm border border-orange px-4  text-orange hover:bg-orange hover:text-white'
+                        className='ml-5 flex-shrink-0 rounded-sm border border-orange px-4  text-orange hover:bg-orange hover:text-white'
                         onClick={handleDeleteOrder(purchase._id)}
                       >
                         Hủy Đơn Hàng
@@ -192,12 +189,19 @@ export default function HistoryPurchase() {
                   )}
                 </div>
 
-                <div className='flex'>
-                  <p className='text-gray-500'>Phí Giao Hàng: </p>
-                  <p className='text-red-500'>₫{formatCurrency(purchase?.priceDelivery)}</p>
+                <div className='flex flex-col'>
+                  <div className='flex justify-between font-serif'>
+                    <span className='text-gray-500'> Mã đơn:</span>{' '}
+                    <span className='font-semibold'>{purchase?.orderCode}</span>
+                  </div>
+
+                  <div className='my-2 flex justify-between'>
+                    <p className='text-gray-500'>Phí Giao Hàng: </p>
+                    <p className='text-red-500'>₫{formatCurrency(purchase?.priceDelivery)}</p>
+                  </div>
                 </div>
               </div>
-              <div className='mt-2 flex justify-end'>
+              <div className=' flex justify-end'>
                 <div>
                   <span>Tổng giá tiền: </span>
 

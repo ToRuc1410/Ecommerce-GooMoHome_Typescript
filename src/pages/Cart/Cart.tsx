@@ -28,8 +28,10 @@ export default function Cart() {
     queryKey: ['purchases', { status: purchasesStatus.inCart }],
     queryFn: () => purchasesAPI.getPurchase({ status: purchasesStatus.inCart })
   })
-  const respurchasesInCart = purchasesInCartData && purchasesInCartData?.data.data
-  const purchasesInCart = respurchasesInCart && respurchasesInCart.filter((item) => item.product !== null)
+  // const respurchasesInCart = purchasesInCartData && purchasesInCartData?.data.data
+  // const purchasesInCart = respurchasesInCart && respurchasesInCart.filter((item) => item.product !== null)
+  const purchasesInCart = purchasesInCartData?.data.data
+  console.log(purchasesInCart)
 
   const updatePurchaseMutation = useMutation({
     mutationFn: purchasesAPI.updatePurchase,
@@ -81,6 +83,7 @@ export default function Cart() {
       )
     })
   }, [getPurchaseIdFromCart, purchasesInCart, setExtendedPurchases])
+
   // cập nhật F5: các PurchaseId từ Cart(event:Mua ngay)
   useEffect(() => {
     return () => {

@@ -27,7 +27,7 @@ export default function NavHeader() {
   }
 
   return (
-    <div className='flex flex-wrap justify-end text-[10px] capitalize md:text-sm lg:text-sm'>
+    <div className='flex flex-wrap justify-end text-[10px] md:text-sm lg:text-sm'>
       <Link to='#' className='flex px-4 py-1'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -157,7 +157,7 @@ export default function NavHeader() {
         <PopHover
           className='mx-3 ml-6 flex cursor-pointer items-center hover:text-white/70 '
           renderPopHover={
-            <div className='relative rounded-md border border-gray-200 bg-white text-[8px]  capitalize  shadow-lg md:text-sm lg:text-sm'>
+            <div className='relative rounded-md border border-gray-200 bg-white text-[8px] shadow-lg md:text-sm lg:text-sm'>
               <Link
                 to={path.profile}
                 className='block w-full bg-white px-4 py-3 text-left hover:bg-slate-100 hover:text-cyan-500 '
@@ -191,8 +191,8 @@ export default function NavHeader() {
         </PopHover>
       )}
       {!isAuthenticated && (
-        <div className='flex items-center text-[8px]  capitalize md:text-sm lg:text-sm'>
-          <Link to={path.register} className='mx-3 capitalize hover:text-white/70'>
+        <div className='flex items-center text-[8px] capitalize md:text-sm lg:text-sm'>
+          <Link to={path.verifyEmail} className='mx-3 capitalize hover:text-white/70'>
             Đăng kí
           </Link>
           <div className='h-4 border-r-[1px] border-r-white/40' />

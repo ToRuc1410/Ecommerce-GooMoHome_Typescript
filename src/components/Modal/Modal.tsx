@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import purchasesAPI from 'src/apis/purchase.api'
+import { toast } from 'react-toastify'
 
 interface Props {
   orderId: string
@@ -16,7 +17,14 @@ type FormData = Pick<Schema, 'option'>
 const perchasesSchema = schema.pick(['option'])
 export default function Modal({ orderId, onHide }: Props) {
   const deleteOrderMutation = useMutation({
-    mutationFn: purchasesAPI.deleteOrderPurchase
+    mutationFn: purchasesAPI.deleteOrderPurchase,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (err: any) => {
+      toast.error(err.response.data.message, {
+        position: 'top-center',
+        autoClose: 5000
+      })
+    }
   })
 
   const {
@@ -30,8 +38,6 @@ export default function Modal({ orderId, onHide }: Props) {
   const hanldeEvent = handleSubmit(async (dataForm) => {
     const rs = window.confirm('Xác Nhận Hủy Hàng')
     if (rs) {
-      // console.log('dataForm', dataForm.option)
-      // console.log(orderId)
       const resDeleteOrder = await deleteOrderMutation.mutateAsync({
         orderDetail_id: orderId,
         message: dataForm.option

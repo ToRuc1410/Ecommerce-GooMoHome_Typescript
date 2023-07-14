@@ -5,7 +5,8 @@ import http from 'src/utils/http'
 const URL = 'purchases'
 const AddProduct = 'add-to-cart'
 const UpdatePurchase = 'update-purchase'
-const Buy_Products = 'buy-products'
+const Buy_ProductCode = 'buy-products'
+const Buy_ProductVnpay = 'create_payment_url'
 const Order_Detail = 'order-detail'
 const DeliveredOrder = 'delivered-order'
 const deleteOrder = 'delete-order'
@@ -50,7 +51,7 @@ const purchasesAPI = {
   // buyProducts: (body: { product_id: string; buy_count: number }[]) => {
   //   return http.post<SuccessResponse<Purchase[]>>(`${URL}/${Buy_Products}`, body)
   // }
-  buyProducts: (body: {
+  buyProductsCode: (body: {
     address: string
     codeProvince: string
     codeDictrict: string
@@ -62,7 +63,21 @@ const purchasesAPI = {
     message: string
     products: { product_id: string; buy_count: number }[]
   }) => {
-    return http.post<SuccessResponse<Purchase[]>>(`${URL}/${Buy_Products}`, body)
+    return http.post<SuccessResponse<Purchase[]>>(`${URL}/${Buy_ProductCode}`, body)
+  },
+  buyProductsVnPay: (body: {
+    address: string
+    codeProvince: string
+    codeDictrict: string
+    codeWard: string
+    priceDelivery: number
+    totalPrice: number
+    name: string
+    phone: string
+    message: string
+    products: { product_id: string; buy_count: number }[]
+  }) => {
+    return http.post<SuccessResponse<Purchase[]>>(`${URL}/${Buy_ProductVnpay}`, body)
   }
 }
 

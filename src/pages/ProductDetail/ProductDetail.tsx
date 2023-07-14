@@ -238,7 +238,9 @@ export default function ProductDetail() {
               <h1 className='text-sm font-medium sm:text-xl lg:text-2xl'>{product.name}</h1>
               <div className='mt-2 flex items-center bg-slate-50 p-2 text-[8px] capitalize md:text-sm lg:text-lg'>
                 <div className='flex items-center '>
-                  <span className='mr-1 border-b border-gray-500'>{product.rating}</span>
+                  <span className='mr-1 border-b border-gray-500'>
+                    {product.rating && Number(product.rating.toFixed(1))}
+                  </span>
                   <span>
                     <ProductRating
                       rating={product.rating || 0}

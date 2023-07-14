@@ -1,8 +1,9 @@
 import { Link, useMatch } from 'react-router-dom'
 import path from 'src/constants/path'
 export default function RegisterHeader() {
+  const verifyEmail = useMatch(path.verifyEmail)
   const registerMatch = useMatch(path.register)
-  const isRegister = Boolean(registerMatch)
+  const isRegister = Boolean(registerMatch || verifyEmail)
   return (
     <header className='py-5'>
       <div className='container'>

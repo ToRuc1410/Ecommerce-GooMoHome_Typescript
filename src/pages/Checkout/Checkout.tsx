@@ -45,7 +45,7 @@ interface Services {
   short_name: string
   service_type_id: string
 }
-
+type ButtonName = 'vppay' | 'code'
 export default function Checkout() {
   const { dataPurchase } = useContext(AppContext)
 
@@ -96,8 +96,8 @@ export default function Checkout() {
   // tổng kích thước
   const resultData = calculateTotalDimensions(dataPurchase)
 
-  const buyProductsMutation = useMutation({
-    mutationFn: purchasesAPI.buyProducts,
+  const buyProductCodeMutation = useMutation({
+    mutationFn: purchasesAPI.buyProductsCode,
     onSuccess: (data) => {
       toast.success(data.data.message, {
         position: 'top-center',
@@ -118,28 +118,80 @@ export default function Checkout() {
       })
     }
   })
+  // const buyProductVnPayMutation = useMutation({
+  //   mutationFn: purchasesAPI.buyProductsVnPay
+  //   // onSuccess: (data) => {
+  //   //   toast.success(data.data.message, {
+  //   //     position: 'top-center',
+  //   //     autoClose: 1000
+  //   //   })
+  //   //   navigate({
+  //   //     pathname: path.orderDetail,
+  //   //     search: createSearchParams({
+  //   //       status: '1'
+  //   //     }).toString()
+  //   //   })
+  //   // },
+  //   // // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //   // onError: (err: any) => {
+  //   //   toast.error(err.response.data.message, {
+  //   //     position: 'top-center',
+  //   //     autoClose: 5000
+  //   //   })
+  //   // }
+  // })
 
-  const handleOnSubmit = handleSubmit((dataForm) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleOnSubmit = handleSubmit((dataForm, event: any) => {
     const rs = window.confirm('hãy đảm bảo rằng bạn đã xem xét kỹ tất cả các thông tin trước khi xác nhận đơn hàng')
+    // Truy cập vào name của button
     if (rs) {
-      const dataProduct = dataPurchase.map((item) => ({
-        product_id: item.product._id,
-        buy_count: item.buy_count
-      }))
-      const dataPurchases = {
-        codeProvince: selectedProvince.name,
-        codeDictrict: selectedDistrict.name,
-        codeWard: selectedWard.name,
-        address: dataForm.address,
-        name: dataForm.name,
-        phone: dataForm.phone,
-        message: dataForm.message || '',
-        products: dataProduct,
-        priceDelivery: data,
-        totalPrice: afterTotalPrice
+      if (event && event.nativeEvent.submitter) {
+        const buttonName = (event.nativeEvent.submitter as HTMLButtonElement).name as ButtonName
+        if (buttonName == 'code') {
+          const dataProduct = dataPurchase.map((item) => ({
+            product_id: item.product._id,
+            buy_count: item.buy_count
+          }))
+          const dataPurchases = {
+            codeProvince: selectedProvince.name,
+            codeDictrict: selectedDistrict.name,
+            codeWard: selectedWard.name,
+            address: dataForm.address,
+            name: dataForm.name,
+            phone: dataForm.phone,
+            message: dataForm.message || '',
+            products: dataProduct,
+            priceDelivery: data,
+            totalPrice: afterTotalPrice
+          }
+          console.log('dataPurchases', dataPurchases)
+          buyProductCodeMutation.mutate(dataPurchases)
+        }
+        // } else if (buttonName == 'vppay') {
+        //   const dataProduct = dataPurchase.map((item) => ({
+        //     product_id: item.product._id,
+        //     buy_count: item.buy_count
+        //   }))
+        //   const dataPurchases = {
+        //     codeProvince: selectedProvince.name,
+        //     codeDictrict: selectedDistrict.name,
+        //     codeWard: selectedWard.name,
+        //     address: dataForm.address,
+        //     name: dataForm.name,
+        //     phone: dataForm.phone,
+        //     message: dataForm.message || '',
+        //     products: dataProduct,
+        //     priceDelivery: data,
+        //     totalPrice: afterTotalPrice
+        //   }
+        //   console.log('dataPurchases', dataPurchases)
+        //   buyProductVnPayMutation.mutate(dataPurchases)
+        // }
+        else {
+          toast.error('Thông tin chưa xác nhận ')
+        }
       }
-      console.log('dataPurchases', dataPurchases)
-      buyProductsMutation.mutate(dataPurchases)
     }
   })
 
@@ -508,10 +560,13 @@ export default function Checkout() {
                   <p className='lg:py-1'>Phương Thức Thanh Toán:</p>
                 </div>
                 <div className='flex justify-around p-2'>
-                  <Button className='h-14 w-14' type='submit'>
+                  <Button className='h-14 w-14' type='submit' name='vppay'>
                     <img src='https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png' alt='' />
                   </Button>
-                  <Button className='hover:white rounded border border-gray-500 bg-gray-50 px-3 text-[8px] hover:border-orange hover:text-orange md:text-sm lg:text-sm'>
+                  <Button
+                    name='code'
+                    className='hover:white rounded border border-gray-500 bg-gray-50 px-3 text-[8px] hover:border-orange hover:text-orange md:text-sm lg:text-sm'
+                  >
                     Thanh Toán Khi Nhận Hàng(COD)
                   </Button>
                 </div>

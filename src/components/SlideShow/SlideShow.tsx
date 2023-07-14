@@ -118,7 +118,10 @@ export default function SlideShow({ autoplayDelay = 2500 }: Props) {
             className='h-50% w-full object-cover'
           />
         </SwiperSlide>
-
+        {/* <video className='h-full w-full rounded-lg' controls autoPlay muted>
+          <source src='https://youtu.be/kfu8h1VFQKs' type='video/mp4' />
+          Your browser does not support the video tag.
+        </video> */}
         {/* <div className='autoplay-progress' slot='container-end'>
           <YouTube videoId='kfu8h1VFQKs' opts={opts} onReady={onPlayerReady} />
         </div> */}

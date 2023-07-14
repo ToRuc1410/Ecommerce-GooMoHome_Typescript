@@ -121,7 +121,7 @@ export default function Header() {
                       <div className='mt-3 capitalize'> Chưa có sản phẩm trong giỏ hàng</div>
                       {!isAuthenticated && (
                         <div className=' mt-5 flex items-center justify-center'>
-                          <Link to={path.register} className='rounded-sm bg-slate-200 px-3 py-2 hover:bg-slate-400'>
+                          <Link to={path.verifyEmail} className='rounded-sm bg-slate-200 px-3 py-2 hover:bg-slate-400'>
                             Đăng kí
                           </Link>
                           <Link to={path.login} className='ml-4 rounded-sm bg-slate-200 px-3 py-2 hover:bg-slate-400'>

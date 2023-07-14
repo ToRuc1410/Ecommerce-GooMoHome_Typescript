@@ -98,7 +98,7 @@ export default function Login() {
               <div className='mt-5 flex justify-between py-2'>
                 <div className='text-xs md:text-sm lg:text-sm'>
                   <span className='text-gray-400'>Bạn mới biết GooHome?</span>
-                  <Link className='px-5 text-red-600 md:px-1 lg:px-1' to={path.register}>
+                  <Link className='px-5 text-red-600 md:px-1 lg:px-1' to={path.verifyEmail}>
                     Đăng ký
                   </Link>
                 </div>

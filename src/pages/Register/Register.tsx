@@ -1,11 +1,10 @@
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Input from 'src/components/Input'
 import { useMutation } from '@tanstack/react-query'
 import { schema, Schema } from 'src/utils/ruleValidateForm'
 import { yupResolver } from '@hookform/resolvers/yup'
 import authApi from 'src/apis/auth.api'
-import omit from 'lodash/omit'
 import { isAxiosStatusCodeError } from 'src/utils/utilsErrForm'
 import { ErrorResponse } from 'src/types/utils.type'
 import { useContext } from 'react'
@@ -14,12 +13,15 @@ import Button from 'src/components/Button'
 import path from 'src/constants/path'
 import { toast } from 'react-toastify'
 
-type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>
-const registerSchema = schema.pick(['email', 'password', 'confirm_password'])
+type FormData = Pick<Schema, 'password' | 'confirm_password'>
+const registerSchema = schema.pick(['password', 'confirm_password'])
 
 export default function Register() {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
+  const location = useLocation()
+  const verify = new URLSearchParams(location.search).get('verify')
+  console.log(verify)
   const {
     register,
     handleSubmit,
@@ -29,15 +31,14 @@ export default function Register() {
   })
   // gọi func API
   const registerAccountMutation = useMutation({
-    mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.registerAccount(body)
+    mutationFn: (body: { email: string; password: string }) => authApi.registerAccount(body)
   })
   const handleOnSubmit = handleSubmit(async (data) => {
-    // loại bỏ trường confirm_password
-    console.log(data)
-    const body = omit(data, ['confirm_password'])
+    const email = verify as string
+    const body = data.password
 
     try {
-      const res = await registerAccountMutation.mutateAsync(body)
+      const res = await registerAccountMutation.mutateAsync({ email: email, password: body })
       if (res) {
         console.log(res)
         setIsAuthenticated(true)
@@ -78,15 +79,8 @@ export default function Register() {
           </div>
           <div className='lg:col-span-5 '>
             <form className='m-4 rounded bg-white p-10 shadow-lg' onSubmit={handleOnSubmit} noValidate>
-              <div className='text-2xl'>Đăng ký</div>
-              <Input
-                className='mt-8'
-                errors={errors.email?.message}
-                placeholder='Email'
-                name='email'
-                register={register}
-                type='email'
-              />
+              <div className='mb-5 text-2xl'>Đăng ký</div>
+
               <Input
                 className='mt-2'
                 errors={errors.password?.message}

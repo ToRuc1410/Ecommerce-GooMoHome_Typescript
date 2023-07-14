@@ -6,6 +6,7 @@ const path = {
   historyPurchase: '/user/purchase',
   login: '/login',
   register: '/register',
+  verifyEmail: '/verifyEmail',
   logout: '/logout',
   products: '/products',
   cs1: '/chinh-sach-bao-hanh',
@@ -14,6 +15,7 @@ const path = {
   productDetail: ':nameId',
   cart: '/cart',
   checkout: '/checkout',
+  payDone: '/returnpay',
   orderDetail: '/user/order-detail',
   forgotPassWord: '/forgot-password',
   resetPassword: '/reset-password/:tokenPassword'

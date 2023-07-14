@@ -22,6 +22,8 @@ import ResetPassWord from './pages/ResetPassWord'
 import BaoHanh from './components/BaoHanh'
 import BaoMat from './components/BaoMat'
 import DoiTra from './components/DoiTra'
+import VerifyEmail from './pages/VerifyEmail'
+import ReturnPay from './pages/ReturnPay/ReturnPay'
 
 // ----------------Check user đã login r thì k cho vào login,register nữa
 function ProtectedRouter() {
@@ -85,6 +87,14 @@ export default function useRouterElement() {
           element: (
             <RegisterLayout>
               <Login />
+            </RegisterLayout>
+          )
+        },
+        {
+          path: path.verifyEmail,
+          element: (
+            <RegisterLayout>
+              <VerifyEmail />
             </RegisterLayout>
           )
         },
@@ -153,6 +163,14 @@ export default function useRouterElement() {
           element: (
             <CheckoutLayout>
               <Checkout />
+            </CheckoutLayout>
+          )
+        },
+        {
+          path: path.payDone,
+          element: (
+            <CheckoutLayout>
+              <ReturnPay />
             </CheckoutLayout>
           )
         }
