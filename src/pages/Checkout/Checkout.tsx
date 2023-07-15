@@ -167,25 +167,26 @@ export default function Checkout() {
           }
           console.log('dataPurchases', dataPurchases)
           buyProductCodeMutation.mutate(dataPurchases)
-        } else if (buttonName == 'vppay') {
-          const dataProduct = dataPurchase.map((item) => ({
-            product_id: item.product._id,
-            buy_count: item.buy_count
-          }))
-          const dataPurchases = {
-            codeProvince: selectedProvince.name,
-            codeDictrict: selectedDistrict.name,
-            codeWard: selectedWard.name,
-            address: dataForm.address,
-            name: dataForm.name,
-            phone: dataForm.phone,
-            message: dataForm.message || '',
-            products: dataProduct,
-            priceDelivery: data,
-            totalPrice: afterTotalPrice
-          }
-          console.log('dataPurchases', dataPurchases)
-          buyProductVnPayMutation.mutate(dataPurchases)
+
+          //  else if (buttonName == 'vppay') {
+          //   const dataProduct = dataPurchase.map((item) => ({
+          //     product_id: item.product._id,
+          //     buy_count: item.buy_count
+          //   }))
+          //   const dataPurchases = {
+          //     codeProvince: selectedProvince.name,
+          //     codeDictrict: selectedDistrict.name,
+          //     codeWard: selectedWard.name,
+          //     address: dataForm.address,
+          //     name: dataForm.name,
+          //     phone: dataForm.phone,
+          //     message: dataForm.message || '',
+          //     products: dataProduct,
+          //     priceDelivery: data,
+          //     totalPrice: afterTotalPrice
+          //   }
+          //   console.log('dataPurchases', dataPurchases)
+          //   buyProductVnPayMutation.mutate(dataPurchases)
         } else {
           toast.error('Thông tin chưa xác nhận ')
         }
