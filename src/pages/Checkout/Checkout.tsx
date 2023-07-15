@@ -118,28 +118,28 @@ export default function Checkout() {
       })
     }
   })
-  // const buyProductVnPayMutation = useMutation({
-  //   mutationFn: purchasesAPI.buyProductsVnPay
-  //   // onSuccess: (data) => {
-  //   //   toast.success(data.data.message, {
-  //   //     position: 'top-center',
-  //   //     autoClose: 1000
-  //   //   })
-  //   //   navigate({
-  //   //     pathname: path.orderDetail,
-  //   //     search: createSearchParams({
-  //   //       status: '1'
-  //   //     }).toString()
-  //   //   })
-  //   // },
-  //   // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //   // onError: (err: any) => {
-  //   //   toast.error(err.response.data.message, {
-  //   //     position: 'top-center',
-  //   //     autoClose: 5000
-  //   //   })
-  //   // }
-  // })
+  const buyProductVnPayMutation = useMutation({
+    mutationFn: purchasesAPI.buyProductsVnPay
+    // onSuccess: (data) => {
+    //   toast.success(data.data.message, {
+    //     position: 'top-center',
+    //     autoClose: 1000
+    //   })
+    //   navigate({
+    //     pathname: path.orderDetail,
+    //     search: createSearchParams({
+    //       status: '1'
+    //     }).toString()
+    //   })
+    // },
+    // // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // onError: (err: any) => {
+    //   toast.error(err.response.data.message, {
+    //     position: 'top-center',
+    //     autoClose: 5000
+    //   })
+    // }
+  })
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleOnSubmit = handleSubmit((dataForm, event: any) => {
@@ -167,28 +167,26 @@ export default function Checkout() {
           }
           console.log('dataPurchases', dataPurchases)
           buyProductCodeMutation.mutate(dataPurchases)
-        }
-        // } else if (buttonName == 'vppay') {
-        //   const dataProduct = dataPurchase.map((item) => ({
-        //     product_id: item.product._id,
-        //     buy_count: item.buy_count
-        //   }))
-        //   const dataPurchases = {
-        //     codeProvince: selectedProvince.name,
-        //     codeDictrict: selectedDistrict.name,
-        //     codeWard: selectedWard.name,
-        //     address: dataForm.address,
-        //     name: dataForm.name,
-        //     phone: dataForm.phone,
-        //     message: dataForm.message || '',
-        //     products: dataProduct,
-        //     priceDelivery: data,
-        //     totalPrice: afterTotalPrice
-        //   }
-        //   console.log('dataPurchases', dataPurchases)
-        //   buyProductVnPayMutation.mutate(dataPurchases)
-        // }
-        else {
+        } else if (buttonName == 'vppay') {
+          const dataProduct = dataPurchase.map((item) => ({
+            product_id: item.product._id,
+            buy_count: item.buy_count
+          }))
+          const dataPurchases = {
+            codeProvince: selectedProvince.name,
+            codeDictrict: selectedDistrict.name,
+            codeWard: selectedWard.name,
+            address: dataForm.address,
+            name: dataForm.name,
+            phone: dataForm.phone,
+            message: dataForm.message || '',
+            products: dataProduct,
+            priceDelivery: data,
+            totalPrice: afterTotalPrice
+          }
+          console.log('dataPurchases', dataPurchases)
+          buyProductVnPayMutation.mutate(dataPurchases)
+        } else {
           toast.error('Thông tin chưa xác nhận ')
         }
       }
