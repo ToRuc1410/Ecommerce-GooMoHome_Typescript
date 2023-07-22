@@ -7,7 +7,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import purchasesAPI from 'src/apis/purchase.api'
 import { toast } from 'react-toastify'
+import io from 'socket.io-client'
 
+const socket = io('http://localhost:4000/')
 interface Props {
   orderId: string
   onHide: () => void // Thêm prop onHide để ẩn component
@@ -36,15 +38,13 @@ export default function Modal({ orderId, onHide }: Props) {
   })
 
   const hanldeEvent = handleSubmit(async (dataForm) => {
-    const rs = window.confirm('Xác Nhận Hủy Hàng')
-    if (rs) {
-      const resDeleteOrder = await deleteOrderMutation.mutateAsync({
-        orderDetail_id: orderId,
-        message: dataForm.option
-      })
-      if (resDeleteOrder) {
-        onHide()
-      }
+    const resDeleteOrder = await deleteOrderMutation.mutateAsync({
+      orderDetail_id: orderId,
+      message: dataForm.option
+    })
+    if (resDeleteOrder) {
+      socket.emit('cancelOrderFromClient')
+      onHide()
     }
   })
   const hanldeCanCel = () => {

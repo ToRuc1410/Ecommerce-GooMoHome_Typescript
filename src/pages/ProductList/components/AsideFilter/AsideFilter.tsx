@@ -3,14 +3,15 @@ import Button from 'src/components/Button'
 import path from 'src/constants/path'
 import { Category } from 'src/types/category.type'
 import classNames from 'classnames'
-import InputNumber from 'src/components/InputNumber'
 import { useForm, Controller } from 'react-hook-form'
 import { schema } from 'src/utils/ruleValidateForm'
 import { yupResolver } from '@hookform/resolvers/yup'
 import omit from 'lodash/omit'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { NumericFormat } from 'react-number-format'
 // import InputV2 from 'src/components/InputV2(New)'
 import RatingStarts from 'src/components/RatingStarts'
+import { removeCommas } from 'src/utils/FuncFormat'
 interface Props {
   queryConfig: QueryConfig
   categories: Category[]
@@ -46,15 +47,15 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
       pathname: path.home,
       search: createSearchParams({
         ...queryConfig,
-        price_min: data.price_min,
-        price_max: data.price_max
+        price_min: removeCommas(data.price_min),
+        price_max: removeCommas(data.price_max)
       }).toString()
     })
   })
   const hanldeRemoveAll = () => {
     navigate({
       pathname: path.home,
-      search: createSearchParams(omit(queryConfig, ['price_min', 'price_max', 'category'])).toString()
+      search: createSearchParams(omit(queryConfig, ['price_min', 'price_max', 'category', 'rating_filter'])).toString()
     })
   }
   return (
@@ -143,13 +144,13 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
               name='price_min'
               render={({ field }) => {
                 return (
-                  <InputNumber
+                  <NumericFormat
                     type='text'
-                    className=''
+                    className='w-full rounded-sm p-1 text-[8px] shadow-sm outline-none focus:border-gray-400 focus:shadow-md md:text-sm lg:text-lg'
                     placeholder='₫ Từ'
                     autoComplete='off'
-                    classNameError='hidden'
-                    classNameInput='w-full rounded-sm p-1 outline-none focus:border-gray-400 focus:shadow-md shadow-sm text-[8px] md:text-sm lg:text-lg'
+                    allowLeadingZeros
+                    thousandSeparator=','
                     {...field}
                     onChange={(event) => {
                       field.onChange(event)
@@ -166,13 +167,13 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
               name='price_max'
               render={({ field }) => {
                 return (
-                  <InputNumber
+                  <NumericFormat
                     type='text'
-                    className=''
+                    className='w-full rounded-sm p-1 text-[8px] shadow-sm outline-none focus:border-gray-400 focus:shadow-md md:text-sm lg:text-lg'
                     autoComplete='off'
                     placeholder='₫ Đến'
-                    classNameError='hidden'
-                    classNameInput='w-full rounded-sm p-1 outline-none focus:border-gray-400 focus:shadow-md shadow-sm text-[8px] md:text-sm lg:text-lg'
+                    allowLeadingZeros
+                    thousandSeparator=','
                     {...field}
                     onChange={(event) => {
                       field.onChange(event)

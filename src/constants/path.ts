@@ -1,6 +1,7 @@
 const path = {
   home: '/',
   user: '/user',
+  blog: '/blog',
   profile: '/user/profile',
   changePassword: '/user/password',
   historyPurchase: '/user/purchase',
@@ -9,6 +10,7 @@ const path = {
   verifyEmail: '/verifyEmail',
   logout: '/logout',
   products: '/products',
+  gt: '/gioi-thieu',
   cs1: '/chinh-sach-bao-hanh',
   cs2: '/chinh-sach-bao-mat-thong-tin',
   cs3: '/chinh-sach-doi-tra-hoan-tien',

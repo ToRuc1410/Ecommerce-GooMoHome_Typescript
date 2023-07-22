@@ -8,13 +8,17 @@ import { ProductConfig } from 'src/types/product.type'
 import categoryApi from 'src/apis/category.api'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import SlideShow from 'src/components/SlideShow/SlideShow'
+import io from 'socket.io-client'
+import { useEffect } from 'react'
+
+const socket = io('http://localhost:4000/')
 
 export default function ProductList() {
   // ====================== gửi data lên api
   // loại bỏ những thuộc tính khi chạy cho ra undefined
   const queryConfig = useQueryConfig()
   // get All Products
-  const { data: ProductsData } = useQuery({
+  const { data: ProductsData, refetch } = useQuery({
     queryKey: ['products', queryConfig],
     queryFn: () => {
       return productApi.getProducts(queryConfig as ProductConfig)
@@ -32,6 +36,22 @@ export default function ProductList() {
       return categoryApi.getCategories()
     }
   })
+  useEffect(() => {
+    socket.on('addedProduct', () => {
+      refetch()
+    })
+    socket.on('updatedProduct', () => {
+      refetch()
+    })
+    socket.on('deletedProduct', () => {
+      refetch()
+    })
+    return () => {
+      socket.off('addedProduct')
+      socket.off('updatedProduct')
+      socket.off('deletedProduct')
+    }
+  }, [])
 
   return (
     <div className='bg-gray-200 pb-5'>

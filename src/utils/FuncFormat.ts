@@ -80,25 +80,7 @@ export const calculateTotalDimensions = (products: RenderCheckOut[]) => {
     totalHeight
   }
 }
-//   return {
-//     totalHeight,
-//     totalLength,
-//     maxWidth
-//   }
-// }
-
-// Tính tổng kích thước của các sản phẩm
-// export const calculateTotalDimensions = (products: RenderCheckOut[]) => {
-//   const categories = [...new Set(products.map((product) => product.product.category._id))]
-
-//   const resultData = categories.map((category) => {
-
-//     const filteredProducts = products.filter((product) => product.product.category._id !== category)
-
-//     const totalWidth = filteredProducts.reduce((accumulator, product) => accumulator + product.product.width, 0)
-//     const totalLength = filteredProducts.reduce((accumulator, product) => accumulator + product.product.length, 0)
-
-//     return { category, totalWidth, totalLength }
-//   })
-//   return resultData
-// }
+export const removeCommas = (number: string) => {
+  // Loại bỏ tất cả dấu phẩy từ chuỗi
+  return number.replace(/,/g, '')
+}

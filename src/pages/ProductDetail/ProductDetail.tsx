@@ -357,6 +357,7 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
+
       <div className='mt-4 md:mt-6 lg:mt-8 '>
         <div className='container'>
           <div className='rounded bg-gray-100 p-4 text-[10px] capitalize text-slate-700 md:text-sm lg:text-lg'>

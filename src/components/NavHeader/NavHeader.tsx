@@ -28,7 +28,7 @@ export default function NavHeader() {
 
   return (
     <div className='flex flex-wrap justify-end text-[10px] md:text-sm lg:text-sm'>
-      <Link to='#' className='flex px-4 py-1'>
+      <Link to={path.gt} className='flex px-4 py-1'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
@@ -46,7 +46,7 @@ export default function NavHeader() {
 
         <span className='mx-1 text-sm lg:text-sm'>Giới Thiệu</span>
       </Link>
-      <Link to='#' className='flex py-1'>
+      <Link to={path.blog} className='flex py-1'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'

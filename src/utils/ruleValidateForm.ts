@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { UseFormGetValues } from 'react-hook-form'
 import * as yup from 'yup'
+import { removeCommas } from './FuncFormat'
 
 //step1: validation form by react-hook-form
 export const getRules = (getValues?: UseFormGetValues<any>) => ({
@@ -61,7 +62,7 @@ function testPriceMinMax(this: yup.TestContext<yup.AnyObject>) {
   const { price_min, price_max } = this.parent as { price_min: string; price_max: string }
   // true khi price min và price max != rỗng và max >= min
   if (price_min !== '' && price_max !== '') {
-    return Number(price_max) >= Number(price_min)
+    return Number(removeCommas(price_max)) >= Number(removeCommas(price_min))
   }
   return price_min !== '' || price_max !== '' // false khi cả 2 rỗng
 }

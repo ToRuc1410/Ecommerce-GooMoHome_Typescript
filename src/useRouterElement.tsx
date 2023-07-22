@@ -24,6 +24,8 @@ import BaoMat from './components/BaoMat'
 import DoiTra from './components/DoiTra'
 import VerifyEmail from './pages/VerifyEmail'
 import ReturnPay from './pages/ReturnPay/ReturnPay'
+import GioiThieu from './components/GioiThieu'
+import Blog from './pages/Blog'
 
 // ----------------Check user đã login r thì k cho vào login,register nữa
 function ProtectedRouter() {
@@ -75,6 +77,22 @@ export default function useRouterElement() {
       element: (
         <MainLayout>
           <DoiTra />
+        </MainLayout>
+      )
+    },
+    {
+      path: path.gt,
+      element: (
+        <MainLayout>
+          <GioiThieu />
+        </MainLayout>
+      )
+    },
+    {
+      path: path.blog,
+      element: (
+        <MainLayout>
+          <Blog />
         </MainLayout>
       )
     },

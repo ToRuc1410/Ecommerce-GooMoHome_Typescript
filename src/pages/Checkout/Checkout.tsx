@@ -9,10 +9,12 @@ import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
-
 import { calculateTotalDimensions, calculateTotalWeight, convertKgToGram, formatCurrency } from 'src/utils/FuncFormat'
 import http from 'src/utils/http'
 import { Schema, schema } from 'src/utils/ruleValidateForm'
+import io from 'socket.io-client'
+
+const socket = io('http://localhost:4000/')
 
 type FormData = Pick<
   Schema,
@@ -142,7 +144,7 @@ export default function Checkout() {
   })
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleOnSubmit = handleSubmit((dataForm, event: any) => {
+  const handleOnSubmit = handleSubmit(async (dataForm, event: any) => {
     const rs = window.confirm('hãy đảm bảo rằng bạn đã xem xét kỹ tất cả các thông tin trước khi xác nhận đơn hàng')
     // Truy cập vào name của button
     if (rs) {
@@ -165,28 +167,10 @@ export default function Checkout() {
             priceDelivery: data,
             totalPrice: afterTotalPrice
           }
-          console.log('dataPurchases', dataPurchases)
-          buyProductCodeMutation.mutate(dataPurchases)
-
-          //  else if (buttonName == 'vppay') {
-          //   const dataProduct = dataPurchase.map((item) => ({
-          //     product_id: item.product._id,
-          //     buy_count: item.buy_count
-          //   }))
-          //   const dataPurchases = {
-          //     codeProvince: selectedProvince.name,
-          //     codeDictrict: selectedDistrict.name,
-          //     codeWard: selectedWard.name,
-          //     address: dataForm.address,
-          //     name: dataForm.name,
-          //     phone: dataForm.phone,
-          //     message: dataForm.message || '',
-          //     products: dataProduct,
-          //     priceDelivery: data,
-          //     totalPrice: afterTotalPrice
-          //   }
-          //   console.log('dataPurchases', dataPurchases)
-          //   buyProductVnPayMutation.mutate(dataPurchases)
+          const res = await buyProductCodeMutation.mutateAsync(dataPurchases)
+          if (res) {
+            socket.emit('buyOrder')
+          }
         } else {
           toast.error('Thông tin chưa xác nhận ')
         }
@@ -372,6 +356,7 @@ export default function Checkout() {
               </div>
               <div className='flex-col lg:flex lg:flex-row lg:py-4 '>
                 <div className='mr-2 pt-2 lg:flex lg:flex-col'>
+                  <p className='text-[8px] md:text-sm lg:text-sm'>Chọn Thành Phố/Tỉnh </p>
                   <select
                     // className='relative w-40 transform px-4 py-2 text-[8px] transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:cursor-pointer md:text-sm lg:w-full lg:text-sm'
                     className='relative appearance-none rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white'
@@ -396,7 +381,9 @@ export default function Checkout() {
                     </span>
                   )}
                 </div>
+
                 <div className='pt-2 lg:flex lg:flex-col'>
+                  <p className='text-[8px] md:text-sm lg:text-sm'>Chọn Quận/Huyện: </p>
                   <select
                     className='relative appearance-none rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white'
                     value={selectedDistrict.code || ''}
@@ -423,6 +410,7 @@ export default function Checkout() {
                 </div>
               </div>
               <div className='mb-2 lg:flex lg:flex-col'>
+                <p className='text-[8px] md:text-sm lg:text-sm'>Chọn Phường/Xã </p>
                 <select
                   className='relative appearance-none rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 leading-tight text-gray-700 focus:border-blue-500 focus:outline-none focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white'
                   value={selectedWard.code || ''}
@@ -447,30 +435,39 @@ export default function Checkout() {
                 )}
               </div>
               <div className='mx-auto pt-2 md:flex-row lg:flex-row'>
-                <Input
-                  className='text-[8px] md:text-sm lg:text-sm'
-                  errors={errors.address?.message}
-                  placeholder='Nhập địa chỉ cụ thể'
-                  name='address'
-                  register={register}
-                  type='text'
-                />
-                <Input
-                  className=' text-[8px] md:text-sm lg:text-sm'
-                  errors={errors.name?.message}
-                  register={register}
-                  placeholder='Nhập tên'
-                  name='name'
-                  type='text'
-                />
-                <Input
-                  className='text-[8px] md:text-sm lg:text-sm'
-                  errors={errors.phone?.message}
-                  placeholder='Nhập Số Điện Thoại'
-                  name='phone'
-                  register={register}
-                  type='text'
-                />
+                <div className=''>
+                  <p className='text-[8px] md:text-sm lg:text-sm'>Nhập địa chỉ cụ thể </p>
+                  <Input
+                    className='text-[8px] md:text-sm lg:text-sm'
+                    errors={errors.address?.message}
+                    placeholder='Nhập địa chỉ cụ thể'
+                    name='address'
+                    register={register}
+                    type='text'
+                  />
+                </div>
+                <div className=''>
+                  <p className='text-[8px] md:text-sm lg:text-sm'>Nhập tên </p>
+                  <Input
+                    className=' text-[8px] md:text-sm lg:text-sm'
+                    errors={errors.name?.message}
+                    register={register}
+                    placeholder='Nhập tên'
+                    name='name'
+                    type='text'
+                  />
+                </div>
+                <div className=''>
+                  <p className='text-[8px] md:text-sm lg:text-sm'>Nhập Số Điện Thoại </p>
+                  <Input
+                    className='text-[8px] md:text-sm lg:text-sm'
+                    errors={errors.phone?.message}
+                    placeholder='Nhập Số Điện Thoại'
+                    name='phone'
+                    register={register}
+                    type='text'
+                  />
+                </div>
               </div>
               <p className='text-[8px] md:text-sm lg:text-sm'>Tin nhắn: </p>
               <Input
@@ -558,13 +555,10 @@ export default function Checkout() {
                   </svg>
                   <p className='lg:py-1'>Phương Thức Thanh Toán:</p>
                 </div>
-                <div className='flex justify-around p-2'>
-                  <Button className='h-14 w-14' type='submit' name='vppay'>
-                    <img src='https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png' alt='' />
-                  </Button>
+                <div className='flex justify-end p-2'>
                   <Button
                     name='code'
-                    className='hover:white rounded border border-gray-500 bg-gray-50 px-3 text-[8px] hover:border-orange hover:text-orange md:text-sm lg:text-sm'
+                    className=' hover:white h-10 w-52 rounded border border-gray-500 bg-gray-50 px-3 text-[8px] hover:border-orange hover:text-orange md:h-12 md:w-52 md:text-sm lg:h-14 lg:w-52 lg:text-sm'
                   >
                     Thanh Toán Khi Nhận Hàng(COD)
                   </Button>

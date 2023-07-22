@@ -1,6 +1,7 @@
+import { Spinner } from '@material-tailwind/react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, createSearchParams } from 'react-router-dom'
 import purchasesAPI from 'src/apis/purchase.api'
 import Modal from 'src/components/Modal'
@@ -11,6 +12,9 @@ import useQueryParams from 'src/hooks/useQueryParams'
 import { OrderDetailListStatus } from 'src/types/purchase.type'
 import { formatCurrency } from 'src/utils/FuncFormat'
 import { renderColorStatusCode, renderDate, renderStatusCode } from 'src/utils/renderStatusCode'
+import io from 'socket.io-client'
+
+const socket = io('http://localhost:4000/')
 
 const purchaseTabs = [
   { status: detailStatus.all, name: 'Tất cả' },
@@ -41,7 +45,26 @@ export default function HistoryPurchase() {
       refetch()
     }
   })
-
+  useEffect(() => {
+    socket.on('orderConfirmed', () => {
+      refetch()
+    })
+    socket.on('deliveredOrder', () => {
+      refetch()
+    })
+    socket.on('finishedOrder', () => {
+      refetch()
+    })
+    socket.on('removedOrder', () => {
+      refetch()
+    })
+    return () => {
+      socket.off('orderConfirmed')
+      socket.off('deliveredOrder')
+      socket.off('finishedOrder')
+      socket.off('removedOrder')
+    }
+  }, [])
   // render sideNav
   const handleDeliveredOrder = (IdPurchase: string) => () => {
     updatePurchaseMutation.mutate({ orderDetail_id: IdPurchase })
@@ -223,12 +246,18 @@ export default function HistoryPurchase() {
                 </>
               )}
               {purchase?.status === detailStatus.inProgress && (
-                <button
-                  className='mt-2 flex justify-end rounded-sm border border-blue-500 px-3 py-2 text-blue-500 hover:bg-blue-500 hover:text-white'
-                  onClick={handleDeliveredOrder(purchase._id)}
-                >
-                  <span>Đã Nhận Được Hàng</span>
-                </button>
+                <>
+                  {updatePurchaseMutation.isLoading ? (
+                    <Spinner />
+                  ) : (
+                    <button
+                      className='mt-2 flex justify-end rounded-sm border border-blue-500 px-3 py-2 text-blue-500 hover:bg-blue-500 hover:text-white'
+                      onClick={handleDeliveredOrder(purchase._id)}
+                    >
+                      <span>Đã Nhận Được Hàng</span>
+                    </button>
+                  )}
+                </>
               )}
             </div>
           ))
