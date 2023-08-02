@@ -191,8 +191,8 @@ export default function NavHeader() {
         </PopHover>
       )}
       {!isAuthenticated && (
-        <div className='flex items-center text-[8px] capitalize md:text-sm lg:text-sm'>
-          <Link to={path.verifyEmail} className='mx-3 capitalize hover:text-white/70'>
+        <div className='flex items-center text-[10px] capitalize md:text-sm lg:text-sm'>
+          <Link to={path.verifyEmail} className='mx-3 hidden capitalize hover:text-white/70 md:block lg:block '>
             Đăng kí
           </Link>
           <div className='h-4 border-r-[1px] border-r-white/40' />
