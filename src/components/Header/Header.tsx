@@ -29,8 +29,6 @@ export default function Header() {
     <div className='bg-orange text-white'>
       <div className='container'>
         <NavHeader />
-      </div>
-      <div className='container'>
         <div className='grid grid-cols-12 items-end gap-3 lg:gap-5'>
           <Link to={path.home} className='col-span-3 lg:col-span-2'>
             <img

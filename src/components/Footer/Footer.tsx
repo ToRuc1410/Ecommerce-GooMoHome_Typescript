@@ -8,10 +8,10 @@ export default function Footer() {
         <div className='grid grid-cols-12 lg:gap-6'>
           <div className='col-span-3'>
             <div className='pt-5 text-[11px] font-thin md:text-sm lg:text-2xl'> Thông Tin Liên Hệ </div>
-            <div className='mt-5 text-[8px] md:text-sm lg:pl-10 lg:text-sm'>
+            <div className='mt-2 text-[8px] md:text-sm lg:pl-10 lg:text-sm'>
               <div>Thời gian làm việc: 8:00am - 20:00pm</div>
-              <div className='mt-4'>Liên hệ: 0968835592 (zalo)</div>
-              <div className='mt-4'>Gmail: goomohome@gmail.com</div>
+              <div className='mt-2'>Liên hệ: 0968835592 (zalo)</div>
+              <div className='mt-2'>Gmail: goomohome@gmail.com</div>
               <div className='ml-1 pt-5 text-[10px] font-thin md:text-sm lg:text-lg'>Hướng Dẫn</div>
               <div className='lg:pl-5'>
                 <div className='flex items-center text-[10px] font-thin md:text-sm lg:py-2 lg:text-lg'>
@@ -192,10 +192,10 @@ export default function Footer() {
             </div>
           </div>
           <div className='col-span-3 lg:pl-10'>
-            <div className='pt-5 text-[11px] font-thin md:text-sm lg:text-2xl'>Về Chúng Tôi</div>
-            <p className='flex flex-col text-[8px] font-thin md:flex-col md:text-sm lg:flex-row lg:py-2 lg:text-sm'>
-              <span>Trụ Sở Hà Nội</span>
-              <a href={`tel:${'0968835592'}`} className='ml-2 text-blue-500'>
+            <div className='pt-5 text-[12px] font-thin md:text-sm lg:text-2xl'>Về Chúng Tôi</div>
+            <p className='flex flex-col text-[10px] font-thin md:flex-col md:text-sm lg:flex-row lg:py-2 lg:text-sm'>
+              <span className='py-2'>Trụ Sở Hà Nội</span>
+              <a href={`tel:${'0968835592'}`} className='ml-2 py-1 text-blue-500'>
                 <span className='flex'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -230,10 +230,10 @@ export default function Footer() {
             </div>
           </div>
           <div className='col-span-3 pt-8 md:pt-9 lg:pt-11'>
-            <div className='text-[8px] font-thin md:text-sm lg:pl-5 lg:text-sm'>
+            <div className='text-[10px] font-thin md:text-sm lg:pl-5 lg:text-sm'>
               <p className='flex flex-col  md:flex-col lg:flex-row lg:py-3'>
-                <span>Trụ Sở TP. HCM</span>
-                <a href={`tel:${'0968835592'}`} className='ml-2 text-blue-500'>
+                <span className='pb-2 pt-3'>Trụ Sở TP. HCM</span>
+                <a href={`tel:${'0968835592'}`} className='ml-2 py-1 text-blue-500'>
                   <span className='flex'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
@@ -358,14 +358,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        {/* <div className='mt-10 text-center text-sm'>
-            Anh chị có thể liên hệ với shop theo <u>SĐT 0987168795</u> để được tư vấn về việc vận chuyển.
-            <div>Thời gian làm việc: 8:00am - 20:00pm</div>
-            <div className='mt-2'>Liên hệ: 0968835592 (zalo)</div>
-            <div className='mt-2'>Gmail: goomohome@gmail.com</div>
-            <div className='mt-2'>Trụ sở Hà Nội: 330 Trịnh Đình Cử, Định Công, Hoàng Mai, HÀ Nội</div>
-            <div className='mt-2'>Trụ Sở TP.HCM: 30 Đường Số 50, Phường Tân Tạo, Quận Bình Tân, TP.HCM</div>
-          </div> */}
       </div>
       {/*?xml version="1.0" ?*/}
       <div className='fixed bottom-4 right-4 h-12 w-12 '>
@@ -376,7 +368,7 @@ export default function Footer() {
             viewBox='0 0 460.1 436.6'
             width={50}
             xmlns='http://www.w3.org/2000/svg'
-            className='rounded-full'
+            className='rounded-2xl bg-white'
           >
             <style
               dangerouslySetInnerHTML={{

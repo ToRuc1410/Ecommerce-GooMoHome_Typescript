@@ -60,10 +60,10 @@ export default function ProductList() {
       <div className='container pt-2'>
         {ProductsData && Categories && (
           <div className='grid grid-cols-12 gap-6'>
-            <div className='col-span-3'>
+            <div className='hidden md:col-span-3 md:block lg:col-span-3 lg:block'>
               <AsideFilter categories={Categories.data.data} queryConfig={queryConfig} />
             </div>
-            <div className='col-span-9'>
+            <div className='col-span-12 md:col-span-9 lg:col-span-9'>
               <SortProductList queryConfig={queryConfig} pageSize={ProductsData.data.data.pagination.page_size} />
               <div className='mt-6 grid grid-cols-2 gap-1 md:grid-cols-3 lg:grid-cols-4 lg:gap-3 xl:grid-cols-5'>
                 {ProductsData.data.data.products.map((items) => (

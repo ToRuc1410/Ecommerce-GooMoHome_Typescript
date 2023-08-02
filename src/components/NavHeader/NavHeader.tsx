@@ -27,15 +27,15 @@ export default function NavHeader() {
   }
 
   return (
-    <div className='flex flex-wrap justify-end text-[10px] md:text-sm lg:text-sm'>
-      <Link to={path.gt} className='flex px-4 py-1'>
+    <div className='flex justify-between pt-1 text-[11px] md:text-sm lg:text-sm'>
+      <Link to={path.gt} className='flex py-1'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
           viewBox='0 0 24 24'
           strokeWidth={1.5}
           stroke='currentColor'
-          className='h-5 w-5'
+          className='hidden md:block md:h-5 md:w-5 lg:block lg:h-5 lg:w-5 '
         >
           <path
             strokeLinecap='round'
@@ -53,7 +53,7 @@ export default function NavHeader() {
           viewBox='0 0 24 24'
           strokeWidth={1.5}
           stroke='currentColor'
-          className='h-5 w-5'
+          className='h-5 w-5 '
         >
           <path
             strokeLinecap='round'
@@ -62,10 +62,10 @@ export default function NavHeader() {
           />
         </svg>
 
-        <span className='mx-1 text-sm lg:text-sm'>Tin Tức</span>
+        <span className='text-sm lg:text-sm'>Tin Tức</span>
       </Link>
       <PopHover
-        className='ml-6 flex cursor-pointer items-center hover:text-white/70'
+        className=' flex cursor-pointer items-center hover:text-white/70'
         renderPopHover={
           <div className='relative rounded-md border border-gray-200 bg-white text-[8px] capitalize shadow-lg md:text-sm lg:text-sm'>
             <div className=' flex flex-col py-1 pl-2 pr-6'>
@@ -132,7 +132,7 @@ export default function NavHeader() {
           viewBox='0 0 24 24'
           strokeWidth={1.5}
           stroke='currentColor'
-          className='h-5 w-5'
+          className='h-5 w-5 '
         >
           <path
             strokeLinecap='round'
@@ -160,7 +160,7 @@ export default function NavHeader() {
             <div className='relative rounded-md border border-gray-200 bg-white text-[8px] shadow-lg md:text-sm lg:text-sm'>
               <Link
                 to={path.profile}
-                className='block w-full bg-white px-4 py-3 text-left hover:bg-slate-100 hover:text-cyan-500 '
+                className='block w-full bg-white py-3 text-left hover:bg-slate-100 hover:text-cyan-500 '
               >
                 Tài khoảng của Tôi
               </Link>
@@ -187,7 +187,7 @@ export default function NavHeader() {
               className='h-full w-full rounded-full object-cover'
             />
           </div>
-          <div> {profile?.name ? profile.name : profile?.email}</div>
+          <div className='hidden md:block lg:block'> {profile?.name ? profile.name : profile?.email}</div>
         </PopHover>
       )}
       {!isAuthenticated && (
