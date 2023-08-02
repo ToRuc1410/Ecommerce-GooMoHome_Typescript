@@ -8,10 +8,9 @@ import { ProductConfig } from 'src/types/product.type'
 import categoryApi from 'src/apis/category.api'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import SlideShow from 'src/components/SlideShow/SlideShow'
-import io from 'socket.io-client'
-import { useEffect } from 'react'
 
-const socket = io('http://localhost:4000/')
+import { useEffect } from 'react'
+import socket from 'src/constants/socket'
 
 export default function ProductList() {
   // ====================== gửi data lên api

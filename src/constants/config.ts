@@ -1,5 +1,5 @@
 const config = {
-  baseURL: 'http://localhost:4000/',
+  baseURL: 'https://be-servergoomohome.onrender.com/',
   maxSizeUpload: 1048576
 }
 export default config

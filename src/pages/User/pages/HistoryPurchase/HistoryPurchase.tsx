@@ -8,13 +8,11 @@ import Modal from 'src/components/Modal'
 import ModalReview from 'src/components/ModalReview'
 import path from 'src/constants/path'
 import { detailStatus } from 'src/constants/purchaseStatus'
+import socket from 'src/constants/socket'
 import useQueryParams from 'src/hooks/useQueryParams'
 import { OrderDetailListStatus } from 'src/types/purchase.type'
 import { formatCurrency } from 'src/utils/FuncFormat'
 import { renderColorStatusCode, renderDate, renderStatusCode } from 'src/utils/renderStatusCode'
-import io from 'socket.io-client'
-
-const socket = io('http://localhost:4000/')
 
 const purchaseTabs = [
   { status: detailStatus.all, name: 'Tất cả' },
@@ -66,8 +64,11 @@ export default function HistoryPurchase() {
     }
   }, [])
   // render sideNav
-  const handleDeliveredOrder = (IdPurchase: string) => () => {
-    updatePurchaseMutation.mutate({ orderDetail_id: IdPurchase })
+  const handleDeliveredOrder = (IdPurchase: string) => async () => {
+    const res = await updatePurchaseMutation.mutateAsync({ orderDetail_id: IdPurchase })
+    if (res) {
+      socket.emit('DeliveredOrderFromClient')
+    }
   }
   /// trạng thái xóa đơn hàng
   const handleDeleteOrder = (IdPurchase: string) => () => {

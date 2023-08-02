@@ -7,9 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import purchasesAPI from 'src/apis/purchase.api'
 import { toast } from 'react-toastify'
-import io from 'socket.io-client'
-
-const socket = io('http://localhost:4000/')
+import socket from 'src/constants/socket'
 interface Props {
   orderId: string
   onHide: () => void // Thêm prop onHide để ẩn component

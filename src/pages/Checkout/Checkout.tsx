@@ -8,13 +8,11 @@ import purchasesAPI from 'src/apis/purchase.api'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import path from 'src/constants/path'
+import socket from 'src/constants/socket'
 import { AppContext } from 'src/contexts/app.context'
 import { calculateTotalDimensions, calculateTotalWeight, convertKgToGram, formatCurrency } from 'src/utils/FuncFormat'
 import http from 'src/utils/http'
 import { Schema, schema } from 'src/utils/ruleValidateForm'
-import io from 'socket.io-client'
-
-const socket = io('http://localhost:4000/')
 
 type FormData = Pick<
   Schema,
