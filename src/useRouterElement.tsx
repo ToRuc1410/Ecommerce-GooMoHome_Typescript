@@ -96,52 +96,7 @@ export default function useRouterElement() {
         </MainLayout>
       )
     },
-    {
-      path: '',
-      element: <RejectRouter />,
-      children: [
-        {
-          path: path.login,
-          element: (
-            <RegisterLayout>
-              <Login />
-            </RegisterLayout>
-          )
-        },
-        {
-          path: path.verifyEmail,
-          element: (
-            <RegisterLayout>
-              <VerifyEmail />
-            </RegisterLayout>
-          )
-        },
-        {
-          path: path.register,
-          element: (
-            <RegisterLayout>
-              <Register />
-            </RegisterLayout>
-          )
-        },
-        {
-          path: path.forgotPassWord,
-          element: (
-            <RegisterLayout>
-              <ForgotPassword />
-            </RegisterLayout>
-          )
-        },
-        {
-          path: path.resetPassword,
-          element: (
-            <RegisterLayout>
-              <ResetPassWord />
-            </RegisterLayout>
-          )
-        }
-      ]
-    },
+
     {
       path: '',
       element: <ProtectedRouter />,
@@ -190,6 +145,52 @@ export default function useRouterElement() {
             <CheckoutLayout>
               <ReturnPay />
             </CheckoutLayout>
+          )
+        }
+      ]
+    },
+    {
+      path: '',
+      element: <RejectRouter />,
+      children: [
+        {
+          path: path.login,
+          element: (
+            <RegisterLayout>
+              <Login />
+            </RegisterLayout>
+          )
+        },
+        {
+          path: path.verifyEmail,
+          element: (
+            <RegisterLayout>
+              <VerifyEmail />
+            </RegisterLayout>
+          )
+        },
+        {
+          path: path.register,
+          element: (
+            <RegisterLayout>
+              <Register />
+            </RegisterLayout>
+          )
+        },
+        {
+          path: path.forgotPassWord,
+          element: (
+            <RegisterLayout>
+              <ForgotPassword />
+            </RegisterLayout>
+          )
+        },
+        {
+          path: path.resetPassword,
+          element: (
+            <RegisterLayout>
+              <ResetPassWord />
+            </RegisterLayout>
           )
         }
       ]
