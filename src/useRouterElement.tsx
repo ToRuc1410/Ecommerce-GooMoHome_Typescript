@@ -41,58 +41,59 @@ export default function useRouterElement() {
   const routeElements = useRoutes([
     {
       path: '',
-      index: true,
       element: (
         <MainLayout>
           <ProductList />
         </MainLayout>
-      )
+      ),
+      children: [
+        {
+          path: path.cs1,
+          element: (
+            <MainLayout>
+              <BaoHanh />
+            </MainLayout>
+          )
+        },
+        {
+          path: path.cs2,
+          element: (
+            <MainLayout>
+              <BaoMat />
+            </MainLayout>
+          )
+        },
+        {
+          path: path.cs3,
+          element: (
+            <MainLayout>
+              <DoiTra />
+            </MainLayout>
+          )
+        },
+        {
+          path: path.gt,
+          element: (
+            <MainLayout>
+              <GioiThieu />
+            </MainLayout>
+          )
+        },
+        {
+          path: path.blog,
+          element: (
+            <MainLayout>
+              <Blog />
+            </MainLayout>
+          )
+        }
+      ]
     },
     {
       path: path.productDetail,
       element: (
         <MainLayout>
           <ProductDetail />
-        </MainLayout>
-      )
-    },
-    {
-      path: path.cs1,
-      element: (
-        <MainLayout>
-          <BaoHanh />
-        </MainLayout>
-      )
-    },
-    {
-      path: path.cs2,
-      element: (
-        <MainLayout>
-          <BaoMat />
-        </MainLayout>
-      )
-    },
-    {
-      path: path.cs3,
-      element: (
-        <MainLayout>
-          <DoiTra />
-        </MainLayout>
-      )
-    },
-    {
-      path: path.gt,
-      element: (
-        <MainLayout>
-          <GioiThieu />
-        </MainLayout>
-      )
-    },
-    {
-      path: path.blog,
-      element: (
-        <MainLayout>
-          <Blog />
         </MainLayout>
       )
     },
