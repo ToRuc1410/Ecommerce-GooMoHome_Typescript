@@ -27,7 +27,7 @@ export default function NavHeader() {
   }
 
   return (
-    <div className='flex justify-between pt-1 text-[11px] md:text-sm lg:text-sm'>
+    <div className='flex justify-between pt-1 text-[11px] md:justify-end md:text-sm lg:justify-end lg:text-sm'>
       <Link to={path.gt} className='flex py-1'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -46,7 +46,7 @@ export default function NavHeader() {
 
         <span className='mx-1 text-sm lg:text-sm'>Giới Thiệu</span>
       </Link>
-      <Link to={path.blog} className='flex py-1'>
+      <Link to={path.blog} className='flex py-1 md:px-3 lg:px-7'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
@@ -155,12 +155,12 @@ export default function NavHeader() {
       {/* nếu đăng nhập hay đăng kí thành công mới cho hiện tài khoảng  */}
       {isAuthenticated && (
         <PopHover
-          className='mx-3 ml-6 flex cursor-pointer items-center hover:text-white/70 '
+          className='mx-3 ml-6 flex cursor-pointer items-center hover:text-white/70'
           renderPopHover={
             <div className='relative rounded-md border border-gray-200 bg-white text-[8px] shadow-lg md:text-sm lg:text-sm'>
               <Link
                 to={path.profile}
-                className='block w-full bg-white py-3 text-left hover:bg-slate-100 hover:text-cyan-500 '
+                className='block w-full bg-white px-5 py-3 text-left hover:bg-slate-100 hover:text-cyan-500'
               >
                 Tài khoảng của Tôi
               </Link>
