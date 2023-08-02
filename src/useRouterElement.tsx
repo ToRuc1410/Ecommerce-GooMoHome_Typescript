@@ -56,6 +56,46 @@ export default function useRouterElement() {
         </MainLayout>
       )
     },
+    {
+      path: path.cs1,
+      element: (
+        <MainLayout>
+          <BaoHanh />
+        </MainLayout>
+      )
+    },
+    {
+      path: path.cs2,
+      element: (
+        <MainLayout>
+          <BaoMat />
+        </MainLayout>
+      )
+    },
+    {
+      path: path.cs3,
+      element: (
+        <MainLayout>
+          <DoiTra />
+        </MainLayout>
+      )
+    },
+    {
+      path: path.gt,
+      element: (
+        <MainLayout>
+          <GioiThieu />
+        </MainLayout>
+      )
+    },
+    {
+      path: path.blog,
+      element: (
+        <MainLayout>
+          <Blog />
+        </MainLayout>
+      )
+    },
 
     {
       path: '',
@@ -106,46 +146,6 @@ export default function useRouterElement() {
               <ReturnPay />
             </CheckoutLayout>
           )
-        },
-        {
-          path: path.cs1,
-          element: (
-            <MainLayout>
-              <BaoHanh />
-            </MainLayout>
-          )
-        },
-        {
-          path: path.cs2,
-          element: (
-            <MainLayout>
-              <BaoMat />
-            </MainLayout>
-          )
-        },
-        {
-          path: path.cs3,
-          element: (
-            <MainLayout>
-              <DoiTra />
-            </MainLayout>
-          )
-        },
-        {
-          path: path.gt,
-          element: (
-            <MainLayout>
-              <GioiThieu />
-            </MainLayout>
-          )
-        },
-        {
-          path: path.blog,
-          element: (
-            <MainLayout>
-              <Blog />
-            </MainLayout>
-          )
         }
       ]
     },
@@ -191,46 +191,6 @@ export default function useRouterElement() {
             <RegisterLayout>
               <ResetPassWord />
             </RegisterLayout>
-          )
-        },
-        {
-          path: path.cs1,
-          element: (
-            <MainLayout>
-              <BaoHanh />
-            </MainLayout>
-          )
-        },
-        {
-          path: path.cs2,
-          element: (
-            <MainLayout>
-              <BaoMat />
-            </MainLayout>
-          )
-        },
-        {
-          path: path.cs3,
-          element: (
-            <MainLayout>
-              <DoiTra />
-            </MainLayout>
-          )
-        },
-        {
-          path: path.gt,
-          element: (
-            <MainLayout>
-              <GioiThieu />
-            </MainLayout>
-          )
-        },
-        {
-          path: path.blog,
-          element: (
-            <MainLayout>
-              <Blog />
-            </MainLayout>
           )
         }
       ]
