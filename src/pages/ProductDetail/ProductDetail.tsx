@@ -250,7 +250,7 @@ export default function ProductDetail() {
             <div className='col-span-6 '>
               {/* - Title */}
               <h1 className='text-xl font-medium sm:text-xl lg:text-2xl'>{product.name}</h1>
-              <div className='mt-2 flex items-center bg-slate-50 p-2 text-[8px] capitalize md:text-sm lg:text-lg'>
+              <div className='mt-2 flex items-center bg-slate-50 p-2 capitalize md:text-sm lg:text-lg'>
                 <div className='flex items-center '>
                   <span className='mr-1 border-b border-gray-500 text-xs font-medium sm:text-xs lg:text-sm'>
                     {product.rating && Number(product.rating.toFixed(1))}
@@ -259,7 +259,7 @@ export default function ProductDetail() {
                     <ProductRating
                       rating={product.rating || 0}
                       activeClassName='fill-orange text-orange h-3 w-3 lg:h-5 md:h-3 lg:w-5 md:w-3'
-                      noneActiveClassName='fill-gray-300 text-gray-300 h-2 w-2 lg:h-5 md:h-3 lg:w-5 md:w-3'
+                      noneActiveClassName='fill-gray-300 text-gray-300 h-3 w-3 lg:h-5 md:h-3 lg:w-5 md:w-3'
                     />
                   </span>
                 </div>
