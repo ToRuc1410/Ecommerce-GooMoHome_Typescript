@@ -164,7 +164,7 @@ export default function ProductDetail() {
             {/* img */}
             <div className='col-span-6'>
               {/* img chính */}
-              <div className='container'>
+              <div className='md:container lg:container'>
                 <div
                   className='relative w-full cursor-zoom-in overflow-hidden pt-[100%] shadow-sm'
                   onMouseMove={hanldeChangeImg}
@@ -230,12 +230,26 @@ export default function ProductDetail() {
                   </button>
                 </div>
               </div>
+              <div className='py-6 md:hidden lg:hidden'>
+                <span className='text-sm font-bold uppercase md:text-sm lg:ml-12 lg:text-xl'>Chi Tiết Sản Phẩm</span>
+                <div className='py-2 text-xs lg:text-lg'>
+                  <div className='py-1'>
+                    Dài x Rộng: <b>{`${product.length}cm x ${product.width}cm `}</b>
+                  </div>
+                  <div className='py-1'>
+                    Cao: <b>{product.height}cm</b>
+                  </div>
+                  <div className='py-1'>
+                    Nặng: <b>{product.weight}gram</b>
+                  </div>
+                </div>
+              </div>
             </div>
             {/* <div className=' col-span-1 mx-12 w-[2px] bg-slate-50' /> */}
             {/* choose thuộc tính */}
             <div className='col-span-6 '>
               {/* - Title */}
-              <h1 className='text-sm font-medium sm:text-xl lg:text-2xl'>{product.name}</h1>
+              <h1 className='text-xl font-medium sm:text-xl lg:text-2xl'>{product.name}</h1>
               <div className='mt-2 flex items-center bg-slate-50 p-2 text-[8px] capitalize md:text-sm lg:text-lg'>
                 <div className='flex items-center '>
                   <span className='mr-1 border-b border-gray-500 text-xs font-medium sm:text-xs lg:text-sm'>
@@ -259,7 +273,7 @@ export default function ProductDetail() {
               {/* Giá */}
               <div className='mt-3 flex-shrink-0 flex-col items-center bg-gray-100 px-1 py-2 lg:pl-3'>
                 {product.price !== 0 && (
-                  <div className='mb-1 w-6 rounded-sm bg-orange p-1 text-[6px] text-white/80 md:w-8 md:text-[6px] lg:w-16 lg:text-xs'>
+                  <div className='mb-1 w-14 rounded-sm bg-orange p-1 text-[10px] text-white/80 md:w-8 md:text-[6px] lg:w-20 lg:text-sm'>
                     {rateSale(product.price_before_discount, product.price)}
                     <span> giảm</span>
                   </div>
@@ -268,12 +282,12 @@ export default function ProductDetail() {
                   {product.price === 0 ? (
                     <></>
                   ) : (
-                    <div className='text-[10px] text-gray-500 line-through md:text-sm lg:pt-2 lg:text-lg'>
+                    <div className='text-xs text-gray-500 line-through md:text-sm lg:pt-2 lg:text-lg'>
                       <span>₫</span>
                       <span>{formatCurrency(product.price_before_discount)}</span>
                     </div>
                   )}
-                  <div className='mx-1 font-sans text-xs text-orange md:mx-2 md:text-[18px] lg:ml-4 lg:pb-2 lg:text-3xl'>
+                  <div className='mx-1 font-sans text-sm text-orange md:mx-2 md:text-[18px] lg:ml-4 lg:pb-2 lg:text-3xl'>
                     <span>₫</span>
                     <span>{formatCurrency(product.price !== 0 ? product.price : product.price_before_discount)}</span>
                   </div>
@@ -308,9 +322,9 @@ export default function ProductDetail() {
                 )}
               </div>
               {product.quantity !== 0 ? (
-                <div className='mt-2 flex items-center py-2 text-[7px] md:mt-1 md:text-sm lg:mt-1 lg:py-0 lg:text-lg'>
+                <div className='mt-2 flex items-center py-2 text-[9px] md:mt-1 md:text-sm lg:mt-1 lg:py-0 lg:text-lg'>
                   <button
-                    className='flex h-5 items-center justify-center rounded-sm  bg-slate-200 p-2 capitalize text-orange hover:bg-slate-300 hover:shadow-lg md:p-5 lg:p-7'
+                    className='flex h-5 items-center justify-center rounded-sm  bg-slate-200 px-2 py-4 capitalize text-orange hover:bg-slate-300 hover:shadow-lg md:p-5 lg:p-7'
                     onClick={addToCart}
                   >
                     <svg
@@ -331,7 +345,7 @@ export default function ProductDetail() {
                   </button>
                   <button
                     onClick={buyNow}
-                    className='ml-2 flex h-5 items-center justify-center rounded-sm bg-orange px-3 capitalize text-white outline-none hover:bg-orange/80 hover:shadow-lg md:p-5 lg:p-7'
+                    className='ml-2 flex h-5 items-center justify-center rounded-sm bg-orange px-2 py-4 capitalize text-white outline-none hover:bg-orange/80 hover:shadow-lg md:p-5 lg:p-7'
                   >
                     Mua ngay
                   </button>
@@ -340,12 +354,18 @@ export default function ProductDetail() {
                 <></>
               )}
 
-              <div className='py-2 text-[10px] md:text-sm lg:text-sm'>
-                <span className='font-bold uppercase lg:ml-12'>Chi Tiết Sản Phẩm</span>
-                <div className='py-2'>
-                  <div className='py-1'>Dài x Rộng: {`${product.length}cm x ${product.width}cm `}</div>
-                  <div className='py-1'>Cao: {product.height}cm</div>
-                  <div className='py-1'>Nặng: {product.weight}gram</div>
+              <div className='hidden py-2 md:block lg:block'>
+                <span className='text-sm font-bold uppercase md:text-sm lg:ml-12 lg:text-xl'>Chi Tiết Sản Phẩm</span>
+                <div className='py-2 lg:text-lg'>
+                  <div className='py-1'>
+                    Dài x Rộng: <b>{`${product.length}cm x ${product.width}cm `}</b>
+                  </div>
+                  <div className='py-1'>
+                    Cao: <b>{product.height}cm</b>
+                  </div>
+                  <div className='py-1'>
+                    Nặng: <b>{product.weight}gram</b>
+                  </div>
                 </div>
               </div>
             </div>
@@ -355,10 +375,10 @@ export default function ProductDetail() {
 
       <div className='mt-8 bg-white p-4 shadow'>
         <div className='container'>
-          <div className='rounded bg-gray-100 p-4 text-[10px] capitalize text-slate-700 md:text-sm lg:text-lg'>
+          <div className='rounded bg-gray-100 p-4 text-[14px] capitalize text-slate-700 md:text-sm lg:text-lg'>
             Mô tả sản phẩm
           </div>
-          <div className='mx-4 mb-4 mt-4 text-[10px] md:mt-6 md:text-sm lg:mt-8 lg:text-sm'>
+          <div className='mx-4 mb-4 mt-4 text-xs md:mt-6 md:text-sm lg:mt-8 lg:text-sm'>
             {/* truyển description dạng html sang văn bản */}
             <div
               className='leading-loose'
