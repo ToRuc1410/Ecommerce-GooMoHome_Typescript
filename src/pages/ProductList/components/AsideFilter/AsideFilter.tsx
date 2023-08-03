@@ -12,6 +12,7 @@ import { NumericFormat } from 'react-number-format'
 // import InputV2 from 'src/components/InputV2(New)'
 import RatingStarts from 'src/components/RatingStarts'
 import { removeCommas } from 'src/utils/FuncFormat'
+import InputNumber from 'src/components/InputNumber'
 interface Props {
   queryConfig: QueryConfig
   categories: Category[]
@@ -144,13 +145,26 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
               name='price_min'
               render={({ field }) => {
                 return (
-                  <NumericFormat
+                  // <NumericFormat
+                  //   type='text'
+                  //   className='w-full rounded-sm p-1 text-[8px] shadow-sm outline-none focus:border-gray-400 focus:shadow-md md:text-sm lg:text-lg'
+                  //   placeholder='₫ Từ'
+                  //   autoComplete='off'
+                  //   allowLeadingZeros
+                  //   thousandSeparator=','
+                  //   {...field}
+                  //   onChange={(event) => {
+                  //     field.onChange(event)
+                  //     trigger('price_max')
+                  //   }}
+                  // />
+                  <InputNumber
                     type='text'
-                    className='w-full rounded-sm p-1 text-[8px] shadow-sm outline-none focus:border-gray-400 focus:shadow-md md:text-sm lg:text-lg'
+                    className=''
                     placeholder='₫ Từ'
                     autoComplete='off'
-                    allowLeadingZeros
-                    thousandSeparator=','
+                    classNameError='hidden'
+                    classNameInput='w-full rounded-sm p-1 outline-none focus:border-gray-400 focus:shadow-md shadow-sm text-[8px] md:text-sm lg:text-lg'
                     {...field}
                     onChange={(event) => {
                       field.onChange(event)
@@ -167,13 +181,13 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
               name='price_max'
               render={({ field }) => {
                 return (
-                  <NumericFormat
+                  <InputNumber
                     type='text'
-                    className='w-full rounded-sm p-1 text-[8px] shadow-sm outline-none focus:border-gray-400 focus:shadow-md md:text-sm lg:text-lg'
+                    className=''
                     autoComplete='off'
                     placeholder='₫ Đến'
-                    allowLeadingZeros
-                    thousandSeparator=','
+                    classNameError='hidden'
+                    classNameInput='w-full rounded-sm p-1 outline-none focus:border-gray-400 focus:shadow-md shadow-sm text-[8px] md:text-sm lg:text-lg'
                     {...field}
                     onChange={(event) => {
                       field.onChange(event)

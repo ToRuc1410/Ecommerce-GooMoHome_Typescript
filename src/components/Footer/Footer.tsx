@@ -6,14 +6,18 @@ export default function Footer() {
     <footer className='bg-neutral-100 lg:py-16'>
       <div className='container'>
         <div className='grid grid-cols-12 lg:gap-6'>
-          <div className='col-span-3'>
-            <div className='pt-5 text-[11px] font-thin md:text-sm lg:text-2xl'> Thông Tin Liên Hệ </div>
-            <div className='mt-2 text-[8px] md:text-sm lg:pl-10 lg:text-sm'>
+          <div className='col-span-4 md:col-span-3 lg:col-span-3'>
+            <div className='pt-5 text-[11px] font-thin md:text-sm lg:text-2xl'>
+              <b> Thông Tin Liên Hệ</b>
+            </div>
+            <div className='mt-2 text-[10px] md:text-sm lg:pl-10 lg:text-sm'>
               <div>Thời gian làm việc: 8:00am - 20:00pm</div>
               <div className='mt-2'>Liên hệ: 0968835592 (zalo)</div>
               <div className='mt-2'>Gmail: goomohome@gmail.com</div>
-              <div className='ml-1 pt-5 text-[10px] font-thin md:text-sm lg:text-lg'>Hướng Dẫn</div>
-              <div className='lg:pl-5'>
+              <div className='ml-1 hidden pt-5 text-[10px] font-thin md:block md:text-sm lg:block lg:text-lg'>
+                Hướng Dẫn
+              </div>
+              <div className='hidden md:block lg:block lg:pl-5'>
                 <div className='flex items-center text-[10px] font-thin md:text-sm lg:py-2 lg:text-lg'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -191,11 +195,13 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className='col-span-3 lg:pl-10'>
-            <div className='pt-5 text-[12px] font-thin md:text-sm lg:text-2xl'>Về Chúng Tôi</div>
+          <div className='col-span-4 md:col-span-3 lg:col-span-3 lg:pl-10'>
+            <div className='pt-5 text-[12px] font-thin md:text-sm lg:text-2xl'>
+              <b>Về Chúng Tôi</b>
+            </div>
             <p className='flex flex-col text-[10px] font-thin md:flex-col md:text-sm lg:flex-row lg:py-2 lg:text-sm'>
-              <span className='py-2'>Trụ Sở Hà Nội</span>
-              <a href={`tel:${'0968835592'}`} className='ml-2 py-1 text-blue-500'>
+              <span className='py-2 lg:py-3'>Trụ Sở Hà Nội</span>
+              <a href={`tel:${'0968835592'}`} className='ml-2 py-1 text-blue-500 md:py-3 lg:py-3'>
                 <span className='flex'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -229,11 +235,11 @@ export default function Footer() {
               Trụ sở Hà Nội: 330 Trịnh Đình Cử, Định Công, Hoàng Mai, Hà Nội
             </div>
           </div>
-          <div className='col-span-3 pt-8 md:pt-9 lg:pt-11'>
+          <div className='col-span-4 pt-8 md:col-span-3 md:pt-9 lg:col-span-3 lg:pt-11'>
             <div className='text-[10px] font-thin md:text-sm lg:pl-5 lg:text-sm'>
               <p className='flex flex-col  md:flex-col lg:flex-row lg:py-3'>
                 <span className='pb-2 pt-3'>Trụ Sở TP. HCM</span>
-                <a href={`tel:${'0968835592'}`} className='ml-2 py-1 text-blue-500'>
+                <a href={`tel:${'0968835592'}`} className='ml-2 py-1 text-blue-500 lg:py-3'>
                   <span className='flex'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
@@ -270,7 +276,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className='col-span-3 pb-5'>
+          <div className='hidden md:col-span-3 md:block md:pb-5 lg:col-span-3 lg:block lg:pb-5'>
             <div className='flex pt-10'>
               <div className='mr-2'>
                 <svg
