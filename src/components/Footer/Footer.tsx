@@ -7,10 +7,10 @@ export default function Footer() {
       <div className='container'>
         <div className='grid grid-cols-12 lg:gap-6'>
           <div className='col-span-4 md:col-span-3 lg:col-span-3'>
-            <div className='pt-5 text-[11px] font-thin md:text-sm lg:text-2xl'>
+            <div className='pt-5 font-serif text-xs md:text-sm lg:text-2xl'>
               <b> Thông Tin Liên Hệ</b>
             </div>
-            <div className='mt-2 text-[10px] md:text-sm lg:pl-10 lg:text-sm'>
+            <div className='mt-2 font-serif text-[11px] md:text-sm lg:pl-10 lg:text-sm'>
               <div>Thời gian làm việc: 8:00am - 20:00pm</div>
               <div className='mt-2'>Liên hệ: 0968835592 (zalo)</div>
               <div className='mt-2'>Gmail: goomohome@gmail.com</div>
@@ -196,10 +196,10 @@ export default function Footer() {
             </div>
           </div>
           <div className='col-span-4 md:col-span-3 lg:col-span-3 lg:pl-10'>
-            <div className='pt-5 text-[12px] font-thin md:text-sm lg:text-2xl'>
+            <div className='pt-5 text-[14px] md:text-sm lg:text-2xl'>
               <b>Về Chúng Tôi</b>
             </div>
-            <p className='flex flex-col text-[10px] font-thin md:flex-col md:text-sm lg:flex-row lg:py-2 lg:text-sm'>
+            <p className='flex flex-col text-xs font-medium md:flex-col md:text-sm lg:flex-row lg:py-2 lg:text-sm'>
               <span className='py-2 lg:py-3'>Trụ Sở Hà Nội</span>
               <a href={`tel:${'0968835592'}`} className='ml-2 py-1 text-blue-500 md:py-3 lg:py-3'>
                 <span className='flex'>
@@ -231,13 +231,13 @@ export default function Footer() {
                 loading='lazy'
               ></iframe>
             </div>
-            <div className='mt-4  text-[10px] font-thin md:text-sm lg:text-sm'>
+            <div className='mt-4 font-serif text-xs md:text-sm lg:text-sm'>
               Trụ sở Hà Nội: 330 Trịnh Đình Cử, Định Công, Hoàng Mai, Hà Nội
             </div>
           </div>
           <div className='col-span-4 pt-8 md:col-span-3 md:pt-9 lg:col-span-3 lg:pt-11'>
             <div className='text-[10px] font-thin md:text-sm lg:pl-5 lg:text-sm'>
-              <p className='flex flex-col  md:flex-col lg:flex-row lg:py-3'>
+              <p className='flex flex-col text-xs font-medium md:flex-col lg:flex-row lg:py-3'>
                 <span className='pb-2 pt-3'>Trụ Sở TP. HCM</span>
                 <a href={`tel:${'0968835592'}`} className='ml-2 py-1 text-blue-500 lg:py-3'>
                   <span className='flex'>
@@ -271,7 +271,7 @@ export default function Footer() {
                 // width={'80'}
                 className='h-20 w-20 text-xs md:h-40 md:w-40 lg:h-60 lg:w-60'
               ></iframe>
-              <div className='mt-4  text-[10px] font-thin md:text-sm lg:text-sm'>
+              <div className='mt-4 font-serif text-xs md:text-sm lg:text-sm'>
                 Trụ Sở TP.HCM: 30 Đường Số 50, Phường Tân Tạo, Quận Bình Tân, TP.HCM
               </div>
             </div>

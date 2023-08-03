@@ -238,26 +238,28 @@ export default function ProductDetail() {
               <h1 className='text-sm font-medium sm:text-xl lg:text-2xl'>{product.name}</h1>
               <div className='mt-2 flex items-center bg-slate-50 p-2 text-[8px] capitalize md:text-sm lg:text-lg'>
                 <div className='flex items-center '>
-                  <span className='mr-1 border-b border-gray-500'>
+                  <span className='mr-1 border-b border-gray-500 text-xs font-medium sm:text-xs lg:text-sm'>
                     {product.rating && Number(product.rating.toFixed(1))}
                   </span>
                   <span>
                     <ProductRating
                       rating={product.rating || 0}
-                      activeClassName='fill-orange text-orange h-2 w-2 lg:h-5 md:h-3 lg:w-5 md:w-3'
+                      activeClassName='fill-orange text-orange h-3 w-3 lg:h-5 md:h-3 lg:w-5 md:w-3'
                       noneActiveClassName='fill-gray-300 text-gray-300 h-2 w-2 lg:h-5 md:h-3 lg:w-5 md:w-3'
                     />
                   </span>
                 </div>
                 <div className=' mx-2 h-4 w-[1px] bg-gray-400 lg:mx-4' />
                 <div>
-                  <p className=' text-gray-500'>{formatNumberToSocialStyle(product.sold || 0)} Đã bán</p>
+                  <p className='text-xs font-medium text-gray-500 sm:text-xs lg:text-sm'>
+                    {formatNumberToSocialStyle(product.sold || 0)} Đã bán
+                  </p>
                 </div>
               </div>
               {/* Giá */}
               <div className='mt-3 flex-shrink-0 flex-col items-center bg-gray-100 px-1 py-2 lg:pl-3'>
                 {product.price !== 0 && (
-                  <div className='mb-1 w-6 rounded-sm bg-orange p-1 text-[4px] text-white/80 md:w-8 md:text-[6px] lg:w-16 lg:text-xs'>
+                  <div className='mb-1 w-6 rounded-sm bg-orange p-1 text-[6px] text-white/80 md:w-8 md:text-[6px] lg:w-16 lg:text-xs'>
                     {rateSale(product.price_before_discount, product.price)}
                     <span> giảm</span>
                   </div>
@@ -266,30 +268,39 @@ export default function ProductDetail() {
                   {product.price === 0 ? (
                     <></>
                   ) : (
-                    <div className='text-[8px] text-gray-500 line-through md:text-sm lg:pt-2 lg:text-lg'>
+                    <div className='text-[10px] text-gray-500 line-through md:text-sm lg:pt-2 lg:text-lg'>
                       <span>₫</span>
                       <span>{formatCurrency(product.price_before_discount)}</span>
                     </div>
                   )}
-                  <div className='mx-1 font-sans text-[10px] text-orange md:mx-2 md:text-[18px] lg:ml-4 lg:pb-2 lg:text-3xl'>
+                  <div className='mx-1 font-sans text-xs text-orange md:mx-2 md:text-[18px] lg:ml-4 lg:pb-2 lg:text-3xl'>
                     <span>₫</span>
                     <span>{formatCurrency(product.price !== 0 ? product.price : product.price_before_discount)}</span>
                   </div>
                 </div>
               </div>
-              <div className='mt-2 flex items-center justify-start text-[8px] capitalize md:text-sm lg:text-lg'>
+              <div className='mt-2 flex items-center justify-start capitalize '>
                 {product.quantity !== 0 ? (
                   <>
-                    <div className='capitalize text-gray-500 '>Số lượng</div>
-                    <QuantityProduct
-                      onIncrease={handleBuyCount}
-                      onDecrease={handleBuyCount}
-                      onType={handleBuyCount}
-                      value={buyCount}
-                      max={product.quantity}
-                      classWrapper='px-1 py-2'
-                    />
-                    <div className='text-gray-600'>{product.quantity} Số lượng có sẵn</div>
+                    <div className='flex flex-col'>
+                      <div className='text-[10px] font-medium capitalize text-gray-500 sm:text-xs lg:text-sm'>
+                        Số lượng
+                      </div>
+                      <div className='flex'>
+                        <QuantityProduct
+                          onIncrease={handleBuyCount}
+                          onDecrease={handleBuyCount}
+                          onType={handleBuyCount}
+                          value={buyCount}
+                          max={product.quantity}
+                          classWrapper='px-1 py-2 md:text-sm lg:text-lg text-xs'
+                        />
+                        <div className='mt-1 text-[10px] text-gray-600 md:text-sm lg:text-lg'>
+                          {product.quantity}
+                          Số lượng có sẵn
+                        </div>
+                      </div>
+                    </div>
                   </>
                 ) : (
                   <div className='capitalize text-red-500/80 '>

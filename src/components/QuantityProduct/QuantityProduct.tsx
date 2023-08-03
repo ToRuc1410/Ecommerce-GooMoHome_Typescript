@@ -76,7 +76,7 @@ export default function QuantityProduct({
         <InputNumber
           className=''
           classNameError='hidden'
-          classNameInput='h-4 w-4 md:h-6 md:w-6 lg:h-8 lg:w-16 flex border-t border-b border-gray-300 p-1 text-center outline-none'
+          classNameInput='h-4 w-6 md:h-6 md:w-6 lg:h-8 lg:w-16 flex border-t border-b border-gray-300 p-1 text-center outline-none'
           onChange={handleChange}
           value={value || localValue}
           onBlur={handleBlur}
