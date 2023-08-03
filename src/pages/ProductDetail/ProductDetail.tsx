@@ -295,9 +295,8 @@ export default function ProductDetail() {
                           max={product.quantity}
                           classWrapper='px-1 py-2 md:text-sm lg:text-lg text-xs'
                         />
-                        <div className='mt-1 text-[10px] text-gray-600 md:text-sm lg:text-lg'>
-                          {product.quantity}
-                          Số lượng có sẵn
+                        <div className='lg:md-2 mt-1 px-2 text-[10px] text-gray-600 md:mt-2 md:text-sm lg:text-lg'>
+                          {product.quantity} Số lượng có sẵn
                         </div>
                       </div>
                     </div>
@@ -309,7 +308,7 @@ export default function ProductDetail() {
                 )}
               </div>
               {product.quantity !== 0 ? (
-                <div className='mt-2 flex items-center py-2 text-[7px] md:text-sm lg:text-lg'>
+                <div className='mt-2 flex items-center py-2 text-[7px] md:mt-1 md:text-sm lg:mt-1 lg:py-0 lg:text-lg'>
                   <button
                     className='flex h-5 items-center justify-center rounded-sm  bg-slate-200 p-2 capitalize text-orange hover:bg-slate-300 hover:shadow-lg md:p-5 lg:p-7'
                     onClick={addToCart}
