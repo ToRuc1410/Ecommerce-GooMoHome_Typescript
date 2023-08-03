@@ -59,7 +59,7 @@ export default function QuantityProduct({
     <>
       <div className={`flex items-center ${classWrapper}`}>
         <button
-          className='flex h-4 w-4 items-center justify-center rounded-l-sm border border-gray-300 text-gray-600 md:h-5 md:w-5 lg:h-8 lg:w-8'
+          className='flex h-6 w-6 items-center justify-center rounded-l-sm border border-gray-300 text-gray-600 md:h-5 md:w-5 lg:h-8 lg:w-8'
           onClick={decrease}
         >
           <svg
@@ -76,14 +76,14 @@ export default function QuantityProduct({
         <InputNumber
           className=''
           classNameError='hidden'
-          classNameInput='h-4 w-6 md:h-6 md:w-6 lg:h-8 lg:w-16 flex border-t border-b border-gray-300 p-1 text-center outline-none'
+          classNameInput='h-6 w-10 md:h-6 md:w-6 lg:h-8 lg:w-16 flex border-t border-b border-gray-300 p-1 text-center outline-none'
           onChange={handleChange}
           value={value || localValue}
           onBlur={handleBlur}
           {...rest}
         />
         <button
-          className='flex h-4 w-4 items-center justify-center rounded-r-sm border border-gray-300 text-gray-600 md:h-5 md:w-5 lg:h-8 lg:w-8'
+          className='flex h-6 w-6 items-center justify-center rounded-r-sm border border-gray-300 text-gray-600 md:h-5 md:w-5 lg:h-8 lg:w-8'
           onClick={increase}
         >
           <svg

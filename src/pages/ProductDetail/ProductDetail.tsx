@@ -273,7 +273,7 @@ export default function ProductDetail() {
               {/* Giá */}
               <div className='mt-3 flex-shrink-0 flex-col items-center bg-gray-100 px-1 py-2 lg:pl-3'>
                 {product.price !== 0 && (
-                  <div className='mb-1 w-14 rounded-sm bg-orange p-1 text-[10px] text-white/80 md:w-8 md:text-[6px] lg:w-20 lg:text-sm'>
+                  <div className='mb-1 w-16 rounded-sm bg-orange p-1 text-xs text-white/80 md:w-8 md:text-[6px] lg:w-20 lg:text-sm'>
                     {rateSale(product.price_before_discount, product.price)}
                     <span> giảm</span>
                   </div>
@@ -287,7 +287,7 @@ export default function ProductDetail() {
                       <span>{formatCurrency(product.price_before_discount)}</span>
                     </div>
                   )}
-                  <div className='mx-1 font-sans text-sm text-orange md:mx-2 md:text-[18px] lg:ml-4 lg:pb-2 lg:text-3xl'>
+                  <div className='mx-1 font-sans text-xl text-orange md:mx-2 md:text-[18px] lg:ml-4 lg:pb-2 lg:text-3xl'>
                     <span>₫</span>
                     <span>{formatCurrency(product.price !== 0 ? product.price : product.price_before_discount)}</span>
                   </div>
@@ -297,9 +297,7 @@ export default function ProductDetail() {
                 {product.quantity !== 0 ? (
                   <>
                     <div className='flex flex-col'>
-                      <div className='text-[10px] font-medium capitalize text-gray-500 sm:text-xs lg:text-sm'>
-                        Số lượng
-                      </div>
+                      <div className='text-xs font-medium capitalize text-gray-500 sm:text-xs lg:text-sm'>Số lượng</div>
                       <div className='flex'>
                         <QuantityProduct
                           onIncrease={handleBuyCount}
@@ -322,9 +320,9 @@ export default function ProductDetail() {
                 )}
               </div>
               {product.quantity !== 0 ? (
-                <div className='mt-2 flex items-center py-2 text-[9px] md:mt-1 md:text-sm lg:mt-1 lg:py-0 lg:text-lg'>
+                <div className='mt-2 flex items-center py-2 text-xs md:mt-1 md:text-sm lg:mt-1 lg:py-0 lg:text-lg'>
                   <button
-                    className='flex h-5 items-center justify-center rounded-sm  bg-slate-200 px-2 py-4 capitalize text-orange hover:bg-slate-300 hover:shadow-lg md:p-5 lg:p-7'
+                    className='flex h-5 items-center justify-center rounded-sm  bg-slate-200 px-2 py-6 capitalize text-orange hover:bg-slate-300 hover:shadow-lg md:p-5 lg:p-7'
                     onClick={addToCart}
                   >
                     <svg
@@ -333,7 +331,7 @@ export default function ProductDetail() {
                       viewBox='0 0 24 24'
                       strokeWidth={1.5}
                       stroke='currentColor'
-                      className='h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5'
+                      className='h-6 w-6 md:h-4 md:w-4 lg:h-5 lg:w-5'
                     >
                       <path
                         strokeLinecap='round'
@@ -345,7 +343,7 @@ export default function ProductDetail() {
                   </button>
                   <button
                     onClick={buyNow}
-                    className='ml-2 flex h-5 items-center justify-center rounded-sm bg-orange px-2 py-4 capitalize text-white outline-none hover:bg-orange/80 hover:shadow-lg md:p-5 lg:p-7'
+                    className='ml-2 flex h-5 items-center justify-center rounded-sm bg-orange px-2 py-6 capitalize text-white outline-none hover:bg-orange/80 hover:shadow-lg md:p-5 lg:p-7'
                   >
                     Mua ngay
                   </button>
