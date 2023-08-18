@@ -1,5 +1,5 @@
 const config = {
-  baseURL: 'https://be-servergoomohome.onrender.com/',
+  baseURL: 'https://api-goomohome.vercel.app/',
   maxSizeUpload: 1048576
 }
 export default config
