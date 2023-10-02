@@ -11,6 +11,7 @@ import SlideShow from 'src/components/SlideShow/SlideShow'
 
 import { useEffect } from 'react'
 import socket from 'src/constants/socket'
+import { Spinner } from '@material-tailwind/react'
 
 export default function ProductList() {
   // ====================== gửi data lên api
@@ -58,7 +59,7 @@ export default function ProductList() {
         <SlideShow autoplayDelay={2500} />
       </div>
       <div className='container pt-2'>
-        {ProductsData && Categories && (
+        {ProductsData && Categories ? (
           <div className='grid grid-cols-12 gap-6'>
             <div className='hidden md:col-span-3 md:block lg:col-span-3 lg:block'>
               <AsideFilter categories={Categories.data.data} queryConfig={queryConfig} />
@@ -75,6 +76,10 @@ export default function ProductList() {
               <Pagination queryConfig={queryConfig} pageSize={ProductsData.data.data.pagination.page_size} />
             </div>
           </div>
+        ) : (
+          <>
+            <Spinner className='flex h-12 w-12 items-center justify-center text-gray-900/50' />
+          </>
         )}
       </div>
     </div>
