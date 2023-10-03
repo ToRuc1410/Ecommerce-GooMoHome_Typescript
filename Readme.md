@@ -1,63 +1,37 @@
-1.chia components
+Project Components and Libraries
+Components
 
-> Layout => RegisterLayout cho 2 elements {
-> pages: [Login , Registter]
-> } -->
+1. Layout: RegisterLayout for two elements { pages: Login , Register] }
+2. Popop: A component that appears when hovering over multi-language, account, cart
 
-2. xly lỗi
+## Libraries
 
-- trong submit form login,register
-- axios lỗi chung ~ 4xx-5xx
+1. Framer Motion: Animation library for React web
+2. React Popper or Floating Ui: Libraries to calculate position for tooltips, PopHov, Scroll up and down, etc.
 
-3. useRouterElement chia router element
+## Other Features
 
-4. tạo component popop:hover khi hover vào đa ngôn ngữ, account, cart
+1. AppContext: A folder created to store the isAuthenticate variable to check if the User is logged in or not from localstorage. The value of localstorage is taken from the auth.ts file.
+2. Star Rating Algorithm
+3. Pagination Mechanism
+4. URL Handling for SEO
+5. Caching Mechanism: Handles API calls for queries between two different times: staleTime: 3601000 is used in ProductList and ProductDetail
+6. Lazyload Component: With react lazy and react router
+7. Rollup Plugin Visualizer: Used to analyze the files, folders, etc. that occupy a percentage in the project
 
-Những thư viện sử dụng
+## Issues and Solutions
 
-- Framer Motion - Animation library cho React web
-- React Popper or Floating Ui - thư viện giúp tính position đề view những tooltip, PopHov, Scroll up and down,...
+1. Form Submission Error: In the login and register forms, there is a common axios error ~ 4xx-5xx
+2. Router Element Division: useRouterElement divides router element
+3. SortProductList Handling: The default active will be the latest (createdAt). Note: There is a problem with sorting by price (sortPrice) if the user chooses ['popular', 'latest', 'best selling'] then it needs to be run according to a flow that is:
 
-5. tạo folder appContext để lưu trữ biến isAuthenticate nhằm mục đích kiểm tra User đăng nhập hay chưa từ localstogare mà muốn lấy giá trị access localstogare lấy từ file auth.ts
+- Most popular -> not popular
+- Latest -> not latest
+- Best selling -> not selling
 
-6.thuật toán đánh giá bằng sao
+4. XSS Prevention: Using the DOMPurify library, a DOM-only, super-fast, XSS sanitizer for HTML, MathML, and SVG. This prevents users from hacking the web using js. This part is used for product.description.
+5. Logout Issue: When logging out, the cart of the API purchase should be disabled, not allowing it to call the API anymore because when calling back the cart, it does not know which user object it is because there is no token causing an error. The solution is to check at the useQuery function in the header to call purchase, we check whether the user has logged in or logged out. If they have logged in or registered, then only enable the API purchase.
 
-C:\xampp\htdocs\images
-7.cơ chế phân trang
-C:\xampp\htdocs\images
+## Learning Notes
 
-8. việc sử dụng link là params để đều hướng web mà k sdung state lợi ích là khi user 1
-   copy link gửi cho 1 user 2 thì những cái filter hiện có của user 1 sẽ hiển thị đúng
-   cho user 2 việc sử dụng này thì sẽ cải thiện dc mặt UX cho người dùng và đảm bảo cho những
-   filter hiện có khi đổi trang
-9. handle SortProductList active mặc định sẽ là mới nhất(createdAt)
-   Lưu ý: có 1 vấn đề về sort theo giá(sortPrice) nếu người dùng chọn ['phổ biến', 'mới nhất','bán chạy']
-   thì nó cần được chạy theo 1 luồng đó là:
-
-- phổ biến nhất-> không phổ biến
-- mới nhất nhất-> không mới nhất
-- bán chạy nhất-> không bán chạy
-  Thế nên khi chọn 1 trong ['phổ biến', 'mới nhất','bán chạy'] thì ta nên loại bỏ đi trường giá
-  hoặc để cho giá từ cao đến thấp
-
-10. sử dụng thư viện DOMPurify is a DOM-only, super-fast, ngăn chặn XSS sanitizer for HTML, MathML and SVG.
-    ngăn chặn ng dùng hack web bằng js
-    phần này sdung cho product.description {/_ truyển description dạng html sang văn bản _/}
-
-11. công thức và kĩ thuật scroll img
-    C:\xampp\htdocs\images
-12. Xử lý URL thân thiện SEO
-
-13. Cơ chế caching xử lý gọi Api cho việc query giữa 2 lần khác nhau:
-    staleTime: 3*60*1000 được sử dụng trong ProductList và ProductDetail
-
-14. có 1 problem đó là khi logout thì cái giỏ hàng(cart) của API purchase phải cho nó enable đi k cho
-    nó gọi API nữa vì khi k làm thế thì khi gọi lại cái giỏ hàng đó k biết của đối tượng user nào vì k có
-    token gây ra lỗi...
-    hướng xử lý đó là tại hàm useQuery ở header để gọi purchase chúng ta kiểm tra xem người dùng đã đăng nhập hay logout
-    nếu login hay register rồi thì mới cho enable cái api purchase lên
-15. Lazyload component với react lazy và react router(chương 23 - bài 223)
-
-16. Rollup Plugin Visualizer dùng để phân tích các fiel,folders,... chiểm tỉ lệ trong project
-
-17. lưu ý bài học chương 24: SEO cho dev
+Chapter 24: SEO for developers
