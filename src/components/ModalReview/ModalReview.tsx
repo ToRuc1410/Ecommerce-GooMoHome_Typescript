@@ -37,7 +37,6 @@ export default function ModalReview({ orderId, onHide }: Props) {
   const hanldeEvent = async (e: any) => {
     try {
       e.preventDefault()
-      console.log(stateProducts, rating)
       const resOrderReview = await orderReviewMutation.mutateAsync({
         orderDetail_id: orderId,
         material: stateProducts.material || '',

@@ -13,7 +13,6 @@ export default function SelectForm({ dataAddress, text }: Props) {
   const [selectedValue, setSelectedValue] = useState('')
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChoose = (value: any) => {
-    console.log(value)
     setSelectedValue(value)
   }
   return (

@@ -7,7 +7,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import purchasesAPI from 'src/apis/purchase.api'
 import { toast } from 'react-toastify'
-import socket from 'src/constants/socket'
 interface Props {
   orderId: string
   onHide: () => void // Thêm prop onHide để ẩn component
@@ -41,7 +40,6 @@ export default function Modal({ orderId, onHide }: Props) {
       message: dataForm.option
     })
     if (resDeleteOrder) {
-      socket.emit('cancelOrderFromClient')
       onHide()
     }
   })

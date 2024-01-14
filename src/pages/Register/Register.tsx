@@ -21,7 +21,6 @@ export default function Register() {
   const navigate = useNavigate()
   const location = useLocation()
   const verify = new URLSearchParams(location.search).get('verify')
-  console.log(verify)
   const {
     register,
     handleSubmit,
@@ -40,7 +39,6 @@ export default function Register() {
     try {
       const res = await registerAccountMutation.mutateAsync({ email: email, password: body })
       if (res) {
-        console.log(res)
         setIsAuthenticated(true)
         // và setProfile data User vào localStorage
         setProfile(res.data.data.user)

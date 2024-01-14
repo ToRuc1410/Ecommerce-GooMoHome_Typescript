@@ -42,3 +42,6 @@ export interface ProductConfig {
   name?: string
   category?: string
 }
+export interface BlogConfig {
+  categoryBlog?: string
+}

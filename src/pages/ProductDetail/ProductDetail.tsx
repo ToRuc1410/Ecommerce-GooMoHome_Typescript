@@ -56,14 +56,7 @@ export default function ProductDetail() {
     // Gửi yêu cầu tăng số lượt xem khi component được tạo
 
     try {
-      postProductViewMutations.mutate(
-        { id: id },
-        {
-          onSuccess: (data) => {
-            console.log(data)
-          }
-        }
-      )
+      postProductViewMutations.mutate({ id: id })
     } catch (error) {
       console.error('Lỗi khi tăng số lượt xem:', error)
     }
@@ -234,13 +227,13 @@ export default function ProductDetail() {
                 <span className='text-sm font-bold uppercase md:text-sm lg:ml-12 lg:text-xl'>Chi Tiết Sản Phẩm</span>
                 <div className='py-2 text-xs lg:text-lg'>
                   <div className='py-1'>
-                    Dài x Rộng: <b>{`${product.length}cm x ${product.width}cm `}</b>
+                    Dài x Rộng: <b>{`${product.length} x ${product.width} `}</b>
                   </div>
                   <div className='py-1'>
-                    Cao: <b>{product.height}cm</b>
+                    Cao: <b>{product.height}</b>
                   </div>
                   <div className='py-1'>
-                    Nặng: <b>{product.weight}gram</b>
+                    Nặng: <b>{product.weight} gram</b>
                   </div>
                 </div>
               </div>
@@ -356,13 +349,13 @@ export default function ProductDetail() {
                 <span className='text-sm font-bold uppercase md:text-sm lg:ml-12 lg:text-xl'>Chi Tiết Sản Phẩm</span>
                 <div className='py-2 lg:text-lg'>
                   <div className='py-1'>
-                    Dài x Rộng: <b>{`${product.length}cm x ${product.width}cm `}</b>
+                    Dài x Rộng: <b>{`${product.length} x ${product.width} `}</b>
                   </div>
                   <div className='py-1'>
-                    Cao: <b>{product.height}cm</b>
+                    Cao: <b>{product.height}</b>
                   </div>
                   <div className='py-1'>
-                    Nặng: <b>{product.weight}gram</b>
+                    Nặng: <b>{product.weight} gram</b>
                   </div>
                 </div>
               </div>

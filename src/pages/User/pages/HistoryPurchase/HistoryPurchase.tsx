@@ -8,7 +8,6 @@ import Modal from 'src/components/Modal'
 import ModalReview from 'src/components/ModalReview'
 import path from 'src/constants/path'
 import { detailStatus } from 'src/constants/purchaseStatus'
-import socket from 'src/constants/socket'
 import useQueryParams from 'src/hooks/useQueryParams'
 import { OrderDetailListStatus } from 'src/types/purchase.type'
 import { formatCurrency } from 'src/utils/FuncFormat'
@@ -43,32 +42,10 @@ export default function HistoryPurchase() {
       refetch()
     }
   })
-  useEffect(() => {
-    socket.on('orderConfirmed', () => {
-      refetch()
-    })
-    socket.on('deliveredOrder', () => {
-      refetch()
-    })
-    socket.on('finishedOrder', () => {
-      refetch()
-    })
-    socket.on('removedOrder', () => {
-      refetch()
-    })
-    return () => {
-      socket.off('orderConfirmed')
-      socket.off('deliveredOrder')
-      socket.off('finishedOrder')
-      socket.off('removedOrder')
-    }
-  }, [])
+
   // render sideNav
   const handleDeliveredOrder = (IdPurchase: string) => async () => {
-    const res = await updatePurchaseMutation.mutateAsync({ orderDetail_id: IdPurchase })
-    if (res) {
-      socket.emit('DeliveredOrderFromClient')
-    }
+    await updatePurchaseMutation.mutateAsync({ orderDetail_id: IdPurchase })
   }
   /// trạng thái xóa đơn hàng
   const handleDeleteOrder = (IdPurchase: string) => () => {

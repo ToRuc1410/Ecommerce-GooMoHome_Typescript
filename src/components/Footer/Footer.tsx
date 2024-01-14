@@ -5,8 +5,8 @@ export default function Footer() {
   return (
     <footer className='bg-neutral-100 lg:py-16'>
       <div className='container'>
-        <div className='grid grid-cols-12 lg:gap-6'>
-          <div className='col-span-4 md:col-span-3 lg:col-span-3'>
+        <div className=' grid grid-cols-12 gap-3 lg:gap-6'>
+          <div className='col-span-12 text-center md:col-span-3 lg:col-span-3'>
             <div className='pt-5 font-serif text-xs md:text-sm lg:text-2xl'>
               <b> Thông Tin Liên Hệ</b>
             </div>
@@ -18,59 +18,17 @@ export default function Footer() {
                 Hướng Dẫn
               </div>
               <div className='hidden md:block lg:block lg:pl-5'>
-                <div className='flex items-center text-[10px] font-thin md:text-sm lg:py-2 lg:text-lg'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    strokeWidth={1.5}
-                    stroke='currentColor'
-                    className='mr-2 h-2 w-2 lg:h-4 lg:w-4'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5'
-                    />
-                  </svg>
-                  <Link to={path.cs1} className=' text-[8px] font-thin hover:text-orange md:text-sm  lg:text-sm'>
+                <div className='flex items-center font-thin md:text-sm lg:py-2 lg:text-lg'>
+                  <Link to={path.cs1} className=' text-[8px] font-thin hover:text-orange md:text-sm lg:text-sm'>
                     Chính sách bảo hành
                   </Link>
                 </div>
-                <div className='flex items-center text-[10px] font-thin md:text-sm lg:py-1 lg:text-lg'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    strokeWidth={1.5}
-                    stroke='currentColor'
-                    className='mr-2 h-2 w-2 lg:h-4 lg:w-4'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5'
-                    />
-                  </svg>
+                <div className='flex items-center font-thin md:text-sm lg:py-1 lg:text-lg'>
                   <Link to={path.cs2} className='text-[8px] font-thin hover:text-orange md:text-sm lg:py-2 lg:text-sm'>
                     Chính sách bảo mật thông tin
                   </Link>
                 </div>
-                <div className='flex items-center py-1 text-[10px] font-thin md:text-sm lg:text-lg'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    strokeWidth={1.5}
-                    stroke='currentColor'
-                    className='mr-2 h-2 w-2 lg:h-4 lg:w-4'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5'
-                    />
-                  </svg>
+                <div className='flex items-center py-1 font-thin md:text-sm lg:text-lg'>
                   <Link
                     to={path.cs3}
                     className='text-[8px]  font-thin hover:text-orange md:text-sm  lg:py-2 lg:text-sm'
@@ -79,7 +37,7 @@ export default function Footer() {
                   </Link>
                 </div>
               </div>
-              <div className='mt-4 flex justify-around'>
+              <div className='mt-4 flex justify-center gap-4 md:justify-around lg:justify-around'>
                 <a href='https://www.facebook.com/sannhuagiago.goomohome' target='_blank' rel='noopener noreferrer'>
                   <svg
                     style={{ fillRule: 'evenodd', clipRule: 'evenodd', strokeLinejoin: 'round', strokeMiterlimit: 2 }}
@@ -195,10 +153,11 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className='col-span-4 md:col-span-3 lg:col-span-3 lg:pl-10'>
+          <div className='col-span-6 md:col-span-3 lg:col-span-3 lg:pl-10'>
             <div className='pt-5 text-[14px] md:text-sm lg:text-2xl'>
               <b>Về Chúng Tôi</b>
             </div>
+
             <p className='flex flex-col text-xs font-medium md:flex-col md:text-sm lg:flex-row lg:py-2 lg:text-sm'>
               <span className='py-2 lg:py-3'>Trụ Sở Hà Nội</span>
               <a href={`tel:${'0968835592'}`} className='ml-2 py-1 text-blue-500 md:py-3 lg:py-3'>
@@ -222,20 +181,22 @@ export default function Footer() {
                 </span>
               </a>
             </p>
-            <div className=''>
+
+            <div className='relative h-0 overflow-hidden pb-[75%]'>
               <iframe
                 title='Hà Nội'
                 src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.367548093658!2d105.83229507492754!3d20.977898880658753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac5976677423%3A0xff4ba4fd8924767e!2zMzMwIFAuIFRy4buLbmggxJDDrG5oIEPhu611LCDEkOG7i25oIEPDtG5nIEjhuqEsIFRoYW5oIFh1w6JuLCBIw6AgTuG7mWksIFZpZXRuYW0!5e0!3m2!1sen!2sus!4v1689173927168!5m2!1sen!2sus'
-                className='h-20 w-20 text-xs md:h-40 md:w-40 lg:h-60 lg:w-60'
-                referrerPolicy='no-referrer-when-downgrade'
+                width='600'
+                height='450'
                 loading='lazy'
+                className='absolute left-0 top-0 h-full w-full'
               ></iframe>
             </div>
             <div className='mt-4 font-serif text-xs md:text-sm lg:text-sm'>
               Trụ sở Hà Nội: 330 Trịnh Đình Cử, Định Công, Hoàng Mai, Hà Nội
             </div>
           </div>
-          <div className='col-span-4 pt-8 md:col-span-3 md:pt-9 lg:col-span-3 lg:pt-11'>
+          <div className='col-span-6 pt-8 md:col-span-3 md:pt-9 lg:col-span-3 lg:pt-11'>
             <div className='text-[10px] font-thin md:text-sm lg:pl-5 lg:text-sm'>
               <p className='flex flex-col text-xs font-medium md:flex-col lg:flex-row lg:py-3'>
                 <span className='pb-2 pt-3'>Trụ Sở TP. HCM</span>
@@ -261,19 +222,18 @@ export default function Footer() {
                 </a>
               </p>
             </div>
-            <div className=''>
+            <div className='relative h-0 overflow-hidden pb-[75%]'>
               <iframe
                 title='Hồ Chí Minh'
                 src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.7779266991215!2d106.59445597469667!3d10.751591189395707!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752c4cd6a0b3a5%3A0xa33b337665af167a!2zMzAgxJDGsOG7nW5nIHPhu5EgNTAsIFTDom4gVOG6oW8sIELDrG5oIFTDom4sIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1689058748701!5m2!1svi!2s'
+                width='600'
+                height='450'
                 loading='lazy'
-                referrerPolicy='no-referrer-when-downgrade'
-                // height={'100'}
-                // width={'80'}
-                className='h-20 w-20 text-xs md:h-40 md:w-40 lg:h-60 lg:w-60'
+                className='absolute left-0 top-0 h-full w-full'
               ></iframe>
-              <div className='mt-4 font-serif text-xs md:text-sm lg:text-sm'>
-                Trụ Sở TP.HCM: 30 Đường Số 50, Phường Tân Tạo, Quận Bình Tân, TP.HCM
-              </div>
+            </div>
+            <div className='mt-4 font-serif text-xs md:text-sm lg:text-sm'>
+              Trụ Sở TP.HCM: 30 Đường Số 50, Phường Tân Tạo, Quận Bình Tân, TP.HCM
             </div>
           </div>
           <div className='hidden md:col-span-3 md:block md:pb-5 lg:col-span-3 lg:block lg:pb-5'>

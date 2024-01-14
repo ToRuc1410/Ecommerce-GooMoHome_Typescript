@@ -8,9 +8,6 @@ import { ProductConfig } from 'src/types/product.type'
 import categoryApi from 'src/apis/category.api'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import SlideShow from 'src/components/SlideShow/SlideShow'
-
-import { useEffect } from 'react'
-import socket from 'src/constants/socket'
 import { Spinner } from '@material-tailwind/react'
 
 export default function ProductList() {
@@ -18,7 +15,7 @@ export default function ProductList() {
   // loại bỏ những thuộc tính khi chạy cho ra undefined
   const queryConfig = useQueryConfig()
   // get All Products
-  const { data: ProductsData, refetch } = useQuery({
+  const { data: ProductsData } = useQuery({
     queryKey: ['products', queryConfig],
     queryFn: () => {
       return productApi.getProducts(queryConfig as ProductConfig)
@@ -36,23 +33,6 @@ export default function ProductList() {
       return categoryApi.getCategories()
     }
   })
-  useEffect(() => {
-    socket.on('addedProduct', () => {
-      refetch()
-    })
-    socket.on('updatedProduct', () => {
-      refetch()
-    })
-    socket.on('deletedProduct', () => {
-      refetch()
-    })
-    return () => {
-      socket.off('addedProduct')
-      socket.off('updatedProduct')
-      socket.off('deletedProduct')
-    }
-  }, [])
-
   return (
     <div className='bg-gray-200 pb-5'>
       <div className='h-52 py-2 md:h-64 lg:h-[500px]'>

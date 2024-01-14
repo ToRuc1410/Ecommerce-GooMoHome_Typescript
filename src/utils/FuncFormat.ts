@@ -31,10 +31,19 @@ const removeSpecialCharacter = (str: string) =>
 export const generateURLNameAndId = ({ name, id }: { name: string; id: string }) => {
   return removeSpecialCharacter(name).replace(/\s/g, '-') + `-i_${id}`
 }
+// Xử lý URL cho name thân thiện để SEO trên google
+export const generateURLName = ({ name, id }: { name: string; id: string }) => {
+  return removeSpecialCharacter(name).replace(/\s/g, '-') + `-b_${id}`
+}
 
 // get Id từ string URL
 export const getIdFromURLNameAndId = (nameId: string) => {
   const arr = nameId.split('-i_')
+  return arr[arr.length - 1]
+}
+// get Id từ string URL
+export const getBlogId = (nameId: string) => {
+  const arr = nameId.split('-b_')
   return arr[arr.length - 1]
 }
 

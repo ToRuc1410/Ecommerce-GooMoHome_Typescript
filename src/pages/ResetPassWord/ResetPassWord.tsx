@@ -26,7 +26,6 @@ export default function ResetPassWord() {
   })
   const handleOnSubmit = handleSubmit(async (data) => {
     // loại bỏ trường confirm_password
-    console.log(data)
     // const body = omit(data, ['confirm_password'])
 
     try {

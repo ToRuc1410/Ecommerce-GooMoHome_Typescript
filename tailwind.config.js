@@ -15,6 +15,7 @@ export default {
         orange: '#16d9d9'
       }
     },
+
     container: {
       center: true,
       padding: {

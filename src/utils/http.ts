@@ -139,7 +139,6 @@ class Http {
         })
         // refresh_token thành công
         .then((res) => {
-          console.log(res)
           const { access_token } = res.data.data
           setAccessTokenToLS(access_token)
           this.accessToken = access_token
@@ -147,7 +146,6 @@ class Http {
         })
         // refresh_token thất bại thì cho nó logout và ném lỗi ra
         .catch((error) => {
-          console.log(error)
           clearLS()
           this.accessToken = ''
           this.refreshToken = ''

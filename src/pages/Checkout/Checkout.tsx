@@ -8,7 +8,6 @@ import purchasesAPI from 'src/apis/purchase.api'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import path from 'src/constants/path'
-import socket from 'src/constants/socket'
 import { AppContext } from 'src/contexts/app.context'
 import { calculateTotalDimensions, calculateTotalWeight, convertKgToGram, formatCurrency } from 'src/utils/FuncFormat'
 import http from 'src/utils/http'
@@ -165,10 +164,7 @@ export default function Checkout() {
             priceDelivery: data,
             totalPrice: afterTotalPrice
           }
-          const res = await buyProductCodeMutation.mutateAsync(dataPurchases)
-          if (res) {
-            socket.emit('buyOrder')
-          }
+          await buyProductCodeMutation.mutateAsync(dataPurchases)
         } else {
           toast.error('Thông tin chưa xác nhận ')
         }
@@ -334,7 +330,6 @@ export default function Checkout() {
       }
     }
     if (totalPrice && selectedDistrict.code && selectedWard.code && calculateWeight && selectedService && resultData) {
-      console.log(selectedService)
       getFee()
     }
   }, [totalPrice, selectedDistrict, selectedWard, calculateWeight, resultData, selectedService, data])

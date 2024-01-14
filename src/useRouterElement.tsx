@@ -26,6 +26,7 @@ import VerifyEmail from './pages/VerifyEmail'
 import ReturnPay from './pages/ReturnPay/ReturnPay'
 import GioiThieu from './components/GioiThieu'
 import Blog from './pages/Blog'
+import BlogDetail from './pages/BlogDetail'
 
 // ----------------Check user đã login r thì k cho vào login,register nữa
 function ProtectedRouter() {
@@ -93,6 +94,14 @@ export default function useRouterElement() {
       element: (
         <MainLayout>
           <Blog />
+        </MainLayout>
+      )
+    },
+    {
+      path: path.blogDetail,
+      element: (
+        <MainLayout>
+          <BlogDetail />
         </MainLayout>
       )
     },

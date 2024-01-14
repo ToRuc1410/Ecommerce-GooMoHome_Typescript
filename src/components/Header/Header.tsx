@@ -25,6 +25,7 @@ export default function Header() {
   })
   const respurchasesInCart = purchasesInCartData && purchasesInCartData?.data.data
   const purchasesInCart = respurchasesInCart && respurchasesInCart.filter((item) => item.product !== null)
+
   return (
     <div className='bg-orange text-white'>
       <div className='container'>

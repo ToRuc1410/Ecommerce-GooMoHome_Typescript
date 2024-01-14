@@ -31,7 +31,6 @@ export default function Cart() {
   // const respurchasesInCart = purchasesInCartData && purchasesInCartData?.data.data
   // const purchasesInCart = respurchasesInCart && respurchasesInCart.filter((item) => item.product !== null)
   const purchasesInCart = purchasesInCartData?.data.data
-  console.log(purchasesInCart)
 
   const updatePurchaseMutation = useMutation({
     mutationFn: purchasesAPI.updatePurchase,
@@ -113,7 +112,6 @@ export default function Cart() {
   // delete 1 purchase
   const handleDelete = (purchaseIndex: number) => () => {
     const purchase = extendedPurchases[purchaseIndex]._id
-    console.log(purchase)
     deletePurchasesMutation.mutate([purchase], {
       // nếu thành công thì:
       onSuccess: (data) => {
@@ -172,7 +170,6 @@ export default function Cart() {
     }))
     setDataPurchase(body)
     navigate(path.checkout)
-    // console.log(body)
     // buyProductsMutation.mutate(body)
   }
 
