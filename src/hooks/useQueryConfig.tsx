@@ -17,7 +17,7 @@ export default function useQueryConfig() {
   // loại bỏ những thuộc tính khi chạy cho ra undefined
   const queryConfig: QueryConfig = omitBy(
     {
-      page: queryParams.page || '1',
+      page: queryParams.page,
       limit: queryParams.limit,
       name: queryParams.name,
       exclude: queryParams.exclude,

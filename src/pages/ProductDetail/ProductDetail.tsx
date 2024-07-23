@@ -369,7 +369,7 @@ export default function ProductDetail() {
           <div className='rounded bg-gray-100 p-4 text-[14px] capitalize text-slate-700 md:text-sm lg:text-lg'>
             Mô tả sản phẩm
           </div>
-          <div className='mx-4 mb-4 mt-4 text-xs md:mt-6 md:text-sm lg:mt-8 lg:text-sm'>
+          <div className='mx-4 mb-4 mt-4 text-base md:mt-6 md:text-base lg:mt-8 lg:text-base'>
             {/* truyển description dạng html sang văn bản */}
             <div
               className='leading-loose'

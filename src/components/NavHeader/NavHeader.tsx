@@ -27,7 +27,7 @@ export default function NavHeader() {
   }
 
   return (
-    <div className='flex justify-between pt-1 text-[11px] md:justify-end md:text-sm lg:justify-end lg:text-sm'>
+    <div className='hidden justify-between pr-3 pt-3 text-[11px] md:flex md:justify-end md:text-sm lg:justify-end lg:text-sm'>
       <Link to={path.gt} className='flex py-1'>
         <svg
           xmlns='http://www.w3.org/2000/svg'

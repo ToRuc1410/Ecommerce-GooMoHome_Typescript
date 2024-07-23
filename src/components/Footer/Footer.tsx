@@ -327,7 +327,7 @@ export default function Footer() {
       </div>
       {/*?xml version="1.0" ?*/}
       <div className='fixed bottom-4 right-4 h-12 w-12 '>
-        <a href='https://zalo.me/domanhdong' target='_blank' rel='noopener noreferrer'>
+        <a href='https://zalo.me/0968835592' target='_blank' rel='noopener noreferrer'>
           <img src='../../../zalo.jpg' alt='' className='rounded-bl-2xl rounded-br-2xl rounded-tl-2xl rounded-tr-2xl' />
         </a>
       </div>

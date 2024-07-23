@@ -10,9 +10,20 @@ export default {
     container: true
   },
   theme: {
+    screen: {
+      sm: '576px',
+      md: '768px',
+      lg: '992px',
+      xl: '1200px'
+    },
     extend: {
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif']
+      },
       colors: {
-        orange: '#16d9d9'
+        orange: '#16d9d9',
+        primary: '#fd3d57'
       }
     },
 

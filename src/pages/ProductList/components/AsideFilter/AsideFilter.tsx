@@ -8,7 +8,6 @@ import { schema } from 'src/utils/ruleValidateForm'
 import { yupResolver } from '@hookform/resolvers/yup'
 import omit from 'lodash/omit'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
-import { NumericFormat } from 'react-number-format'
 // import InputV2 from 'src/components/InputV2(New)'
 import RatingStarts from 'src/components/RatingStarts'
 import { removeCommas } from 'src/utils/FuncFormat'
@@ -145,19 +144,6 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
               name='price_min'
               render={({ field }) => {
                 return (
-                  // <NumericFormat
-                  //   type='text'
-                  //   className='w-full rounded-sm p-1 text-[8px] shadow-sm outline-none focus:border-gray-400 focus:shadow-md md:text-sm lg:text-lg'
-                  //   placeholder='₫ Từ'
-                  //   autoComplete='off'
-                  //   allowLeadingZeros
-                  //   thousandSeparator=','
-                  //   {...field}
-                  //   onChange={(event) => {
-                  //     field.onChange(event)
-                  //     trigger('price_max')
-                  //   }}
-                  // />
                   <InputNumber
                     type='text'
                     className=''

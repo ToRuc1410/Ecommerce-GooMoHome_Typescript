@@ -23,13 +23,13 @@ export default function Blog() {
 
   return (
     <div className='bg-white py-10'>
-      <div className='mx-auto max-w-7xl px-6 '>
+      <div className=' mx-auto max-w-7xl px-6 '>
         <div className='mx-auto max-w-full lg:mx-0'>
           <h2 className='text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl'>Tin Tức</h2>
-          <div className='flex w-full justify-between'>
+          <div className='flex w-full flex-wrap justify-evenly'>
             <button
               className={classNames(
-                'relative z-10 my-2 h-12 w-1/2 rounded-xl p-4 px-3 py-1.5 text-xs font-medium capitalize text-gray-600 lg:mx-2 lg:h-16 lg:w-1/6 lg:text-sm',
+                'relative z-10 my-2 h-12 w-1/4 rounded-xl p-4 px-3 py-1.5 text-xs font-medium capitalize text-gray-600 lg:mx-2 lg:h-16 lg:w-1/6 lg:text-sm',
                 {
                   'bg-blue-500  text-white transition duration-300 hover:bg-blue-800': selectedCategory === ''
                 }
@@ -43,7 +43,7 @@ export default function Blog() {
                 <button
                   key={item._id}
                   className={classNames(
-                    'relative z-10 my-2 h-12 w-1/2 rounded-xl p-4 px-3 py-1.5 text-xs font-medium capitalize text-gray-600 lg:mx-2 lg:h-16 lg:w-1/6 lg:text-sm',
+                    'relative z-10 my-2 h-12 w-1/4 rounded-xl p-4 px-3 py-1.5 text-xs font-medium capitalize text-gray-600 lg:mx-2 lg:h-16 lg:w-1/6 lg:text-sm',
                     {
                       'bg-blue-500  text-white transition duration-300 hover:bg-blue-800': selectedCategory === item._id
                     }

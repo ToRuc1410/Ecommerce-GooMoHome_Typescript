@@ -19,7 +19,6 @@ export default function BlogDetail() {
   // console.log(resBlogTitle)
   const { data: Blogs } = useBlogsQuery(resBlogTitle)
   const resBlog = Blogs && Blogs.data
-  console.log('data', resBlog)
 
   return (
     <div className='mx-auto max-w-screen-2xl px-6'>
@@ -129,7 +128,7 @@ export default function BlogDetail() {
                             className='mr-2 mt-4 h-16 w-16 items-center justify-center bg-gray-50'
                           />
                           <div className=''>
-                            <p className='mt-3 font-sans text-sm leading-relaxed text-gray-900 group-hover:text-gray-600'>
+                            <p className='mt-3 font-sans text-lg leading-relaxed text-gray-900 group-hover:text-gray-600'>
                               <Link to={`${path.blog}/${generateURLName({ name: item.title, id: item._id })}`}>
                                 <span className='absolute inset-0' />
                                 {item.title}

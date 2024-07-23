@@ -50,11 +50,11 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
 
   return (
     <div className='rounded-md bg-gray-300 p-3'>
-      <div className='flex flex-shrink-0 flex-wrap items-center justify-end gap-2 text-[14px] capitalize md:text-sm lg:justify-around lg:text-sm'>
-        <div className='flex flex-wrap items-center gap-2 md:gap-4 lg:gap-5'>
-          <div className=' text-gray-500'>Sắp xếp theo</div>
+      <div className=' items-center justify-end gap-2 font-poppins text-[9px] capitalize md:text-[12px] lg:justify-around lg:text-sm'>
+        <div className='flex flex-row items-center gap-2 md:gap-4 lg:gap-5'>
+          <div className=' hidden text-gray-500 md:block'>Sắp xếp theo</div>
           <button
-            className={classNames('h-8 rounded-sm  px-6 text-center  capitalize', {
+            className={classNames('h-8 flex-1 rounded-sm  px-6 text-center  capitalize', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.view),
               'bg-white text-black hover:bg-slate-200': !isActiveSortBy(sortBy.view)
             })}
@@ -63,7 +63,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             Phổ biến
           </button>
           <button
-            className={classNames('h-8 rounded-sm  px-6 text-center  capitalize', {
+            className={classNames('h-8 flex-1 rounded-sm  px-6 text-center  capitalize', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.createdAt),
               'bg-white text-black hover:bg-slate-200': !isActiveSortBy(sortBy.createdAt)
             })}
@@ -72,7 +72,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             mới nhất
           </button>
           <button
-            className={classNames('h-8 rounded-sm  px-6 text-center  capitalize', {
+            className={classNames('h-8 flex-1 rounded-sm  px-6 text-center  capitalize', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.sold),
               'bg-white text-black hover:bg-slate-200': !isActiveSortBy(sortBy.sold)
             })}
@@ -81,7 +81,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             bán chạy
           </button>
           <select
-            className={classNames('h-8 rounded-sm px-6 text-center  capitalize outline-none', {
+            className={classNames('h-8 flex-1 rounded-sm text-center capitalize outline-none', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.price),
               'bg-white text-black hover:bg-slate-100': !isActiveSortBy(sortBy.price)
             })}
@@ -89,7 +89,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             onChange={(event) => handlePrice(event.target.value as Exclude<ProductConfig['order'], undefined>)}
           >
             <option className='bg-white text-black' value='' disabled>
-              Lọc theo Giá
+              Giá
             </option>
             <option className='bg-white text-black' value={orderContant.asc}>
               Giá: Thấp đến cao
@@ -98,88 +98,6 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
               Giá: Cao đến thấp
             </option>
           </select>
-        </div>
-        <div className='flex items-center'>
-          <div className=''>
-            <span className='text-orange'>{page}</span>
-            <span>/{pageSize}</span>
-          </div>
-          <div className='ml-2 flex'>
-            {/* điều kiện cho page(pagination) */}
-            {page === 1 ? (
-              <span className='flex h-8 w-9 cursor-not-allowed items-center justify-center rounded-bl-sm rounded-tl-sm bg-white/60 px-3 shadow hover:bg-slate-100'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='h-3 w-3'
-                >
-                  <path strokeLinecap='round' strokeLinejoin='round' d='M15.75 19.5L8.25 12l7.5-7.5' />
-                </svg>
-              </span>
-            ) : (
-              <Link
-                to={{
-                  pathname: path.home,
-                  search: createSearchParams({
-                    ...queryConfig,
-                    page: (page - 1).toString()
-                  }).toString()
-                }}
-                className='flex h-8 w-9 items-center justify-center rounded-bl-sm rounded-tl-sm bg-white px-3 shadow hover:bg-slate-100'
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='h-3 w-3'
-                >
-                  <path strokeLinecap='round' strokeLinejoin='round' d='M15.75 19.5L8.25 12l7.5-7.5' />
-                </svg>
-              </Link>
-            )}
-
-            {page === pageSize ? (
-              <span className='flex h-8 w-9 cursor-not-allowed items-center justify-center rounded-bl-sm rounded-tl-sm bg-white/60 px-3 shadow hover:bg-slate-100'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='h-3 w-3'
-                >
-                  <path strokeLinecap='round' strokeLinejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5' />
-                </svg>
-              </span>
-            ) : (
-              <Link
-                to={{
-                  pathname: path.home,
-                  search: createSearchParams({
-                    ...queryConfig,
-                    page: (page + 1).toString()
-                  }).toString()
-                }}
-                className='flex h-8 w-9 items-center justify-center rounded-bl-sm rounded-tl-sm bg-white px-3 shadow hover:bg-slate-100'
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='h-3 w-3'
-                >
-                  <path strokeLinecap='round' strokeLinejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5' />
-                </svg>
-              </Link>
-            )}
-          </div>
         </div>
       </div>
     </div>

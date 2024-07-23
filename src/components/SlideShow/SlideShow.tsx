@@ -1,4 +1,4 @@
-// Import Swiper React components
+// // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react'
 import YouTube, { YouTubeProps } from 'react-youtube'
 // Import Swiper styles
@@ -85,35 +85,35 @@ export default function SlideShow({ autoplayDelay = 2500 }: Props) {
 
         <SwiperSlide>
           <img
-            src='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/YbNbPPqn2EfwxjP7/z3205596566056_089_432ed8e0b4973b338f4e30567d5a1134-1-mjEzXGDBp9CyRRaD.jpg'
+            src='https://res.cloudinary.com/drcutfii2/image/upload/c_crop,h_5000,w_5000/v1716801932/users/z5481201360714_1e26c334c8f267c1af4494bb8bdced21_ieprr1.jpg'
             alt=''
             className='h-50% w-full object-cover'
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/YbNbPPqn2EfwxjP7/baopsng-ma-u-mae-i-ssss-YNqDl2Lrr0t54WLP.jpg'
+            src='https://res.cloudinary.com/drcutfii2/image/upload/c_crop,h_5000,w_5000/v1688100239/users/i1a1dulacbwwdz2r3epu.jpg'
             alt=''
             className='h-50% w-full object-cover'
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/YbNbPPqn2EfwxjP7/z4258445939932_3a35470eeffcd1ca2ce4f4e8bfc63028-AGBroO567vFvgnBm.jpg'
+            src='https://res.cloudinary.com/drcutfii2/image/upload/c_crop,h_5000,w_5000/v1716801931/users/z4422668645962_d0fa0ba95cdbbcd9106d379ed4bf689a_zcvohl.jpg'
             alt=''
             className='h-50% w-full object-cover'
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/YbNbPPqn2EfwxjP7/z4258446382878_3a50cbde2734408b54ab8abd440fdb59-dJoGrjn686F9gG6J.jpg'
+            src='https://res.cloudinary.com/drcutfii2/image/upload/c_crop,h_5000,w_5000/v1716801932/users/z4622947362615_fb413371f6dd196a4835d22444f4cfed_urp4pu.jpg'
             alt=''
             className='h-50% w-full object-cover'
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/YbNbPPqn2EfwxjP7/z4258445932549_6499cc954a83cd75d05aa5d702b892fd-A1agL4GwrEsG5QGl.jpg'
+            src='https://res.cloudinary.com/drcutfii2/image/upload/c_crop,h_5000,w_5000/v1716801932/users/z4597780760304_0ea84ec7f6077f7dcfe35e2fa4e1d01e_bxfyyt.jpg'
             alt=''
             className='h-50% w-full object-cover'
           />

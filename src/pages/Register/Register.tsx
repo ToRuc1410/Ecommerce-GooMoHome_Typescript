@@ -49,7 +49,6 @@ export default function Register() {
         })
       }
     } catch (error) {
-      console.log(error)
       if (isAxiosStatusCodeError<ErrorResponse<FormData>>(error)) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const formError: any = error.response?.data?.data
